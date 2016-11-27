@@ -25,14 +25,14 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>eventuate-common</artifactId>
+    <artifactId>eventuate-testdomain</artifactId>
     <packaging>jar</packaging>
-    <description>A common component of light eventuate framework shared between client and server.</description>
+    <description>Test banking domain objects.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>config</artifactId>
+            <artifactId>eventuate-common</artifactId>
         </dependency>
 
         <dependency>
@@ -63,7 +63,6 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>

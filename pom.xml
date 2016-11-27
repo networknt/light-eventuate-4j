@@ -101,6 +101,8 @@
         <module>common</module>
         <module>cdccore</module>
         <module>cdcserver</module>
+        <module>testdomain</module>
+        <module>test</module>
     </modules>
 
     <dependencyManagement>
@@ -130,6 +132,16 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-cdcserver</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-testdomain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- External dependencies -->
