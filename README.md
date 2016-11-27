@@ -1,2 +1,2 @@
-# light-escqrs
-A Event Sourcing and CQRS microservices framework on top of Light Java 
+# light-eventuate
+An eventuate framework implementation based on event sourcing and CQRS on top of Light Java 
