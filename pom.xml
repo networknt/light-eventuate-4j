@@ -103,6 +103,7 @@
         <module>cdcserver</module>
         <module>testdomain</module>
         <module>test</module>
+        <module>event</module>
     </modules>
 
     <dependencyManagement>
@@ -142,6 +143,11 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-event</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- External dependencies -->
