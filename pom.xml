@@ -99,6 +99,8 @@
 
     <modules>
         <module>common</module>
+        <module>cdccore</module>
+        <module>cdcserver</module>
     </modules>
 
     <dependencyManagement>
@@ -118,6 +120,16 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-cdccore</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-cdcserver</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- External dependencies -->
