@@ -104,6 +104,7 @@
         <module>testdomain</module>
         <module>test</module>
         <module>event</module>
+        <module>client</module>
     </modules>
 
     <dependencyManagement>
@@ -112,6 +113,11 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>config</artifactId>
+                <version>${version.light-java}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>service</artifactId>
                 <version>${version.light-java}</version>
             </dependency>
             <dependency>
@@ -148,6 +154,11 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-event</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- External dependencies -->

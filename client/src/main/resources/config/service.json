@@ -1,0 +1,8 @@
+{
+  "description": "singleton service factory configuration",
+  "singletons": [
+    "com.networknt.eventuate.client.SubscriptionsRegistry:com.networknt.eventuate.client.SubscriptionsRegistryImpl",
+    "com.networknt.eventuate.common.EventuateAggregateStore:com.networknt.eventuate.common.impl.EventuateAggregateStoreImpl",
+    "com.networknt.eventuate.event.EventHandlerProcessor:com.networknt.eventuate.event,com.networknt.eventuate.event.EventHandlerProcessorDispatchedEventReturningCompletableFuture,com.networknt.eventuate.event.EventHandlerProcessorDispatchedEventReturningVoid,com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningCompletableFuture,com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningVoid"
+  ]
+}
