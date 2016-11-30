@@ -97,16 +97,19 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
     List<EventAndTrigger> events = new ArrayList<>();
     try (final Connection connection = dataSource.getConnection()){
       String psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? order by event_id asc";
-      try (PreparedStatement stmt = connection.prepareStatement(psSelect);
-           ResultSet rs = stmt.executeQuery()) {
+      try (PreparedStatement stmt = connection.prepareStatement(psSelect)) {
+        stmt.setString(1, aggregateType);
+        stmt.setString(2, entityId);
 
-        while (rs.next()) {
-          String eventId = rs.getString("event_id");
-          String eventType = rs.getString("event_type");
-          String eventData = rs.getString("event_data");
-          String triggeringEvent = rs.getString("triggering_event");
-          EventIdTypeAndData eventIdTypeAndData = new EventIdTypeAndData(Int128.fromString(eventId), eventType, eventData);
-          events.add(new EventAndTrigger(eventIdTypeAndData, triggeringEvent));
+        try (ResultSet rs = stmt.executeQuery()) {
+          while (rs.next()) {
+            String eventId = rs.getString("event_id");
+            String eventType = rs.getString("event_type");
+            String eventData = rs.getString("event_data");
+            String triggeringEvent = rs.getString("triggering_event");
+            EventIdTypeAndData eventIdTypeAndData = new EventIdTypeAndData(Int128.fromString(eventId), eventType, eventData);
+            events.add(new EventAndTrigger(eventIdTypeAndData, triggeringEvent));
+          }
         }
       }
     } catch (SQLException e) {
