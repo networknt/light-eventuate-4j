@@ -1,6 +1,5 @@
 package com.networknt.eventuate.test.jdbc;
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.common.*;
 import com.networknt.eventuate.common.impl.AggregateCrud;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;

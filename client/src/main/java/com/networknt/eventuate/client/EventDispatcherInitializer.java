@@ -5,7 +5,7 @@ import com.networknt.eventuate.event.EventDispatcher;
 import com.networknt.eventuate.event.EventHandler;
 import com.networknt.eventuate.event.EventHandlerProcessor;
 import com.networknt.eventuate.event.SwimlaneBasedDispatcher;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
