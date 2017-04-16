@@ -14,11 +14,11 @@ public class SnapshotManagerImpl implements SnapshotManager {
   }
 
   @Override
-  public Optional<Snapshot> possiblySnapshot(Aggregate aggregate,  List<Event> oldEvents, List<Event> newEvents) {
+  public Optional<Snapshot> possiblySnapshot(Aggregate aggregate,  Optional<Int128> snapshotVersion,  List<Event> oldEvents, List<Event> newEvents) {
     SnapshotStrategy strategy = strategies.get(aggregate.getClass());
     if (strategy == null)
       return Optional.empty();
-    return strategy.possiblySnapshot(aggregate,  oldEvents, newEvents);
+    return strategy.possiblySnapshot(aggregate, snapshotVersion,  oldEvents, newEvents);
   }
 
   @Override

@@ -1,16 +1,30 @@
 package com.networknt.eventuate.common;
 
 import java.util.Optional;
+import java.util.Map;
 
 public class UpdateOptions {
 
   private Optional<EventContext> triggeringEvent = Optional.empty();
+  private final Optional<Map<String, String>> eventMetadata;
+  private final Optional<Snapshot> snapshot;
 
+  public UpdateOptions() {
+    this.triggeringEvent = Optional.empty();
+    this.eventMetadata = Optional.empty();
+    this.snapshot = Optional.empty();
+  }
   @Override
   public String toString() {
     return "UpdateOptions{" +
             "triggeringEvent=" + triggeringEvent +
             '}';
+  }
+
+  public UpdateOptions(Optional<EventContext> triggeringEvent, Optional<Map<String, String>> eventMetadata, Optional<Snapshot> snapshot) {
+    this.triggeringEvent = triggeringEvent;
+    this.eventMetadata = eventMetadata;
+    this.snapshot = snapshot;
   }
 
   @Override
@@ -39,5 +53,7 @@ public class UpdateOptions {
     return this;
   }
 
-
+  public UpdateOptions withSnapshot(Snapshot snapshot) {
+    return new UpdateOptions(this.triggeringEvent, this.eventMetadata, Optional.of(snapshot));
+  }
 }
