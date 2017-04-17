@@ -9,6 +9,9 @@ public class SnapshotManagerImpl implements SnapshotManager {
 
   private Map<Class<?>, SnapshotStrategy> strategies = new HashMap<>();
 
+  public SnapshotManagerImpl() {
+  }
+
   public void addStrategy(SnapshotStrategy snapshotStrategy) {
     strategies.put(snapshotStrategy.getAggregateClass(), snapshotStrategy);
   }
