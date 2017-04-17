@@ -148,4 +148,16 @@ public class EventuateAggregateStoreImpl implements EventuateAggregateStore {
     }
   }
 
+  @Override
+  public Optional<Snapshot> possiblySnapshot(Aggregate aggregate, Optional<Int128> snapshotVersion, List<Event> oldEvents, List<Event> newEvents) {
+    // TODO implemented it
+    return null;
+  }
+
+  @Override
+  public Aggregate recreateFromSnapshot(Class<?> clasz, Snapshot snapshot) {
+    // TODO implemented it
+    return null;
+  }
+
 }
