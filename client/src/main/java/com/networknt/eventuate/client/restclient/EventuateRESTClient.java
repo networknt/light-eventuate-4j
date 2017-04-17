@@ -6,7 +6,7 @@ import com.networknt.eventuate.common.impl.EventTypeAndData;
 import com.networknt.eventuate.common.impl.LoadedEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import com.networknt.client.Client;
+import com.networknt.client.Client;
 import com.networknt.eventuate.common.impl.AggregateCrud;
 
 import java.util.List;
