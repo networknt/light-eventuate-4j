@@ -9,6 +9,8 @@ public class SaveOptions {
   private Optional<EventContext> triggeringEvent = Optional.empty();
   private Optional<Map<String, String>> eventMetadata = Optional.empty();
 
+  public SaveOptions() {}
+
   public SaveOptions(Optional<String> entityId, Optional<EventContext> triggeringEvent) {
     this.entityId = entityId;
     this.triggeringEvent = triggeringEvent;

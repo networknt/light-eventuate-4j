@@ -1,5 +1,7 @@
 package com.networknt.eventuate.cdccore.kafka.consumer;
 
+import com.networknt.config.Config;
+import com.networknt.eventuate.cdccore.kafka.KafkaConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
@@ -27,21 +29,26 @@ public class CdcKafkaConsumer {
   private Logger logger = LoggerFactory.getLogger(getClass());
   private AtomicBoolean stopFlag = new AtomicBoolean(false);
   private Properties consumerProperties;
+  static String CONFIG_NAME = "kafkaconfig";
+  static KafkaConfig config;
 
   public CdcKafkaConsumer(String subscriberId, BiConsumer<ConsumerRecord<String, String>, BiConsumer<Void, Throwable>> handler, List<String> topics, String bootstrapServers) {
+
     this.subscriberId = subscriberId;
     this.handler = handler;
     this.topics = topics;
 
+    config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
+
     consumerProperties = new Properties();
     consumerProperties.put("bootstrap.servers", bootstrapServers);
     consumerProperties.put("group.id", subscriberId);
-    consumerProperties.put("enable.auto.commit", "false");
+    consumerProperties.put("enable.auto.commit", config.isEnableaAutocommit());
     //consumerProperties.put("auto.commit.interval.ms", "1000");
-    consumerProperties.put("session.timeout.ms", "30000");
-    consumerProperties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-    consumerProperties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-    consumerProperties.put("auto.offset.reset", "earliest");
+    consumerProperties.put("session.timeout.ms", config.getSessionTimeout());
+    consumerProperties.put("key.deserializer", config.getKeySerializer());
+    consumerProperties.put("value.deserializer", config.getValueSerializer());
+    consumerProperties.put("auto.offset.reset", config.getAutoOffsetreset());
   }
 
   private void verifyTopicExistsBeforeSubscribing(org.apache.kafka.clients.consumer.KafkaConsumer<String, String> consumer, String topic) {

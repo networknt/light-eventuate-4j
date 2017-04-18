@@ -1,8 +1,11 @@
 package com.networknt.eventuate.cdccore.kafka.producer;
 
+import com.networknt.config.Config;
+import com.networknt.eventuate.cdccore.kafka.KafkaConfig;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -13,20 +16,29 @@ public class CdcKafkaProducer {
   private String bootstrapServers;
   private Properties producerProps;
 
+  static String CONFIG_NAME = "kafkaconfig";
+  static KafkaConfig config;
+
+  public CdcKafkaProducer(){}
+
   public CdcKafkaProducer(String bootstrapServers) {
+    config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
     this.bootstrapServers = bootstrapServers;
     producerProps = new Properties();
     producerProps.put("bootstrap.servers", bootstrapServers);
-    producerProps.put("acks", "all");
-    producerProps.put("retries", 0);
-    producerProps.put("batch.size", 16384);
-    producerProps.put("linger.ms", 1);
-    producerProps.put("buffer.memory", 33554432);
-    producerProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-    producerProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    producerProps.put("acks", config.getAcks());
+    producerProps.put("retries", config.getRetries());
+    producerProps.put("batch.size", config.getBatchSize());
+    producerProps.put("linger.ms", config.getLingerms());
+    producerProps.put("buffer.memory", config.getBufferMemory());
+    producerProps.put("key.serializer", config.getKeySerializer());
+    producerProps.put("value.serializer", config.getValueSerializer());
     producer = new org.apache.kafka.clients.producer.KafkaProducer<>(producerProps);
   }
 
+  public void setProducer (Producer<String, String> producer) {
+    this.producer = producer;
+  }
 
   public CompletableFuture<?> send(String topic, String key, String body) {
     CompletableFuture<Object> result = new CompletableFuture<>();

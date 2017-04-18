@@ -1,0 +1,14 @@
+---
+description: Kafka producer and consumer properties setting
+acks: all
+retries: 0
+batchSize: 16384
+lingerms: 1
+bufferMemory: 33554432
+keySerializer: org.apache.kafka.common.serialization.StringSerializer
+valueSeriaenableaAutocommit: false
+          sessionTimeout = 30000
+          autoOffsetreset = earliestlizer: org.apache.kafka.common.serialization.StringSerializer
+enableaAutocommit: false
+sessionTimeout = 30000
+autoOffsetreset = earliest
