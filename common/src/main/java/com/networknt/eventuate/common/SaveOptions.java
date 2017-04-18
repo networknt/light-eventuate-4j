@@ -1,12 +1,19 @@
 package com.networknt.eventuate.common;
 
 import java.util.Optional;
+import java.util.Map;
 
 public class SaveOptions {
 
   private Optional<String> entityId = Optional.empty();
   private Optional<EventContext> triggeringEvent = Optional.empty();
+  private Optional<Map<String, String>> eventMetadata = Optional.empty();
 
+  public SaveOptions(Optional<String> entityId, Optional<EventContext> triggeringEvent) {
+    this.entityId = entityId;
+    this.triggeringEvent = triggeringEvent;
+    this.eventMetadata = Optional.empty();
+  }
 
   public Optional<String> getEntityId() {
     return entityId;
