@@ -4,8 +4,15 @@ import java.util.Optional;
 
 public class FindOptions {
 
+
   private Optional<EventContext> triggeringEvent = Optional.empty();
 
+  public FindOptions() {
+  }
+
+  public FindOptions(Optional<EventContext> triggeringEvent) {
+    this.triggeringEvent = triggeringEvent;
+  }
   public Optional<EventContext> getTriggeringEvent() {
     return triggeringEvent;
   }
