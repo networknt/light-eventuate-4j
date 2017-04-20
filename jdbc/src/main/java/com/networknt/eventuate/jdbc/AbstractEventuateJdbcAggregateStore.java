@@ -1,11 +1,8 @@
 package com.networknt.eventuate.jdbc;
 
 import com.networknt.eventuate.common.*;
+import com.networknt.eventuate.common.impl.*;
 import com.networknt.eventuate.common.impl.sync.AggregateCrud;
-import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
-import com.networknt.eventuate.common.impl.EventIdTypeAndData;
-import com.networknt.eventuate.common.impl.EventTypeAndData;
-import com.networknt.eventuate.common.impl.LoadedEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
@@ -124,8 +121,11 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
     }
     if (events.isEmpty())
       throw(new EntityNotFoundException());
-    else
-      return new LoadedEvents(events.stream().map(e -> e.event).collect(Collectors.toList()));
+    else {
+      Optional<SerializedSnapshotWithVersion> snapshot = Optional.empty();  // TODO - retrieve snapshot
+      return new LoadedEvents(snapshot, events.stream().map(e -> e.event).collect(Collectors.toList()));
+
+    }
   }
 
   @Override
