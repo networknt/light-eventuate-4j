@@ -91,13 +91,21 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
 
   @Override
   public <T extends Aggregate<T>> LoadedEvents find(String aggregateType, String entityId, Optional<FindOptions> findOptions) {
+    Optional<LoadedSnapshot> snapshot = getSnapshot(aggregateType, entityId);
     List<EventAndTrigger> events = new ArrayList<>();
     try (final Connection connection = dataSource.getConnection()){
-      String psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? order by event_id asc";
+      String psSelect = null;
+      if (snapshot.isPresent()) {
+        psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? and and event_id > ? order by event_id asc";
+      } else {
+        psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? order by event_id asc";
+      }
       try (PreparedStatement stmt = connection.prepareStatement(psSelect)) {
         stmt.setString(1, aggregateType);
         stmt.setString(2, entityId);
-
+        if (snapshot.isPresent()) {
+          stmt.setString(3, snapshot.get().getSerializedSnapshot().getEntityVersion().asString());
+        }
         try (ResultSet rs = stmt.executeQuery()) {
           while (rs.next()) {
             String eventId = rs.getString("event_id");
@@ -119,14 +127,40 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
     if (matching.isPresent()) {
       throw(new DuplicateTriggeringEventException());
     }
-    if (events.isEmpty())
+    if (!snapshot.isPresent() && events.isEmpty())
       throw(new EntityNotFoundException());
     else {
-      Optional<SerializedSnapshotWithVersion> snapshot = Optional.empty();  // TODO - retrieve snapshot
-      return new LoadedEvents(snapshot, events.stream().map(e -> e.event).collect(Collectors.toList()));
+       return new LoadedEvents(snapshot.map(LoadedSnapshot::getSerializedSnapshot), events.stream().map(e -> e.event).collect(Collectors.toList()));
 
     }
   }
+
+  private Optional<LoadedSnapshot> getSnapshot(String aggregateType, String entityId) {
+    LoadedSnapshot snapshot = null;
+    try (final Connection connection = dataSource.getConnection()){
+      String psSelect = "select snapshot_type, snapshot_json, entity_version, triggering_Events from snapshots where entity_type = ? and entity_id = ? order by entity_version desc LIMIT 1";
+      try (PreparedStatement stmt = connection.prepareStatement(psSelect)) {
+        stmt.setString(1, aggregateType);
+        stmt.setString(2, entityId);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+          while (rs.next()) {
+            snapshot = new LoadedSnapshot(new SerializedSnapshotWithVersion(
+                    new SerializedSnapshot(rs.getString("snapshot_type"), rs.getString("snapshot_json"))
+                    , Int128.fromString(rs.getString("entity_version"))), rs.getString("triggering_events"));
+          }
+        }
+      }
+    } catch (SQLException e) {
+      logger.error("SqlException:", e);
+    }
+    if (snapshot!=null ) {
+      return Optional.ofNullable(snapshot);
+    } else {
+      return Optional.empty();
+    }
+   }
+
 
   @Override
   public EntityIdVersionAndEventIds update(EntityIdAndType entityIdAndType, Int128 entityVersion, List<EventTypeAndData> events, Optional<UpdateOptions> updateOptions) {
@@ -153,6 +187,40 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
           throw(new OptimisticLockingException(entityIdAndType, entityVersion));
         }
       }
+
+      updateOptions.flatMap(UpdateOptions::getSnapshot).ifPresent(ss -> {
+        Optional<LoadedSnapshot> previousSnapshot = getSnapshot(entityType, entityId);
+
+        List<EventAndTrigger> oldEvents = null;
+        String psSelect = null;
+        if (previousSnapshot.isPresent()) {
+          psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? and and event_id > ? order by event_id asc";
+        } else {
+          psSelect = "SELECT * FROM events where entity_type = ? and entity_id = ? order by event_id asc";
+        }
+        try (PreparedStatement stmt = connection.prepareStatement(psSelect)) {
+          stmt.setString(1, entityType);
+          stmt.setString(2, entityId);
+          if (previousSnapshot.isPresent()) {
+            stmt.setString(3, previousSnapshot.get().getSerializedSnapshot().getEntityVersion().asString());
+          }
+          try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+              String eventId = rs.getString("event_id");
+              String eventType = rs.getString("event_type");
+              String eventData = rs.getString("event_data");
+              String triggeringEvent = rs.getString("triggering_event");
+              EventIdTypeAndData eventIdTypeAndData = new EventIdTypeAndData(Int128.fromString(eventId), eventType, eventData);
+              oldEvents.add(new EventAndTrigger(eventIdTypeAndData, triggeringEvent));
+            }
+          }
+        }catch (SQLException e) {
+            logger.error("SqlException:", e);
+        }
+
+        String triggeringEvents = snapshotTriggeringEvents(previousSnapshot, oldEvents, updateOptions.flatMap(UpdateOptions::getTriggeringEvent));
+
+      });
 
       try (PreparedStatement psEvent = connection.prepareStatement(insert_events)) {
         for(EventIdTypeAndData event : eventsWithIds) {
@@ -183,6 +251,15 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
   }
 
   protected abstract void publish(String aggregateType, String aggregateId, List<EventIdTypeAndData> eventsWithIds);
+
+  protected void checkSnapshotForDuplicateEvent(LoadedSnapshot ss, EventContext te) {
+    // TODO
+  }
+
+  protected String snapshotTriggeringEvents(Optional<LoadedSnapshot> previousSnapshot, List<EventAndTrigger> events, Optional<EventContext> eventContext) {
+    //TODO
+    return null;
+  }
 
 
 }

@@ -1,5 +1,7 @@
 package com.networknt.eventuate.common;
 
+import com.networknt.eventuate.common.impl.SerializedSnapshot;
+
 import java.util.Optional;
 import java.util.Map;
 
@@ -53,6 +55,13 @@ public class UpdateOptions {
     return this;
   }
 
+  public Optional<Map<String, String>>getEventMetadata() {
+    return eventMetadata;
+  }
+
+  public Optional<Snapshot> getSnapshot() {
+    return snapshot;
+  }
   public UpdateOptions withSnapshot(Snapshot snapshot) {
     return new UpdateOptions(this.triggeringEvent, this.eventMetadata, Optional.of(snapshot));
   }

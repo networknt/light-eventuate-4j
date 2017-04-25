@@ -19,11 +19,13 @@ public class EventuateAggregateStoreImpl implements EventuateAggregateStore {
 
   private AggregateCrud aggregateCrud;
   private AggregateEvents aggregateEvents;
+  private SnapshotManager snapshotManager;
   private SerializedEventDeserializer serializedEventDeserializer = new DefaultSerializedEventDeserializer();
 
   public EventuateAggregateStoreImpl(AggregateCrud aggregateCrud, AggregateEvents aggregateEvents) {
     this.aggregateCrud = aggregateCrud;
     this.aggregateEvents = aggregateEvents;
+    this.snapshotManager = snapshotManager;
   }
 
   public void setSerializedEventDeserializer(SerializedEventDeserializer serializedEventDeserializer) {
@@ -148,16 +150,15 @@ public class EventuateAggregateStoreImpl implements EventuateAggregateStore {
     }
   }
 
+
   @Override
   public Optional<Snapshot> possiblySnapshot(Aggregate aggregate, Optional<Int128> snapshotVersion, List<Event> oldEvents, List<Event> newEvents) {
-    // TODO implemented it
-    return null;
+    return snapshotManager.possiblySnapshot(aggregate, snapshotVersion, oldEvents, newEvents);
   }
 
   @Override
   public Aggregate recreateFromSnapshot(Class<?> clasz, Snapshot snapshot) {
-    // TODO implemented it
-    return null;
+    return snapshotManager.recreateFromSnapshot(clasz, snapshot);
   }
 
 }
