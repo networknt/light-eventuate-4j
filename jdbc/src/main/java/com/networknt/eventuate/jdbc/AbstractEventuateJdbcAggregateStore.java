@@ -214,13 +214,29 @@ public abstract class AbstractEventuateJdbcAggregateStore implements AggregateCr
               oldEvents.add(new EventAndTrigger(eventIdTypeAndData, triggeringEvent));
             }
           }
-        }catch (SQLException e) {
-            logger.error("SqlException:", e);
-        }
 
         String triggeringEvents = snapshotTriggeringEvents(previousSnapshot, oldEvents, updateOptions.flatMap(UpdateOptions::getTriggeringEvent));
 
+        String insert_snapshot = "INSERT INTO snapshots (entity_type, entity_id, entity_version, snapshot_type, snapshot_json, triggering_events) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement psEntity = connection.prepareStatement(insert_snapshot)) {
+          psEntity.setString(1, entityType);
+          psEntity.setString(2, entityId);
+          psEntity.setString(3, updatedEntityVersion.asString());
+          psEntity.setString(4, ss.getSnapshotType());
+          psEntity.setString(5, ss.getJson());
+          psEntity.setString(6, triggeringEvents);
+          int count = psEntity.executeUpdate();
+          if (count != 1) {
+            logger.error("Failed to update entity: {}", count);
+          }
+        }
+        }catch (SQLException e) {
+          logger.error("SqlException:", e);
+        }
+
       });
+
+
 
       try (PreparedStatement psEvent = connection.prepareStatement(insert_events)) {
         for(EventIdTypeAndData event : eventsWithIds) {

@@ -9,7 +9,7 @@ public class UpdateOptions {
 
   private Optional<EventContext> triggeringEvent = Optional.empty();
   private final Optional<Map<String, String>> eventMetadata;
-  private final Optional<Snapshot> snapshot;
+  private final Optional<SerializedSnapshot> snapshot;
 
   public UpdateOptions() {
     this.triggeringEvent = Optional.empty();
@@ -23,7 +23,7 @@ public class UpdateOptions {
             '}';
   }
 
-  public UpdateOptions(Optional<EventContext> triggeringEvent, Optional<Map<String, String>> eventMetadata, Optional<Snapshot> snapshot) {
+  public UpdateOptions(Optional<EventContext> triggeringEvent, Optional<Map<String, String>> eventMetadata, Optional<SerializedSnapshot> snapshot) {
     this.triggeringEvent = triggeringEvent;
     this.eventMetadata = eventMetadata;
     this.snapshot = snapshot;
@@ -59,10 +59,11 @@ public class UpdateOptions {
     return eventMetadata;
   }
 
-  public Optional<Snapshot> getSnapshot() {
+  public Optional<SerializedSnapshot> getSnapshot() {
     return snapshot;
   }
-  public UpdateOptions withSnapshot(Snapshot snapshot) {
+
+  public UpdateOptions withSnapshot(SerializedSnapshot snapshot) {
     return new UpdateOptions(this.triggeringEvent, this.eventMetadata, Optional.of(snapshot));
   }
 }
