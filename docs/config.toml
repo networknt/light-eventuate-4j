@@ -9,7 +9,7 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "Steve Hu", "Gavin Chen"
+	author = "Steve Hu, Gavin Chen"
 	description = "Light Eventuate Docs"
 	copyright = "Released under the MIT license"
 
