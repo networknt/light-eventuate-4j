@@ -1,6 +1,6 @@
-baseurl = "https://networknt.github.io/light-java/"
+baseurl = "https://networknt.github.io/light-eventuate/"
 languageCode = "en-us"
-title = "Light Java - The fastest Java API Framework"
+title = "Light Eventuate - An event sourcing and CQRS framework with Kafka"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -9,15 +9,15 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "Steve Hu"
-	description = "Light Java Docs"
+	author = "Steve Hu", "Gavin Chen"
+	description = "Light Eventuate Docs"
 	copyright = "Released under the MIT license"
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/networknt/light-java"
+	repo_url = "https://github.com/networknt/light-eventuate"
 
-	version = "1.2.6"
+	version = "1.2.7"
 	logo = "images/logo.png"
 	favicon = ""
 
@@ -48,73 +48,48 @@ googleAnalytics = ""
 [[menu.main]]
 	name   = "Introduction"
 	url    = "/index.html"
-	weight = 0
+	weight = 10
 
 [[menu.main]]
 	name   = "Getting started"
 	url    = "getting-started/"
-	weight = 10
+	weight = 20
 
 
 [[menu.main]]
 	name   = "Architecture"
 	url    = "architecture/"
-	weight = 20
+	weight = 30
 
 [[menu.main]]
 	name   = "Design"
 	url    = "design/"
-	weight = 25
-
-[[menu.main]]
-	name   = "Middleware"
-	url    = "middleware/"
-	weight = 30
-
-[[menu.main]]
-	name   = "Other Components"
-	url    = "other/"
-	weight = 30
-
-[[menu.main]]
-	name   = "DevOps"
-	url    = "devops/"
-	weight = 35
-
-[[menu.main]]
-	name   = "Benchmarks"
-	url    = "benchmarks/"
-	weight = 38
+	weight = 40
 
 [[menu.main]]
 	name   = "Tutorials"
 	url    = "tutorials/"
-	weight = 40
+	weight = 50
 
 [[menu.main]]
 	name   = "Examples"
 	url    = "example/"
-	weight = 45
-
-[[menu.main]]
-	name   = "Tools"
-	url    = "tools/"
-	weight = 50
+	weight = 60
 
 [[menu.main]]
 	name   = "Issues & Help"
-	url    = "https://github.com/networknt/light-java/issues"
-	weight = 60
+	url    = "https://github.com/networknt/light-eventuate/issues"
+	weight = 70
 
 [[menu.main]]
 	name   = "Roadmap"
 	url    = "roadmap/"
-	weight = 70
+	weight = 80
 
 [[menu.main]]
 	name   = "License"
 	url    = "https://www.apache.org/licenses/LICENSE-2.0"
-	weight = 80
+	weight = 90
 
 
 [blackfriday]
