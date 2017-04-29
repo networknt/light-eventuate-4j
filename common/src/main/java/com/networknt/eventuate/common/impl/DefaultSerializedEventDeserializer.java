@@ -26,7 +26,7 @@ public class DefaultSerializedEventDeserializer implements SerializedEventDeseri
   }
 
   private Class<Event> toEventClass(String eventType) {
-    if ("net.chrisrichardson.eventstore.subscriptions.EndOfCurrentEventsReachedEvent".equals(eventType)) {
+    if ("com.networknt.eventuate.common.EndOfCurrentEventsReachedEvent".equals(eventType)) {
       eventType = EndOfCurrentEventsReachedEvent.class.getName();
     }
     try {

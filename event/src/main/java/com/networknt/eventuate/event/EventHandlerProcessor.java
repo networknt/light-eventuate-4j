@@ -1,9 +1,10 @@
 package com.networknt.eventuate.event;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.AccessibleObject;
+
 
 public interface EventHandlerProcessor {
-  boolean supports(Method method);
+  boolean supports(AccessibleObject method);
 
-  EventHandler process(Object eventHandler, Method method);
+  EventHandler process(Object eventHandler, AccessibleObject method);
 }

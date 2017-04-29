@@ -22,7 +22,7 @@ public class EventuateAggregateStoreImpl implements EventuateAggregateStore {
   private SnapshotManager snapshotManager;
   private SerializedEventDeserializer serializedEventDeserializer = new DefaultSerializedEventDeserializer();
 
-  public EventuateAggregateStoreImpl(AggregateCrud aggregateCrud, AggregateEvents aggregateEvents) {
+  public EventuateAggregateStoreImpl(AggregateCrud aggregateCrud, AggregateEvents aggregateEvents,SnapshotManager snapshotManager) {
     this.aggregateCrud = aggregateCrud;
     this.aggregateEvents = aggregateEvents;
     this.snapshotManager = snapshotManager;

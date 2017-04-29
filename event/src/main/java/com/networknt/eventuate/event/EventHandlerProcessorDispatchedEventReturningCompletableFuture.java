@@ -5,15 +5,15 @@ import com.networknt.eventuate.common.DispatchedEvent;
 import java.lang.reflect.Method;
 import java.util.concurrent.CompletableFuture;
 
-public class EventHandlerProcessorDispatchedEventReturningCompletableFuture implements EventHandlerProcessor {
+public class EventHandlerProcessorDispatchedEventReturningCompletableFuture extends EventHandlerMethodProcessor {
 
   @Override
-  public boolean supports(Method method) {
+  public boolean supportsMethod(Method method) {
     return EventHandlerProcessorUtil.isMethodWithOneParameterOfTypeReturning(method, DispatchedEvent.class, CompletableFuture.class);
   }
 
   @Override
-  public EventHandler process(Object eventHandler, Method method) {
+  public EventHandler processMethod(Object eventHandler, Method method) {
     return new EventHandlerDispatchedEventReturningCompletableFuture(method, eventHandler);
   }
 

@@ -5,7 +5,7 @@ import com.networknt.eventuate.common.EventuateAggregateStore;
 
 import java.lang.reflect.Method;
 
-public class EventHandlerProcessorEventHandlerContextReturningVoid implements EventHandlerProcessor {
+public class EventHandlerProcessorEventHandlerContextReturningVoid extends EventHandlerMethodProcessor {
 
   private EventuateAggregateStore aggregateStore;
 
@@ -14,12 +14,12 @@ public class EventHandlerProcessorEventHandlerContextReturningVoid implements Ev
   }
 
   @Override
-  public boolean supports(Method method) {
+  public boolean supportsMethod(Method method) {
     return EventHandlerProcessorUtil.isVoidMethodWithOneParameterOfType(method, EventHandlerContext.class);
   }
 
   @Override
-  public EventHandler process(Object eventHandler, Method method) {
+  public EventHandler processMethod(Object eventHandler, Method method) {
     return new EventHandlerEventHandlerContextReturningVoid(aggregateStore, method, eventHandler);
   }
 

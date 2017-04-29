@@ -5,7 +5,10 @@ import com.networknt.eventuate.event.EventDispatcher;
 import com.networknt.eventuate.event.EventHandler;
 import com.networknt.eventuate.event.EventHandlerProcessor;
 import com.networknt.eventuate.event.SwimlaneBasedDispatcher;
+import io.swagger.util.ReflectionUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -13,6 +16,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.fasterxml.jackson.databind.util.ClassUtil.getDeclaredMethods;
 
@@ -111,10 +115,17 @@ public class EventDispatcherInitializer {
 
   public void registerEventHandler(Object eventHandlerBean, String beanName) {
 
-    List<EventHandler> handlers = Arrays.stream(getUniqueDeclaredMethods(eventHandlerBean.getClass()))
-            .filter(method -> method.getAnnotation(EventHandlerMethod.class) != null)
-            .map(method -> Arrays.stream(processors).filter(processor -> processor.supports(method)).findFirst().orElseThrow(() -> new RuntimeException("Don't know what to do with method " + method))
-                    .process(eventHandlerBean, method))
+    List<AccessibleObject> fieldsAndMethods = Stream.<AccessibleObject>concat(Arrays.stream(getUniqueDeclaredMethods(eventHandlerBean.getClass())),
+            Arrays.stream(eventHandlerBean.getClass().getDeclaredFields()))
+            .collect(Collectors.toList());
+
+    List<AccessibleObject> annotatedCandidateEventHandlers = fieldsAndMethods.stream()
+            .filter(fieldOrMethod -> fieldOrMethod.getAnnotation(EventHandlerMethod.class) != null)
+            .collect(Collectors.toList());
+
+    List<EventHandler> handlers = annotatedCandidateEventHandlers.stream()
+            .map(fieldOrMethod -> Arrays.stream(processors).filter(processor -> processor.supports(fieldOrMethod)).findFirst().orElseThrow(() -> new RuntimeException("Don't know what to do with fieldOrMethod " + fieldOrMethod))
+                    .process(eventHandlerBean, fieldOrMethod))
             .collect(Collectors.toList());
 
     Map<String, Set<String>> aggregatesAndEvents = makeAggregatesAndEvents(handlers.stream()
@@ -126,7 +137,7 @@ public class EventDispatcherInitializer {
     if (a == null)
       throw new RuntimeException("Needs @EventSubscriber annotation: " + eventHandlerBean);
 
-    String subscriberId = StringUtils.isBlank(a.id()) ?  beanName : a.id();
+    String subscriberId = StringUtils.isBlank(a.id()) ? beanName : a.id();
 
     EventDispatcher eventDispatcher = new EventDispatcher(subscriberId, eventTypesAndHandlers);
 
@@ -139,7 +150,6 @@ public class EventDispatcherInitializer {
 
     SubscriberOptions subscriberOptions = new SubscriberOptions(a.durability(), a.readFrom(), a.progressNotifications());
 
-    // TODO - it would be nice to do this in parallel
     try {
       aggregateStore.subscribe(subscriberId, aggregatesAndEvents,
               subscriberOptions, de -> swimlaneBasedDispatcher.dispatch(de, eventDispatcher::dispatch)).get(20, TimeUnit.SECONDS);
@@ -147,6 +157,15 @@ public class EventDispatcherInitializer {
     } catch (InterruptedException | TimeoutException | ExecutionException e) {
       throw new EventuateSubscriptionFailedException(subscriberId, e);
     }
+
+
+   /*
+    List<EventHandler> handlers = Arrays.stream(getUniqueDeclaredMethods(eventHandlerBean.getClass()))
+            .filter(method -> method.getAnnotation(EventHandlerMethod.class) != null)
+            .map(method -> Arrays.stream(processors).filter(processor -> processor.supports(method)).findFirst().orElseThrow(() -> new RuntimeException("Don't know what to do with method " + method))
+                    .process(eventHandlerBean, method))
+            .collect(Collectors.toList());*/
+
   }
 
   private Map<Class<?>, EventHandler> makeEventTypesAndHandlers(List<EventHandler> handlers) {
