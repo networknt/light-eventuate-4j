@@ -24,18 +24,31 @@ public class AnnotationUtils {
                         ? Collections.emptyList()
                         : classInfo.getNamesOfImplementedInterfaces();
         Iterator<String> iterator = interfaces.iterator();
-        while(iterator.hasNext()) {
-            String iName = iterator.next();
-            classInfo = EventuateClientStartupHookProvider.classNameToClassInfo.get(iName);
-            if(classInfo.hasDirectAnnotation(annotationType.getName())) {
+        if (interfaces != null && interfaces.size() > 0) {
+            while (iterator.hasNext()) {
+                String iName = iterator.next();
+                classInfo = EventuateClientStartupHookProvider.classNameToClassInfo.get(iName);
+                if (classInfo.hasDirectAnnotation(annotationType.getName())) {
+                    try {
+                        Class c = Class.forName(iName);
+                        result = (A) c.getAnnotation(annotationType);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+
+        } else {
+            if (classInfo.hasDirectAnnotation(annotationType.getName())) {
                 try {
-                    Class c = Class.forName(iName);
-                    result = (A)c.getAnnotation(annotationType);
+                    Class c = Class.forName(classInfo.getClassName());
+                    result = (A) c.getAnnotation(annotationType);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                break;
             }
+
         }
         return result;
     }

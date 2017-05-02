@@ -113,9 +113,9 @@ public class EventDispatcherInitializer {
     void doWith(Method method) throws IllegalArgumentException, IllegalAccessException;
   }
 
-  public void registerEventHandler(Object eventHandlerBean, String beanName) {
+  public void registerEventHandler(Object eventHandlerBean, String beanName)  throws ClassNotFoundException {
 
-    List<AccessibleObject> fieldsAndMethods = Stream.<AccessibleObject>concat(Arrays.stream(getUniqueDeclaredMethods(eventHandlerBean.getClass())),
+    List<AccessibleObject> fieldsAndMethods = Stream.<AccessibleObject>concat(Arrays.stream(getUniqueDeclaredMethods( Class.forName(beanName))),
             Arrays.stream(eventHandlerBean.getClass().getDeclaredFields()))
             .collect(Collectors.toList());
 
@@ -133,8 +133,13 @@ public class EventDispatcherInitializer {
 
     Map<Class<?>, EventHandler> eventTypesAndHandlers = makeEventTypesAndHandlers(handlers);
 
-    EventSubscriber a = AnnotationUtils.findAnnotation(eventHandlerBean.getClass(), EventSubscriber.class);
-    if (a == null)
+    EventSubscriber a = null;
+    try {
+      a = AnnotationUtils.findAnnotation( Class.forName(beanName), EventSubscriber.class);
+    }catch (ClassNotFoundException e ) {}
+
+
+     if (a == null)
       throw new RuntimeException("Needs @EventSubscriber annotation: " + eventHandlerBean);
 
     String subscriberId = StringUtils.isBlank(a.id()) ? beanName : a.id();
