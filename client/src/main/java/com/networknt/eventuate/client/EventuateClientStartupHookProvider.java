@@ -43,9 +43,14 @@ public class EventuateClientStartupHookProvider implements StartupHookProvider {
         // for each subscriber, create instance and register.
         for(String className: subscribers) {
             try {
-                Object subscriber = Class.forName(className);
+                Class c = Class.forName(className);
+                Object subscriber = c.newInstance();
                 eventDispatcherInitializer.registerEventHandler(subscriber, className);
             } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e){
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
