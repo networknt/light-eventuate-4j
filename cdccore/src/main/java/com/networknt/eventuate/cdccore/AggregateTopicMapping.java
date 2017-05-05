@@ -5,6 +5,6 @@ package com.networknt.eventuate.cdccore;
  */
 public class AggregateTopicMapping {
     public static String aggregateTypeToTopic(String aggregateType) {
-        return aggregateType;
+        return aggregateType.replace("$", "_DLR_");
     }
 }
