@@ -138,7 +138,7 @@ public class EventTableChangesToAggregateTopicRelay {
                 .with("database.user", dbUser)
                 .with("database.password", dbPassword)
                 .with("database.server.id", 85744)
-                .with("database.server.name", "my-app-connector")
+                .with("database.server.name", "light-event-sourcing")
                 //.with("database.whitelist", "eventuate")
                 .with("database.history",
                         io.debezium.relational.history.KafkaDatabaseHistory.class.getName())
