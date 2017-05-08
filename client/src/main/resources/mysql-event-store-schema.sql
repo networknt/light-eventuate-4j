@@ -20,6 +20,7 @@ create table entities (
   entity_type VARCHAR(256),
   entity_id VARCHAR(256),
   entity_version VARCHAR(256),
+  create_dttm TIMESTAMP  DEFAULT NOW(),
   PRIMARY KEY(entity_type, entity_id)
 );
 

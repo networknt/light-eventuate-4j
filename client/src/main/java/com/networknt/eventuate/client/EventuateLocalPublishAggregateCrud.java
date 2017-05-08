@@ -1,15 +1,20 @@
 package com.networknt.eventuate.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.eventuate.cdccore.PublishedEvent;
+import com.networknt.eventuate.cdccore.kafka.producer.CdcKafkaProducer;
 import com.networknt.eventuate.common.EntityIdAndType;
 import com.networknt.eventuate.common.EventContext;
 import com.networknt.eventuate.common.impl.EventIdTypeAndData;
 import com.networknt.eventuate.common.impl.SerializedEvent;
 import com.networknt.eventuate.jdbc.AbstractEventuateJdbcAggregateStore;
 
+
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -18,16 +23,20 @@ public class EventuateLocalPublishAggregateCrud extends AbstractEventuateJdbcAgg
 
   private AtomicLong eventOffset = new AtomicLong();
   private final Map<EntityIdAndType, List<SerializedEvent>> localEventsMap = new HashMap<EntityIdAndType, List<SerializedEvent>>();
+  private CdcKafkaProducer producer;
 
   public EventuateLocalPublishAggregateCrud(DataSource dataSource) {
     super(dataSource);
+    producer = new CdcKafkaProducer();
+
   }
 
   protected void publish(String aggregateType, String aggregateId, List<EventIdTypeAndData> eventsWithIds) {
     EntityIdAndType entityIdAndType = new EntityIdAndType(aggregateId, aggregateType);
     localEventsMap.put(entityIdAndType, eventsWithIds.stream().map(item->toSerializedEvent(item, aggregateType, aggregateId)).collect(Collectors.toList()));
-    //TODO publish the events to Kafka
-  }
+
+    eventsWithIds.stream().map(item-> producer.send(aggregateType, aggregateId, toJson(toPublishedEvent(aggregateType, aggregateId, item))));
+   }
 
   private SerializedEvent toSerializedEvent(EventIdTypeAndData event, String aggregateType, String aggregateId) {
     return new SerializedEvent(event.getId(), aggregateId, aggregateType, event.getEventData(), event.getEventType(),
@@ -36,5 +45,16 @@ public class EventuateLocalPublishAggregateCrud extends AbstractEventuateJdbcAgg
             new EventContext(event.getId().asString()));
   }
 
+  private String toJson(PublishedEvent eventInfo) {
+    ObjectMapper om = new ObjectMapper();
+    try {
+      return om.writeValueAsString(eventInfo);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 
+  private PublishedEvent toPublishedEvent( String aggregateType, String aggregateId, EventIdTypeAndData event) {
+    return new PublishedEvent(event.getId().toString(), aggregateId, aggregateType, event.getEventData(), event.getEventType());
+  }
 }

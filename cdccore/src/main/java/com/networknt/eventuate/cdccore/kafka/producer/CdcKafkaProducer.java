@@ -17,12 +17,13 @@ public class CdcKafkaProducer {
   private Properties producerProps;
 
   static String CONFIG_NAME = "kafkaconfig";
-  static KafkaConfig config;
+  static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
 
-  public CdcKafkaProducer(){}
+  public CdcKafkaProducer(){
+    this(config.getBootstrapServers());
+  }
 
   public CdcKafkaProducer(String bootstrapServers) {
-    config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
     this.bootstrapServers = bootstrapServers;
     producerProps = new Properties();
     producerProps.put("bootstrap.servers", bootstrapServers);

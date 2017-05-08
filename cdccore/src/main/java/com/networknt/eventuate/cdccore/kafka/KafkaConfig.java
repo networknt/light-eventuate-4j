@@ -14,6 +14,8 @@ public class KafkaConfig {
     private boolean enableaAutocommit;
     private int sessionTimeout;
     private String autoOffsetreset;
+    private String bootstrapServers;
+
 
 
     @JsonIgnore
@@ -108,6 +110,14 @@ public class KafkaConfig {
 
     public void setAutoOffsetreset(String autoOffsetreset) {
         this.autoOffsetreset = autoOffsetreset;
+    }
+
+    public String getBootstrapServers() {
+        return bootstrapServers;
+    }
+
+    public void setBootstrapServers(String bootstrapServers) {
+        this.bootstrapServers = bootstrapServers;
     }
 
 }
