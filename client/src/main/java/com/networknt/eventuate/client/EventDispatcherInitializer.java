@@ -5,7 +5,6 @@ import com.networknt.eventuate.event.EventDispatcher;
 import com.networknt.eventuate.event.EventHandler;
 import com.networknt.eventuate.event.EventHandlerProcessor;
 import com.networknt.eventuate.event.SwimlaneBasedDispatcher;
-import io.swagger.util.ReflectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.AccessibleObject;
@@ -20,6 +19,10 @@ import java.util.stream.Stream;
 
 import static com.fasterxml.jackson.databind.util.ClassUtil.getDeclaredMethods;
 
+/**
+ * General process to register the event handles and dispatcher the event to eventHandle processor,
+ *
+ */
 public class EventDispatcherInitializer {
 
   private EventHandlerProcessor[] processors;

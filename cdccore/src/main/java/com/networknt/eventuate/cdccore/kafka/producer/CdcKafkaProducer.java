@@ -10,6 +10,11 @@ import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A Kafka Producer that send messages to defined Kafka instance
+ *
+ * *@param bootstrapServers Kafka bootstrap Servers string
+ */
 public class CdcKafkaProducer {
 
   private Producer<String, String> producer;
@@ -37,10 +42,19 @@ public class CdcKafkaProducer {
     producer = new org.apache.kafka.clients.producer.KafkaProducer<>(producerProps);
   }
 
+
   public void setProducer (Producer<String, String> producer) {
+
     this.producer = producer;
   }
 
+  /**
+   * Update the aggregate
+   * @param topic Kafka topic
+   * @param key key the message in the topic
+   * @param body message body
+   * @return the CompletableFuture, which process asynchronous
+   */
   public CompletableFuture<?> send(String topic, String key, String body) {
     CompletableFuture<Object> result = new CompletableFuture<>();
     producer.send(new ProducerRecord<>(topic, key, body), (metadata, exception) -> {

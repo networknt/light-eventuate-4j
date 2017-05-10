@@ -6,7 +6,7 @@ import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 
 /**
- * Created by stevehu on 2016-11-22.
+ * CdcService handle
  */
 public class CdcService implements HandlerProvider {
 

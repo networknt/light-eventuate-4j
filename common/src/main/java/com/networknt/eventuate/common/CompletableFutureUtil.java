@@ -6,6 +6,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 
+
+/**
+ * General utility methods for CompletableFuture
+ *
+ */
 public class CompletableFutureUtil {
   public static Throwable unwrap(Throwable throwable) {
     if (throwable instanceof ExecutionException)

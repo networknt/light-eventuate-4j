@@ -18,6 +18,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+/**
+ * general command side AggregateCrud for save the Aggregate and events to event store
+ *  the event store will be database which doesn't support cdc service.
+ *  event will be published to Kafka by Kafka producer
+ *  * @param dataSource DB data source
+ */
 public class EventuateLocalPublishAggregateCrud extends AbstractEventuateJdbcAggregateStore
 {
 

@@ -3,6 +3,10 @@ package com.networknt.eventuate.cdccore.kafka;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+/**
+ * A Kafka setting configuration file. It get from defined resource yml file
+ *
+ */
 public class KafkaConfig {
     private String acks;
     private int retries;

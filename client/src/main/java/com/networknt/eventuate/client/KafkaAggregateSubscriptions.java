@@ -29,6 +29,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Subscribe to domain events published to Kafka
+ *  * @param bootstrapServers Kafka bootstrap Servers string
  */
 public class KafkaAggregateSubscriptions implements AggregateEvents {
 

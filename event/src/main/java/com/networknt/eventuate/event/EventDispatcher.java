@@ -11,6 +11,11 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.networknt.eventuate.common.impl.EventuateActivity.activityLogger;
 
+/**
+ * EventDispatcher execute event dispatch method based on the input event
+ *  *  @param subscriberId defined topic subscriberId
+ *   *  @param eventTypesAndHandlers defined event handlers
+ */
 public class EventDispatcher {
 
   private static Logger logger = LoggerFactory.getLogger(EventDispatcher.class);

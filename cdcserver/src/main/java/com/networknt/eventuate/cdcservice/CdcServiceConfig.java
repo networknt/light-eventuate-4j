@@ -3,7 +3,7 @@ package com.networknt.eventuate.cdcservice;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Created by stevehu on 2016-11-22.
+ * CdcService Configuration class which load the config parameters from cdsservice.yml file
  */
 public class CdcServiceConfig {
     String dbHost;

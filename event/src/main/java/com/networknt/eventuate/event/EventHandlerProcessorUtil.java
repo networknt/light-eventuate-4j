@@ -6,6 +6,10 @@ import com.networknt.eventuate.common.EventHandlerMethod;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
+/**
+ * General utility methods for EventHandler Processor
+ *
+ */
 public class EventHandlerProcessorUtil {
 
   static boolean isVoidMethodWithOneParameterOfType(Method method, Class<?> parameterClass) {

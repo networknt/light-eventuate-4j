@@ -19,6 +19,10 @@ import java.util.function.BiConsumer;
 
 /**
  * A Kafka consumer that manually commits offsets and supports asynchronous message processing
+ * *@param subscriberId message subscriber id
+ * *@handler defined message handler
+ * *@param topics Kafka topic list
+ * *@param bootstrapServers Kafka bootstrap Servers string
  */
 public class CdcKafkaConsumer {
 
@@ -72,6 +76,9 @@ public class CdcKafkaConsumer {
     }
   }
 
+  /**
+   * start Kafka consumer process
+   */
   public void start() {
     try {
 

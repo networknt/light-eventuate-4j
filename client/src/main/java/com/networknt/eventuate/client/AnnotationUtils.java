@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by stevehu on 2016-11-27.
+ * General utility methods for working with annotations, handling meta-annotations,
+ * bridge methods (which the compiler generates for generic declarations) as well
  */
 public class AnnotationUtils {
     public static <A extends Annotation> A findAnnotation(Class<?> clazz, Class<A> annotationType) {

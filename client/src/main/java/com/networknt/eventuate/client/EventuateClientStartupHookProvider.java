@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
- * Created by stevehu on 2016-11-27.
+ * Eventuate Client  StartupHookProvider. start Eventuate event handler process service
  */
 public class EventuateClientStartupHookProvider implements StartupHookProvider {
     static final String CONFIG_NAME = "eventuate-client";

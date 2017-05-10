@@ -1,5 +1,9 @@
 package com.networknt.eventuate.common;
 
+/**
+ * value object class for EntityId And Type
+ *
+ */
 public class EntityIdAndType {
 
   private String entityId;

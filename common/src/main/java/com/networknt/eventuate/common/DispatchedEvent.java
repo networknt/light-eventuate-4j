@@ -1,5 +1,11 @@
 package com.networknt.eventuate.common;
 
+
+
+/**
+ * value object class for Dispatched Event
+ *
+ */
 public class DispatchedEvent<T extends Event> implements EventEnvelope<T> {
 
   private String entityId;

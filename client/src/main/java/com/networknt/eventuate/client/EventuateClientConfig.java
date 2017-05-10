@@ -1,7 +1,7 @@
 package com.networknt.eventuate.client;
 
 /**
- * Created by stevehu on 2016-11-27.
+ * eventuate  client package Configuration class
  */
 public class EventuateClientConfig {
     String description;

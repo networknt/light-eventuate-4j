@@ -1,5 +1,9 @@
 package com.networknt.eventuate.common;
 
+/**
+ * value object class for EntityId And Version
+ *
+ */
 public class EntityIdAndVersion {
 
   private final String entityId;

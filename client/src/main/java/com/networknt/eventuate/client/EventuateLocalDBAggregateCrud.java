@@ -14,6 +14,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 
+/**
+ * general command side AggregateCrud for save the Aggregate and events to event store
+ *  the event store will be database if application use this AggregateCrud
+ *  event publish will relay on cdc service
+ *  * @param dataSource DB data source
+ */
 public class EventuateLocalDBAggregateCrud extends AbstractEventuateJdbcAggregateStore
 {
 

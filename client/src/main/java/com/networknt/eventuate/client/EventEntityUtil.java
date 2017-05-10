@@ -3,6 +3,10 @@ package com.networknt.eventuate.client;
 import com.networknt.eventuate.common.Event;
 import com.networknt.eventuate.common.EventEntity;
 
+/**
+ * General utility methods for working with Event Entity conversion
+ *
+ */
 public class EventEntityUtil {
   public static Class<?> toEntityType(Class<Event> eventType) {
     String entityName = toEntityTypeName(eventType);

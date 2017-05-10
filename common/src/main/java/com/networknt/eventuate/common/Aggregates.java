@@ -2,6 +2,10 @@ package com.networknt.eventuate.common;
 
 import java.util.List;
 
+/**
+ * General utility methods for Aggregate
+ *
+ */
 public class Aggregates {
   public static <T extends Aggregate<T>> T applyEventsToMutableAggregate(T aggregate, List<Event> events) {
     for (Event event : events) {

@@ -3,6 +3,10 @@ package com.networknt.eventuate.client;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Registered Subscription object
+ *
+ */
 public class RegisteredSubscription {
   private final String subscriberId;
   private final Map<String, Set<String>> aggregatesAndEvents;

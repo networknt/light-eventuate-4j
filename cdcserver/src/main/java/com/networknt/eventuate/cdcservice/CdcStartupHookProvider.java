@@ -9,7 +9,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 /**
- * Created by stevehu on 2016-11-22.
+ * CdcService StartupHookProvider. start cdc service
  */
 public class CdcStartupHookProvider implements StartupHookProvider {
 
@@ -23,6 +23,7 @@ public class CdcStartupHookProvider implements StartupHookProvider {
         curatorFramework = makeStartedCuratorClient(config.getZookeeper());
         relay = new EventTableChangesToAggregateTopicRelay(config.getKafka(), config.dbHost, config.dbPort,
                 config.dbUser, config.dbPass, curatorFramework);
+        relay.start();
         System.out.println("CdcStartupHookProvider is called");
     }
 

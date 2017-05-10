@@ -3,7 +3,7 @@ package com.networknt.eventuate.cdcservice;
 import com.networknt.server.ShutdownHookProvider;
 
 /**
- * Created by stevehu on 2016-11-22.
+ * cDc service ShutdownHookProvider, stop cDc service
  */
 public class CdcShutdownHookProvider implements ShutdownHookProvider {
     public void onShutdown() {
