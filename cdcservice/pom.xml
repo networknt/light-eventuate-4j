@@ -25,9 +25,9 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>eventuate-cdcserver</artifactId>
+    <artifactId>eventuate-cdcservice</artifactId>
     <packaging>jar</packaging>
-    <description>A micro service server component of change data capture.</description>
+    <description>A micro service component of change data capture.</description>
 
     <dependencies>
         <dependency>
