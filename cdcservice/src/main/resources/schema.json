@@ -1,0 +1,11 @@
+{
+  "lightapi.net/eventuate/cdcservice/0.0.1": {
+    "schema": {
+      "title": "Service",
+      "type": "object",
+      "properties": {
+      }
+    },
+    "scope": "cdcservice.r"
+  }
+}
