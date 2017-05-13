@@ -1,5 +1,5 @@
 {
-  "name": "angular2-demo",
+  "name": "light-eventuate-console",
   "version": "1.0.0",
   "scripts": {
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",

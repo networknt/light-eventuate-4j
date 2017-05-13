@@ -116,7 +116,6 @@ public class EventTableChangesToAggregateTopicRelay {
     public CompletableFuture<Object> startCapturingChanges() throws InterruptedException {
 
         logger.debug("Starting to capture changes");
-
         producer = new CdcKafkaProducer(kafkaBootstrapServers);
 
         String connectorName = "my-sql-connector";
@@ -205,7 +204,8 @@ public class EventTableChangesToAggregateTopicRelay {
     private void handleEvent(SourceRecord sourceRecord) {
         logger.trace("Got record");
         String topic = sourceRecord.topic();
-        if ("my-app-connector.eventuate.events".equals(topic)) {
+        System.out.println("topic---->:"  + topic);
+        if ("light-event-sourcing.event_sourcing.events".equals(topic)) {
             Struct value = (Struct) sourceRecord.value();
             Struct after = value.getStruct("after");
 
