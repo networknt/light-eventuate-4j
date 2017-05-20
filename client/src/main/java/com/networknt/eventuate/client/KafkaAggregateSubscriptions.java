@@ -35,7 +35,11 @@ public class KafkaAggregateSubscriptions implements AggregateEvents {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  String bootstrapServers;
+  String bootstrapServers="localhost:9092";
+
+  public KafkaAggregateSubscriptions() {
+
+  }
 
   public KafkaAggregateSubscriptions(String bootstrapServers) {
     this.bootstrapServers = bootstrapServers;
@@ -66,7 +70,6 @@ public class KafkaAggregateSubscriptions implements AggregateEvents {
   public CompletableFuture<?> subscribe(String subscriberId, Map<String, Set<String>> aggregatesAndEvents,
                                         SubscriberOptions subscriberOptions,
                                         Function<SerializedEvent, CompletableFuture<?>> handler) {
-
     List<String> topics = aggregatesAndEvents.keySet()
             .stream()
             .map(AggregateTopicMapping::aggregateTypeToTopic)

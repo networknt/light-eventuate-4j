@@ -50,8 +50,8 @@ public class CdcKafkaConsumer {
     consumerProperties.put("enable.auto.commit", config.isEnableaAutocommit());
     //consumerProperties.put("auto.commit.interval.ms", "1000");
     consumerProperties.put("session.timeout.ms", config.getSessionTimeout());
-    consumerProperties.put("key.deserializer", config.getKeySerializer());
-    consumerProperties.put("value.deserializer", config.getValueSerializer());
+    consumerProperties.put("key.deserializer", config.getKeyDeSerializer());
+    consumerProperties.put("value.deserializer", config.getValueDeSerializer());
     consumerProperties.put("auto.offset.reset", config.getAutoOffsetreset());
   }
 
@@ -109,7 +109,9 @@ public class CdcKafkaConsumer {
               logger.debug("processing record {} {} {}", subscriberId, record.offset(), record.value());
               if (logger.isDebugEnabled())
                 logger.debug(String.format("EventuateKafkaAggregateSubscriptions subscriber = %s, offset = %d, key = %s, value = %s", subscriberId, record.offset(), record.key(), record.value()));
-              processor.process(record);
+              if ( record !=null &&  record.key() !=null &&  record.value()!=null) {
+                processor.process(record);
+              }
             }
             if (!records.isEmpty())
               logger.debug("Processed {} {} records", subscriberId, records.count());

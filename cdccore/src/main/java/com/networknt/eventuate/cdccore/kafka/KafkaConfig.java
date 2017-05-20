@@ -19,11 +19,13 @@ public class KafkaConfig {
     private int sessionTimeout;
     private String autoOffsetreset;
     private String bootstrapServers;
-
+    private String keyDeSerializer;
+    private String valueDeSerializer;
 
 
     @JsonIgnore
     String description;
+
 
     public KafkaConfig() {
     }
@@ -122,6 +124,22 @@ public class KafkaConfig {
 
     public void setBootstrapServers(String bootstrapServers) {
         this.bootstrapServers = bootstrapServers;
+    }
+
+    public String getKeyDeSerializer() {
+        return keyDeSerializer;
+    }
+
+    public void setKeyDeSerializer(String keyDeSerializer) {
+        this.keyDeSerializer = keyDeSerializer;
+    }
+
+    public String getValueDeSerializer() {
+        return valueDeSerializer;
+    }
+
+    public void setValueDeSerializer(String valueDeSerializer) {
+        this.valueDeSerializer = valueDeSerializer;
     }
 
 }

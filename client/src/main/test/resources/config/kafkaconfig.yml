@@ -7,6 +7,8 @@ lingerms: 1
 bufferMemory: 33554432
 keySerializer: org.apache.kafka.common.serialization.StringSerializer
 valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+keyDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
+valueDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
 sessionTimeout: 30000
 autoOffsetreset: earliest
 enableaAutocommit: false
