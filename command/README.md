@@ -13,12 +13,19 @@ class path as below.
 java -cp ../cdcservice/target/eventuate-cdcservice-1.3.0.jar:target/eventuate-command-1.3.0.jar com.networknt.server.Server
 ```
 
+for windows:
+java -cp ../cdcservice/target/eventuate-cdcservice-1.3.0.jar;target/eventuate-command-1.3.0.jar com.networknt.server.Server
+
+
 If you have multiple service jar files, you'd better create a directory and include
 that directory into the classpath when starting the server.
 
 ```
-java -cp eventuate-command-1.3.0.jar:/service com.networknt.server.Server
+java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server
 ```
+
+for windows:
+java -cp ./service/*;target/eventuate-command-1.3.0.jar com.networknt.server.Server
 
 
 ## Test
