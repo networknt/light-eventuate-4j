@@ -205,7 +205,7 @@ public class EventTableChangesToAggregateTopicRelay {
         logger.trace("Got record");
         String topic = sourceRecord.topic();
         System.out.println("topic---->:"  + topic);
-        if ("light-event-sourcing.event_sourcing.events".equals(topic)) {
+        if ("light-event-sourcing.eventuate.events".equals(topic)) {
             Struct value = (Struct) sourceRecord.value();
             Struct after = value.getStruct("after");
 

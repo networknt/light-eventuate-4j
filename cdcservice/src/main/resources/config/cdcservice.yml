@@ -2,8 +2,8 @@
 description: Change Data Capture Service to relay event table updates to aggregate topics
 dbHost: localhost
 dbPort: 3306
-dbUser: root
-dbPass: passWord11
+dbUser: mysqluser
+dbPass: mysqlpw
 kafka: localhost:9092
 zookeeper: localhost:2181
 cdcDbUser: root

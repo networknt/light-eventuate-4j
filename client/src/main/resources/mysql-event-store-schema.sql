@@ -1,6 +1,7 @@
-CREATE DATABASE event_souring;
+CREATE DATABASE eventuate;
 
-use  event_souring;
+USE eventuate;
+
 
 DROP table IF EXISTS events;
 DROP table IF EXISTS  entities;
@@ -34,4 +35,9 @@ create table snapshots (
   PRIMARY KEY(entity_type, entity_id,entity_version)
 );
 
-grant  ALL PRIVILEGES on event_souring  to 'eventUser'@'localhost'
+CREATE USER 'mysqluser' IDENTIFIED BY 'mysqlpw';
+
+grant  ALL PRIVILEGES on eventuate  to 'mysqluser'@'localhost'
+
+
+GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
