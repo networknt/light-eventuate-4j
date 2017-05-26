@@ -4,7 +4,7 @@ dbHost: mysql
 dbPort: 3306
 dbUser: mysqluser
 dbPass: mysqlpw
-kafka: kafka:9092
+kafka: localhost:9092
 zookeeper: zookeeper:2181
 cdcDbUser: root
 cdcDbPass: rootpassword
