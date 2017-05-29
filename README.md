@@ -41,6 +41,9 @@ eventuate-event:                       Eventuate event handle interface and impl
 
 eventuate-jdbc:                        Eventuate database API for persisting event to database tables
 
+command:                               Command side service which use to work as container to  run command side services. Copy the command side services jar files in to the /service folder in this module
+
+query:                                 Query side service which use to work as container to  run Query side services. Copy the query side services jar files in to the /service folder in this module
 
 
 # light-eventuate tasks TODO list:
