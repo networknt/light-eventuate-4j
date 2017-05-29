@@ -33,7 +33,7 @@ An outbound gateway module processes events by invoking external services.
 
 Diagram:
 
-/images/Drawing1.png
+(/images/Drawing1.png)
 
 Light java based Light-eventuate architecture
 
