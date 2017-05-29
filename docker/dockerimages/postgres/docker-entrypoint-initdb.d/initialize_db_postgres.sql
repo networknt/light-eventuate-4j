@@ -1,10 +1,3 @@
-CREATE DATABASE "eventuate";
-
-create user postgresuser password 'postgrespw';
-
-GRANT ALL PRIVILEGES ON DATABASE "eventuate" to postgresuser;
-
-
 
 DROP table IF EXISTS events;
 DROP table IF EXISTS  entities;
