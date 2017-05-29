@@ -25,6 +25,10 @@ RUN git clone https://github.com/debezium/postgres-decoderbufs -b v0.3.0 --singl
     && cd / \ 
     && rm -rf postgres-decoderbufs            
 
+# Expose the PostgreSQL port
+EXPOSE 5432
+
+
 # Copy the custom configuration which will be passed down to the server (using a .sample file is the preferred way of doing it by 
 # the base Docker image)
 COPY postgresql.conf.sample /usr/share/postgresql/postgresql.conf.sample
