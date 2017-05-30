@@ -1,6 +1,6 @@
 baseurl = "https://networknt.github.io/light-eventuate-4j/"
 languageCode = "en-us"
-title = "Light Eventuate - An event sourcing and CQRS framework with Kafka"
+title = "Light Eventuate 4J - An event sourcing and CQRS framework with Kafka"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
