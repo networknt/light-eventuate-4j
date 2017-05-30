@@ -6,18 +6,43 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * CdcService Configuration class which load the config parameters from cdsservice.yml file
  */
 public class CdcServiceConfig {
+
+    String dbType;
+
+
     String dbHost;
     int dbPort;
     String dbUser;
     String dbPass;
+    String dbName;
     String kafka;
+
+
+
     String zookeeper;
     String cdcDbUser;
     String cdcDbPass;
+
+    //postgreSql config attributes
+    String postgresDbHost;
+    int postgresDBPort;
+    String postgresDbUser;
+    String postgresDbPass;
+    String postgresDbName;
+
+
+
     @JsonIgnore
     String description;
 
     public CdcServiceConfig() {
+    }
+    public String getDbType() {
+        return dbType;
+    }
+
+    public void setDbType(String dbType) {
+        this.dbType = dbType;
     }
 
     public String getDbHost() {
@@ -50,6 +75,14 @@ public class CdcServiceConfig {
 
     public void setDbPass(String dbPass) {
         this.dbPass = dbPass;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 
     public String getKafka() {
@@ -88,7 +121,50 @@ public class CdcServiceConfig {
         return description;
     }
 
+    public String getPostgresDbHost() {
+        return postgresDbHost;
+    }
+
+    public void setPostgresDbHost(String postgresDbHost) {
+        this.postgresDbHost = postgresDbHost;
+    }
+
+    public int getPostgresDBPort() {
+        return postgresDBPort;
+    }
+
+    public void setPostgresDBPort(int postgresDBPort) {
+        this.postgresDBPort = postgresDBPort;
+    }
+
+    public String getPostgresDbUser() {
+        return postgresDbUser;
+    }
+
+    public void setPostgresDbUser(String postgresDbUser) {
+        this.postgresDbUser = postgresDbUser;
+    }
+
+    public String getPostgresDbPass() {
+        return postgresDbPass;
+    }
+
+    public void setPostgresDbPass(String postgresDbPass) {
+        this.postgresDbPass = postgresDbPass;
+    }
+
+    public String getPostgresDbName() {
+        return postgresDbName;
+    }
+
+    public void setPostgresDbName(String postgresDbName) {
+        this.postgresDbName = postgresDbName;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+
 }

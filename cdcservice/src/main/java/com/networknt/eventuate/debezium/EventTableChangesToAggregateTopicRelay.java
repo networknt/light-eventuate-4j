@@ -18,36 +18,36 @@ import org.apache.kafka.connect.storage.KafkaOffsetBackingStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+
 import java.util.concurrent.*;
 
 /**
  * Subscribes to changes made to EVENTS table and publishes them to aggregate topics
  */
-public class EventTableChangesToAggregateTopicRelay {
+public abstract class EventTableChangesToAggregateTopicRelay implements TableChangeToTopicRelay{
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    private CdcKafkaProducer producer;
-    private EmbeddedEngine engine;
+    protected CdcKafkaProducer producer;
+    protected EmbeddedEngine engine;
 
     public static String kafkaBootstrapServers;
-    private final String dbHost;
-    private final int dbPort;
-    private final String dbUser;
-    private final String dbPassword;
-    private final LeaderSelector leaderSelector;
+    protected final String dbHost;
+    protected final int dbPort;
+    protected final String dbUser;
+    protected final String dbPassword;
+    protected final String dbName;
+    protected final LeaderSelector leaderSelector;
 
     public EventTableChangesToAggregateTopicRelay(String kafkaBootstrapServers,
                                                   String dbHost, int dbPort,
-                                                  String dbUser, String dbPassword, CuratorFramework client) {
+                                                  String dbUser, String dbPassword, String dbName, CuratorFramework client) {
         this.kafkaBootstrapServers = kafkaBootstrapServers;
         this.dbHost = dbHost;
         this.dbPort = dbPort;
         this.dbUser = dbUser;
         this.dbPassword = dbPassword;
-
+        this.dbName = dbName;
         leaderSelector = new LeaderSelector(client, "/eventuatelocal/cdc/leader", new LeaderSelectorListener() {
 
             @Override
@@ -107,72 +107,16 @@ public class EventTableChangesToAggregateTopicRelay {
         });
     }
 
-    @PostConstruct
+    @Override
     public void start() {
         logger.info("CDC initialized. Ready to become leader");
         leaderSelector.start();
     }
 
-    public CompletableFuture<Object> startCapturingChanges() throws InterruptedException {
+    public abstract CompletableFuture<Object> startCapturingChanges() throws InterruptedException;
 
-        logger.debug("Starting to capture changes");
-        producer = new CdcKafkaProducer(kafkaBootstrapServers);
 
-        String connectorName = "my-sql-connector";
-        Configuration config = Configuration.create()
-                                    /* begin engine properties */
-                .with("connector.class",
-                        "io.debezium.connector.mysql.MySqlConnector")
-
-                .with("offset.storage", KafkaOffsetBackingStore.class.getName())
-                .with("bootstrap.servers", kafkaBootstrapServers)
-                .with("offset.storage.topic", "eventuate.local.cdc." + connectorName + ".offset.storage")
-
-                .with("poll.interval.ms", 50)
-                .with("offset.flush.interval.ms", 6000)
-                                    /* begin connector properties */
-                .with("name", connectorName)
-                .with("database.hostname", dbHost)
-                .with("database.port", dbPort)
-                .with("database.user", dbUser)
-                .with("database.password", dbPassword)
-                .with("database.server.id", 85744)
-                .with("database.server.name", "light-event-sourcing")
-                //.with("database.whitelist", "eventuate")
-                .with("database.history",
-                        io.debezium.relational.history.KafkaDatabaseHistory.class.getName())
-                .with("database.history.kafka.topic",
-                        "eventuate.local.cdc." + connectorName + ".history.kafka.topic")
-                .with("database.history.kafka.bootstrap.servers",
-                        kafkaBootstrapServers)
-                .build();
-
-        CompletableFuture<Object> completion = new CompletableFuture<>();
-        engine = EmbeddedEngine.create()
-                .using((success, message, throwable) -> {
-                    if (success)
-                        completion.complete(null);
-                    else
-                        completion.completeExceptionally(new RuntimeException("Engine failed to start" + message, throwable));
-                })
-                .using(config)
-                .notifying(this::handleEvent)
-                .build();
-
-        Executor executor = Executors.newCachedThreadPool();
-        executor.execute(() -> {
-            try {
-                engine.run();
-            } catch (Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-        logger.debug("Started engine");
-        return completion;
-    }
-
-    @PreDestroy
+    @Override
     public void stop() throws InterruptedException {
         //stopCapturingChanges();
         leaderSelector.close();
@@ -201,47 +145,8 @@ public class EventTableChangesToAggregateTopicRelay {
         }
     }
 
-    private void handleEvent(SourceRecord sourceRecord) {
-        logger.trace("Got record");
-        String topic = sourceRecord.topic();
-        System.out.println("topic---->:"  + topic);
-        if ("light-event-sourcing.eventuate.events".equals(topic)) {
-            Struct value = (Struct) sourceRecord.value();
-            Struct after = value.getStruct("after");
+    public abstract void handleEvent(SourceRecord sourceRecord) ;
 
-            String eventId = after.getString("event_id");
-            String eventType = after.getString("event_type");
-            String eventData = after.getString("event_data");
-            String entityType = after.getString("entity_type");
-            String entityId = after.getString("entity_id");
-            String triggeringEvent = after.getString("triggering_event");
-            PublishedEvent pe = new PublishedEvent(eventId,
-                    entityId, entityType,
-                    eventData,
-                    eventType);
-
-
-            String aggregateTopic = AggregateTopicMapping.aggregateTypeToTopic(entityType);
-            String json = toJson(pe);
-
-            if (logger.isInfoEnabled())
-                logger.debug("Publishing triggeringEvent={}, event={}", triggeringEvent, json);
-
-            try {
-                producer.send(
-                        aggregateTopic,
-                        entityId,
-                        json
-                ).get(10, TimeUnit.SECONDS);
-            } catch (RuntimeException e) {
-                logger.error("error publishing to " + aggregateTopic, e);
-                throw e;
-            } catch (Throwable e) {
-                logger.error("error publishing to " + aggregateTopic, e);
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
     public static String toJson(PublishedEvent eventInfo) {
         ObjectMapper om = new ObjectMapper();
