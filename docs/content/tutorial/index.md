@@ -10,8 +10,8 @@ The following tutorials will help users to get started and more will be added la
 * [How to build, setting local and docker environment for light-eventuate-4j framework](https://networknt.github.io/light-eventuate-4j/tutorial/setup/)
 
 
-* [How to do unit test](https://networknt.github.io/light-eventuate-4j/tutorials/unit-test/)
+* [How to do unit test](https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/)
 
-* [How to do end-to-end test](https://networknt.github.io/light-eventuate-4j/tutorials/end-to-end-test/)
+* [How to do end-to-end test](https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/)
 
-* [How to do integration test](https://networknt.github.io/light-eventuate-4j/tutorials/integration-test/)
+* [How to do integration test](https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/)

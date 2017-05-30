@@ -1,0 +1,15 @@
+command:
+      build: ./command/
+      ports:
+         - "8083:8083"
+      volumes:
+        - ./docker/command/config:/config
+
+
+
+query:
+      build: ./query/
+      ports:
+         - "8082:8082"
+      volumes:
+        - ./docker/query/config:/config
