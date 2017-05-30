@@ -3,7 +3,7 @@ date: 2017-04-27T09:35:07-04:00
 title: Getting Started
 ---
 
-## Light Eventuate Framework
+## Light Eventuate 4J Framework
 
 ### Distributed data management problems in a microservice architecture:
 
