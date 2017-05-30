@@ -33,10 +33,11 @@ An outbound gateway module processes events by invoking external services.
 
 Diagram:
 
-(/images/Drawing1.png)
+![drawing1](/images/Drawing1.png)
+
 
 Light java based Light-eventuate architecture
 
  In an event-driven architecture, a service publishes events when something notable happens, such as when it updates a business object. Other services subscribe to those events. In response to an event a service typically updates its own state. It might also publish more events, which then get consumed by other services
 
-/images/Drawing3.png
+![drawing3](/images/Drawing3.png)

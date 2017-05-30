@@ -1,26 +1,44 @@
-mysql:
-  image: eventuateio/eventuateio-local-mysql:0.10.0
-  ports:
-    - 3306:3306
-  environment:
-    - MYSQL_ROOT_PASSWORD=rootpassword
-    - MYSQL_USER=mysqluser
-    - MYSQL_PASSWORD=mysqlpw
+version: "2"
+#
+# Services
+#
+services:
+  mysql:
+     image: eventuateio/eventuateio-local-mysql:0.10.0
+     ports:
+      - 3306:3306
+     environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=mysqlpw
+     networks:
+      - localnet
 
-zookeeper:
-  image: chenyan71/local-zookeeper:1.0
-  ports:
-    - 2181:2181
-    - 2888:2888
+  zookeeper:
+       image: chenyan71/local-zookeeper:1.0
+       ports:
+          - 2181:2181
+          - 2888:2888
+       networks:
+          - localnet
 
-kafka:
-  image: chenyan71/local-kafka:1.0
-  ports:
-    - 9092:9092
-  links:
-    - zookeeper
-  environment:
-    - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
-    - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
-    - ZOOKEEPER_SERVERS=zookeeper:2181
+  kafka:
+       image: chenyan71/local-kafka:1.0
+       ports:
+          - 9092:9092
+       links:
+          - zookeeper
+       environment:
+          - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
+          - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
+          - ZOOKEEPER_SERVERS=zookeeper:2181
+       networks:
+          - localnet
 
+#
+# Networks
+#
+networks:
+  localnet:
+    # driver: bridge
+    external: true
