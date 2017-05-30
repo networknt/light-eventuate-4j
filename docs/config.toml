@@ -1,4 +1,4 @@
-baseurl = "https://networknt.github.io/light-eventuate-4j/"
+baseurl = "https://networknt.github.io/light-eventuate-4j"
 languageCode = "en-us"
 title = "Light Eventuate 4J - An event sourcing and CQRS framework with Kafka"
 theme = "hugo-material-docs"
@@ -47,7 +47,7 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Introduction"
-	url    = "/index.html"
+	url    = "introduction/"
 	weight = 10
 
 [[menu.main]]
