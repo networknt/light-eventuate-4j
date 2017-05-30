@@ -5,7 +5,7 @@ title: Desgin
 
 #Light-eventuate conceptual model
 
-/images/Drawing1.png
+![drawing1](/images/Drawing1.png)
 
 Entity
 
