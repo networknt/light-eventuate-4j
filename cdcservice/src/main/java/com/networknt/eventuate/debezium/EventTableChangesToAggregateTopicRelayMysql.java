@@ -32,6 +32,7 @@ public class EventTableChangesToAggregateTopicRelayMysql extends EventTableChang
 
         logger.debug("Starting to capture changes");
         producer = new CdcKafkaProducer(kafkaBootstrapServers);
+        System.out.println("kafkaBootstrapServers:" + kafkaBootstrapServers);
 
         String connectorName = "my-sql-connector";
         Configuration config = Configuration.create()
@@ -63,6 +64,7 @@ public class EventTableChangesToAggregateTopicRelayMysql extends EventTableChang
                 .build();
 
         CompletableFuture<Object> completion = new CompletableFuture<>();
+        System.out.println("build engineer:");
         engine = EmbeddedEngine.create()
                 .using((success, message, throwable) -> {
                     if (success)

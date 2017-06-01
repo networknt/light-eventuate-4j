@@ -35,6 +35,7 @@ public class CdcKafkaConsumer {
   private Properties consumerProperties;
   static String CONFIG_NAME = "kafkaconfig";
   static KafkaConfig config;
+  private String bootstrapServers;
 
   public CdcKafkaConsumer(String subscriberId, BiConsumer<ConsumerRecord<String, String>, BiConsumer<Void, Throwable>> handler, List<String> topics, String bootstrapServers) {
 
@@ -44,8 +45,14 @@ public class CdcKafkaConsumer {
 
     config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
 
+    if (bootstrapServers!=null) {
+      this.bootstrapServers = bootstrapServers;
+    } else {
+      this.bootstrapServers = config.getBootstrapServers();
+    }
+    System.out.println("kafka bootstrap services:" + this.bootstrapServers);
     consumerProperties = new Properties();
-    consumerProperties.put("bootstrap.servers", bootstrapServers);
+    consumerProperties.put("bootstrap.servers", this.bootstrapServers);
     consumerProperties.put("group.id", subscriberId);
     consumerProperties.put("enable.auto.commit", config.isEnableaAutocommit());
     //consumerProperties.put("auto.commit.interval.ms", "1000");
