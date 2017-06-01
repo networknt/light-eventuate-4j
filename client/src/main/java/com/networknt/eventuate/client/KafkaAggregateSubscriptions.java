@@ -35,7 +35,7 @@ public class KafkaAggregateSubscriptions implements AggregateEvents {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  String bootstrapServers="localhost:9092";
+  String bootstrapServers= null;
 
   public KafkaAggregateSubscriptions() {
 
