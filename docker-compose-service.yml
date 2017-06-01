@@ -7,6 +7,7 @@ services:
       build: ./command/
       volumes:
         - ./docker/command/config:/config
+        - ./docker/command/service:/service
       networks:
           - localnet
 
