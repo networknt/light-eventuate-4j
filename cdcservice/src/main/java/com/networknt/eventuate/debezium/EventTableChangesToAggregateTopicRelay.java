@@ -42,7 +42,10 @@ public abstract class EventTableChangesToAggregateTopicRelay implements TableCha
     public EventTableChangesToAggregateTopicRelay(String kafkaBootstrapServers,
                                                   String dbHost, int dbPort,
                                                   String dbUser, String dbPassword, String dbName, CuratorFramework client) {
+
+        System.out.println("DB Host:" + dbHost);
         this.kafkaBootstrapServers = kafkaBootstrapServers;
+
         this.dbHost = dbHost;
         this.dbPort = dbPort;
         this.dbUser = dbUser;
