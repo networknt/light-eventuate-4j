@@ -219,10 +219,14 @@ java -jar ./target/eventuate-todo-query-service-0.1.0.jar
 ## Dockerization
 
   -- go to project root folder: /light-eventuate-example/todo-list/
+
   run command:
-  ```
+
+
   docker-compose up
-  ```
+
+
+
 
 
 ##Verify result:
