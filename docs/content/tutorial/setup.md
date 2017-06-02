@@ -82,9 +82,9 @@ The light event sourcing framework provide a server side command service to run 
 
 Run command side service:
 
-```
+
 java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server
-```
+
 
 
 
@@ -97,9 +97,9 @@ The light event sourcing framework provide a server side query service to  work 
 
 Run query side service
 
-```
+
 java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
-```
+
 
 ##  Test user event sourcing services
 
@@ -108,19 +108,24 @@ User can use Postman or develop UI or test class to test the services based on t
 
 ## Dockerization
 
+
 Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
+
   -- go to project root folder: /light-eventuate-4j
-  ```
+
   -- run docker-compose up
-  ```
-    system will start ALL required event store components (mysql, zookeeper, kafka)
+
+ system will start ALL required event store components (mysql, zookeeper, kafka)
+
 
 
  -- Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/docker/command/service
-   ```
+
+
    run docker-compose -f docker-compose-service.yml up
-   ```
-  System will start CDC service and run the command side hybrid services (if you have command side services)
+
+
+ System will start CDC service and run the command side hybrid services (if you have command side services)
 
 
 ## Integration
