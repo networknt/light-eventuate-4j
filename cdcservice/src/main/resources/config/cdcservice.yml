@@ -1,5 +1,4 @@
 ---
-description: Change Data Capture Service to relay event table updates to aggregate topics
 dbType: mysql
 dbHost: localhost
 dbPort: 3306
