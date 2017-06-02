@@ -174,35 +174,58 @@ It initially generated from swaggen specification based on light-codegen. The se
 
 ## Integration Test
 
+Following the steps on tutorial to start event store and CDC service.
+
+For command side service:
+
 From the root folder of the todo-list project: /light-eventuate-example/todo-list, use maven to build the project:
 
+
+```
 cmd: mvn clean install
-
 ```
 
-```
 
-Copy the command side serivce jar (eventuate-todo-command-service-0.1.0.jar) to framework's command serivce folder:
-
-/light-eventuate-4j/command/service.
+Go to the  command serivce folder:/light-eventuate-example/todo-list/command-service:
 
 Start command side service:
-
 ```
-java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server
-```
-
+mvn exec:exec
 ```
 
-Copy the query side serivce jar (eventuate-todo-query-service-0.1.0.jar) to framework's query serivce folder:
-
-/light-eventuate-4j/query/service.
-
-Start query side service:
-
+Or
 ```
-java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
+java -jar ./target/eventuate-todo-command-service-0.1.0.jar
 ```
+
+
+
+For query side service:
+```
+
+Go to the  query serivce folder:/light-eventuate-example/todo-list/query-service::
+
+Start command side service:
+```
+mvn exec:exec
+```
+
+Or
+```
+java -jar ./target/eventuate-todo-query-service-0.1.0.jar
+```
+
+
+## Dockerization
+
+  -- go to project root folder: /light-eventuate-example/todo-list/
+  run command:
+  ```
+  docker-compose up
+  ```
+
+
+##Verify result:
 
 Open Postman, send POST request to URL:http://localhost:8083/v1/todos
 with Json format request body:

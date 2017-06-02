@@ -110,14 +110,17 @@ User can use Postman or develop UI or test class to test the services based on t
 
 Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
   -- go to project root folder: /light-eventuate-4j
+  ```
   -- run docker-compose up
+  ```
     system will start ALL required event store components (mysql, zookeeper, kafka)
 
- -- Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/command/service
-    copy user defined query side services to /light-eventuate-4j/query/service.
 
- --- go to docker module in the light-eventute-4j project: cd /light-eventuate-4j/docker
- --- run docker-compose up to start the command and query side services
+ -- Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/docker/command/service
+   ```
+   run docker-compose -f docker-compose-service.yml up
+   ```
+  System will start CDC service and run the command side hybrid services (if you have command side services)
 
 
 ## Integration
