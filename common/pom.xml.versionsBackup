@@ -21,22 +21,18 @@
     <parent>
         <groupId>com.networknt</groupId>
         <artifactId>light-eventuate-4j</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.0</version>
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>eventuate-test</artifactId>
+    <artifactId>eventuate-common</artifactId>
     <packaging>jar</packaging>
-    <description>Test cases for eventuate components.</description>
+    <description>A common component of light eventuate framework shared between client and server.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-testdomain</artifactId>
+            <artifactId>config</artifactId>
         </dependency>
 
         <dependency>
@@ -67,6 +63,7 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 </project>
