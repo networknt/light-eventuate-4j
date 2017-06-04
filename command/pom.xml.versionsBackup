@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.networknt</groupId>
         <artifactId>light-eventuate-4j</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.0</version>
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>eventuate-query</artifactId>
+    <artifactId>eventuate-command</artifactId>
     <packaging>jar</packaging>
-    <description>A light-hybrid-4j microservice server for query side services.</description>
+    <description>A light-hybrid-4j microservice server for command side services.</description>
 
     <dependencies>
         <dependency>
@@ -115,6 +115,10 @@
         <dependency>
             <groupId>io.debezium</groupId>
             <artifactId>debezium-connector-mysql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.debezium</groupId>
+            <artifactId>debezium-connector-postgres</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
