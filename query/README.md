@@ -1,7 +1,7 @@
 # Light Hybrid 4J Query Server
 
-This is a light-hybrid-4j server for query side services. All readonly light-hybrid-4j 
-services should be deployed on this server. 
+This is a light-hybrid-4j server for query side services. All readonly light-hybrid-4j
+services should be deployed on this server.
 
 ## Start server
 
@@ -30,3 +30,5 @@ java -cp ./service/*;target/eventuate-query-1.3.0.jar com.networknt.server.Serve
 
 
 ## Docker
+run docker-compose -f docker-compose-service.yml up from light-eventuate-4j root folder
+  -- it will build and run the Dockerfile under command module
