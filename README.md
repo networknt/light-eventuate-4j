@@ -26,6 +26,7 @@ light-eventuate-4j pt process/subscriber the events.
 
 light-4j:      Provide microservice platform; Restful service.
 mysql:         Database for persisting events information
+zookeeper:     Server used for Kafka
 Apache Kafka:  Message broker for publishing / subscribing  events
 
 
@@ -33,7 +34,7 @@ Apache Kafka:  Message broker for publishing / subscribing  events
 
 eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka
 
-eventuate-cdcserver:                   Handle MySQL replication stream and publishes them to Apache Kafka;
+eventuate-cdcservice:                   Handle MySQL replication stream and publishes them to Apache Kafka;
 
 eventuate-client/eventuate-common :    Eventuate domain and core interface
 
@@ -41,9 +42,12 @@ eventuate-event:                       Eventuate event handle interface and impl
 
 eventuate-jdbc:                        Eventuate database API for persisting event to database tables
 
-command:                               Command side service which use to work as container to  run command side services. Copy the command side services jar files in to the /service folder in this module
+command:                               Command side service which use to work as container to  run command side hybrid services.
+                                       Copy the command side services jar files in to the /service folder in this module. And usually, we can put cdc service in the /service folder.
+                                       This module is generated based on light-codegen
 
-query:                                 Query side service which use to work as container to  run Query side services. Copy the query side services jar files in to the /service folder in this module
+query:                                 Query side service which use to work as container to  run Query side hybrid  services.
+                                       Copy the query side services jar files in to the /service folder in this module; This module is generated based on light-codegen
 
 
 # light-eventuate tasks TODO list:
