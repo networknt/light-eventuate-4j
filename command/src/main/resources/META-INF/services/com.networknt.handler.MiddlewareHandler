@@ -4,6 +4,8 @@
 
 #SimpleAudit Log important info about the request into audit log
 com.networknt.audit.AuditHandler
+#Jwt Token Verification for signature and expiration
+com.networknt.rpc.security.JwtVerifyHandler
 #Correlation Create correlationId if it doesn't exist in the request header and put it into the request header
 com.networknt.correlation.CorrelationHandler
 #Traceability Put traceabilityId into response header from request header if it exists
