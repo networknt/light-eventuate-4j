@@ -13,6 +13,16 @@ services:
       networks:
           - localnet
 
+   query:
+      build: ./query/
+      volumes:
+        - ./docker/query/config:/config
+        - ./docker/query/service:/service
+      ports:
+        - 8082:8082
+      networks:
+          - localnet
+
 
 # Networks
 #
