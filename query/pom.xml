@@ -56,6 +56,10 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
             <artifactId>rpc-router</artifactId>
         </dependency>
         <dependency>
@@ -77,17 +81,14 @@
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-event</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-client</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-jdbc</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
