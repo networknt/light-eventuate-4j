@@ -8,6 +8,8 @@ services:
       volumes:
         - ./docker/command/config:/config
         - ./docker/command/service:/service
+      ports:
+        - 8083:8083
       networks:
           - localnet
 
