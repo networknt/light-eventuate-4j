@@ -6,8 +6,10 @@ singletons:
       jdbcUrl: jdbc:mysql://mysql:3306/eventuate?useSSL=false
       username: mysqluser
       password: mysqlpw
-- com.networknt.eventuate.common.impl.sync.AggregateCrud,com.networknt.eventuate.common.impl.sync.AggregateEvents:
-    - com.networknt.eventuate.test.jdbc.EventuateEmbeddedTestAggregateStore
+- com.networknt.eventuate.common.impl.sync.AggregateCrud:
+  - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
+- com.networknt.eventuate.common.impl.sync.AggregateEvents:
+  - com.networknt.eventuate.client.EventuateLocalAggregatesEvents
 - com.networknt.eventuate.common.impl.AggregateCrud:
   - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateCrudAdapter
 - com.networknt.eventuate.common.impl.AggregateEvents:
