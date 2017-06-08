@@ -2,4 +2,4 @@
 # set up db connection pools and allocate resources.
 
 # Start event table changes to aggregate topic relay service
-# com.networknt.eventuate.cdcservice.CdcStartupHookProvider
+com.networknt.eventuate.cdcservice.CdcStartupHookProvider

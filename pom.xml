@@ -112,6 +112,7 @@
         <module>testutil</module>
         <module>testjdbc</module>
         <module>testexample</module>
+        <module>admin</module>
     </modules>
 
     <dependencyManagement>

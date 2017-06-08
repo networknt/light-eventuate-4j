@@ -1,0 +1,16 @@
+---
+description: Change Data Capture Service to relay event table updates to aggregate topics
+dbType: mysql
+dbHost: mysql
+dbPort: 3306
+dbUser: root
+dbPass: rootpassword
+kafka: kafka:9092
+zookeeper: zookeeper:2181
+cdcDbUser: root
+cdcDbPass: rootpassword
+postgresDbHost: localhost
+postgresDBPort: 5432
+postgresDbUser: postgres
+postgresDbPass: postgres
+postgresDbName: postgres
