@@ -3,4 +3,4 @@
 # implement com.networknt.server.ShutdownHookProvider interface and put your class here.
 
 # Shutdown event table changes to Aggregate topic relay service
-# com.networknt.eventuate.cdcservice.CdcShutdownHookProvider
+com.networknt.eventuate.cdcservice.CdcShutdownHookProvider
