@@ -1,0 +1,20 @@
+version: "2"
+#
+# Services
+#
+services:
+   cdcservice:
+      build: ./cdcservice/
+      volumes:
+        - ./docker/cdcservice/config:/config
+      networks:
+          - localnet
+
+
+
+# Networks
+#
+networks:
+  localnet:
+    # driver: bridge
+    external: true

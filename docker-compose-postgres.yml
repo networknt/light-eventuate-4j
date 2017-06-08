@@ -1,27 +1,39 @@
-postgresdb:
-      image: chenyan71/postgresql:1.0
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-      ports:
+version: "2"
+#
+# Services
+#
+services:
+  postgresdb:
+    image: chenyan71/postgresql:1.0
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: postgres
+    ports:
         - 5432:5432
-      volumes:
+    volumes:
         - database:/var/lib/postgresql/data
 
-zookeeper:
-  image: chenyan71/local-zookeeper:1.0
-  ports:
-    - 2181:2181
-    - 2888:2888
+  zookeeper:
+    image: chenyan71/local-zookeeper:1.0
+    ports:
+      - 2181:2181
+      - 2888:2888
 
-kafka:
-  image: chenyan71/local-kafka:1.0
-  ports:
-    - 9092:9092
-  links:
-    - zookeeper
-  environment:
-    - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
-    - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
-    - ZOOKEEPER_SERVERS=zookeeper:2181
+  kafka:
+    image: chenyan71/local-kafka:1.0
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    environment:
+      - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
+      - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
+      - ZOOKEEPER_SERVERS=zookeeper:2181
 
+
+# Networks
+#
+networks:
+  localnet:
+    # driver: bridge
+    external: true
