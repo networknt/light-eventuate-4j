@@ -6,7 +6,13 @@ An eventual consistency framework implementation based on event sourcing, CQRS a
 
 [![Build Status](https://travis-ci.org/networknt/light-eventuate-4j.svg?branch=master)](https://travis-ci.org/networknt/light-eventuate-4j)
 
-light-eventuate build on light-4j and will be use for distributed data management. Light 4j 
+
+When building microservices, there are two major ways for service to service communication:
+ 
+- request/response
+- 
+
+light-eventuate-4j build on light-4j and will be use for distributed data management. [Light-4j](https://github.com/networknt/light-4j) 
 is microservice platform framework; For microservice implementation, developing business 
 transactions that update entities that are owned by multiple services is a challenge, as is 
 implementing queries that retrieve data from multiple services;
@@ -67,7 +73,4 @@ add more junit cases for the project.
 create an admin console for project to monitor the event process and the event sync between different service.
 
 create example project  top of Light 4J and Light Eventuate 4J.
-
-
-
 
