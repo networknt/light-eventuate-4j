@@ -7,10 +7,34 @@ An eventual consistency framework implementation based on event sourcing, CQRS a
 [![Build Status](https://travis-ci.org/networknt/light-eventuate-4j.svg?branch=master)](https://travis-ci.org/networknt/light-eventuate-4j)
 
 
-When building microservices, there are two major ways for service to service communication:
+When building microservices, there are two major patterns are used for service
+to service communication.
+
+## Synchronous, Request/Response Communication
+
+In light-4j, this means to use Client module to call other services in the request/response
+fashion regardless light-rest-4j, light-graphql-4j or light-hybrid-4j is used. 
  
-- request/response
-- 
+## Asynchronous, Message-Based Communication
+
+The eventual consistency framework light-eventuate-4j is designed to facilitate asynchronous
+communication between services built on top of light-rest-4j, light-grahpql-4j and light-hybrid-4j.
+
+For pros and cons of each communication patterns, please see [here]()
+
+## light-eventuate-4j components:
+
+light-4j, light-rest-4j, light-graphql-4j and light-hybrid-4j provide platforms to build microservices in REST, Graphql and Hybrid/RPC style.
+
+Mysql, Postgresql or Oracle for event store to persist events
+
+Zookeeper is used to manage Kafka cluster
+
+Apache Kafka is used as message brokers for publishing/subscribing events
+
+Debezium is used to publish database transaction log to Kafka
+
+
 
 light-eventuate-4j build on light-4j and will be use for distributed data management. [Light-4j](https://github.com/networknt/light-4j) 
 is microservice platform framework; For microservice implementation, developing business 
@@ -33,44 +57,4 @@ and implement it owen event handle. The implemented event handle will  call the 
 light-eventuate-4j pt process/subscriber the events.
 
 
-# light-eventuate components:
-
-light-4j:      Provide microservice platform; Restful service.
-mysql:         Database for persisting events information
-zookeeper:     Server used for Kafka
-Apache Kafka:  Message broker for publishing / subscribing  events
-
-
-# light-eventuate project structure:
-
-eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka
-
-eventuate-cdcservice:                   Handle MySQL replication stream and publishes them to Apache Kafka;
-
-eventuate-client/eventuate-common :    Eventuate domain and core interface
-
-eventuate-event:                       Eventuate event handle interface and implementation
-
-eventuate-jdbc:                        Eventuate database API for persisting event to database tables
-
-command:                               Command side service which use to work as container to  run command side hybrid services.
-                                       Copy the command side services jar files in to the /service folder in this module. And usually, we can put cdc service in the /service folder.
-                                       This module is generated based on light-codegen
-
-query:                                 Query side service which use to work as container to  run Query side hybrid  services.
-                                       Copy the query side services jar files in to the /service folder in this module; This module is generated based on light-codegen
-
-
-# light-eventuate tasks TODO list:
-
-enrich the eventuate-cdccore package by adding Kafka stream API to handle events in stream 
-chain; implement Stream as Table.
-
-enrich eventuate-jdbc to handle different database.
-
-add more junit cases for the project.
-
-create an admin console for project to monitor the event process and the event sync between different service.
-
-create example project  top of Light 4J and Light Eventuate 4J.
 

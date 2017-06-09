@@ -74,7 +74,6 @@ until they can be processed by the consumer. This means, for example, that an on
 from customers even when the order fulfillment system is slow or unavailable. The order messages simply queue 
 up.
 
-
 - Flexible client-service interactions 
 
 Messaging supports all of the interaction styles described earlier.
@@ -102,6 +101,13 @@ Request/response-style interaction requires some work to implement. Each request
 channel identifier and a correlation identifier. The service writes a response message containing the 
 correlation ID to the reply channel. The client uses the correlation ID to match the response with the request. 
 It is often easier to use an IPC mechanism that directly supports request/response.
+
+- Client needs to discover location of message broker
+
+Given message broker is the most important of component in the infrastructure, it is normally a cluster of
+serveral instances. This makes client more complicated to locate which instance to communicate with and how
+to fail over to other instances when the current one fails. 
+
 
 # Summary
 
