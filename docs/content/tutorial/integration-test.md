@@ -11,9 +11,13 @@ title: Integration Test
 2. Send request from command side the publish events:
 
  From postmand, send post request:
+
    URL: http://localhost:8083/v1/todos
+
    Headers:[{"key":"Content-Type","value":"application/json","description":""}]
+
    Body: {"title":" this is the test todo from postman1","completed":false,"order":0}
+
 
    Response:
 {
