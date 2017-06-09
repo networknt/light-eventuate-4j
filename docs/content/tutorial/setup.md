@@ -28,6 +28,7 @@ git clone git@github.com:networknt/light-rest-4j.git
 git clone git@github.com:networknt/light-codegen.git
 git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
+git clone git@github.com:networknt/light-hybrid-4j.git
 
 ## Prepare workspace
 
@@ -66,66 +67,129 @@ The event store is build upon the database (mysql or postgresql) and distributed
 --- Start Kafka server
   >bin/kafka-server-start.sh config/server.properties
 
---- postgresql (if user select postgre as database to save event/entity/snapshot records)
+--- postgresql (if user select postgreSql as database to save event/entity/snapshot records)
   --TODO
 
 
 
+## Prepare and start event sourcing CDC (capture data change service).
+
+CDC service use database replication to populate data from database (mysql) to distributed stream system (kafka).
+
+-- go to cdcservice project module:
+  cd cdcservice
+
+-- run command line:
+  ```
+  java -cp target/eventuate-command-1.3.1.jar com.networknt.server.Server
+  ```
+
+  or
+
+  mvn exec:exec
 
 
-## Prepare and start event sourcing command side service.
+## Prepare and start event sourcing command side service and query side service.
 
-The light event sourcing framework provide a server side command service to run CDC(capture data change) and work as service container to run user defined event sourcing command side microservices
+Normally event sourcing system will have at least two microservices:
 
- -- copy the cdc service jar file (/cdcservice/target/eventuate-cdcservice-1.3.0.jar) to command service container folder: /light-eventuate-4j/command/service
- -- copy user defined command side service jar into same folder: /light-eventuate-4j/command/service
+command side service
 
-Run command side service:
+query side service
 
-
-java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server
+For example, to use our simple todo-list example:
 
 
+ Go to light-eventuate-example/todo-list
+ Build the project from command line:
+   --mvn clean install
+
+## Command side service
+
+ Go command-service module, run command line:
+   -- mvn package exec:exec
 
 
-## Prepare and start event sourcing query side service.
+## Query side service
 
-The light event sourcing framework provide a server side query service to  work as service container to run user defined event sourcing query side microservices
-
--- copy user defined query side service jar into same folder: /light-eventuate-4j/query/service
+ Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)
 
 
-Run query side service
+    create database todo_db;
+
+    CREATE  TABLE TODO (
+      ID varchar(255),
+      TITLE varchar(255),
+      COMPLETED BOOLEAN,
+      ORDER_ID INTEGER,
+      ACTIVE_FLG varchar(1) DEFAULT 'Y',
+      PRIMARY KEY(ID)
+    );
+
+    GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
+
+ Go query-service module, run command line:
+   -- mvn package exec:exec
 
 
-java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
 
-
-##  Test user event sourcing services
-
-User can use Postman or develop UI or test class to test the services based on the swaggen
 
 
 ## Dockerization
 
 
+# Event Store docker compose:
+
 Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
 
-  -- go to project root folder: /light-eventuate-4j
+  -- From light-eventuate-4j project root folder: /light-eventuate-4j
 
   -- run docker-compose up
 
  system will start ALL required event store components (mysql, zookeeper, kafka)
 
 
+  For todo-list exampleocumentdocumentdd:
+   Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)
 
- -- Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/docker/command/service
+      create database todo_db;
+
+      CREATE  TABLE TODO (
+        ID varchar(255),
+        TITLE varchar(255),
+        COMPLETED BOOLEAN,
+        ORDER_ID INTEGER,
+        ACTIVE_FLG varchar(1) DEFAULT 'Y',
+        PRIMARY KEY(ID)
+      );
+
+      GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 
 
-   run docker-compose -f docker-compose-service.yml up
+
+# For Restful Services
+
+ Start CDC service:
+
+  -- From light-eventuate-4j project root folder: /light-eventuate-4j
+
+  -- run docker-compose -f docker-compose-cdcservice.yml up
+
+ Run Command/Query side service:
 
 
- System will start CDC service and run the command side hybrid services (if you have command side services)
+  -- From todo-list example root folder: /light-eventuate-example/todo-list
+
+  -- run docker-compose up
+
+
+
+# For Hybrid API Services
+
+  -- From light-eventuate-4j project root folder: /light-eventuate-4j
+
+  -- Run docker-compose -f docker-compose-service.yml up
+
 
 
 ## Integration
