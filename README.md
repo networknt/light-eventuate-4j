@@ -1,5 +1,10 @@
-:# light-eventuate
-An eventuate framework implementation based on event sourcing and CQRS on top of Light Java. 
+An eventual consistency framework implementation based on event sourcing, CQRS and Kafka on top of light-4j. 
+
+[Developer Chat](https://gitter.im/networknt/light-eventuate-4j) |
+[Documentation](https://networknt.github.io/light-eventuate-4j) |
+[Contribution Guide](CONTRIBUTING.md) |
+
+[![Build Status](https://travis-ci.org/networknt/light-eventuate-4j.svg?branch=master)](https://travis-ci.org/networknt/light-eventuate-4j)
 
 light-eventuate build on light-4j and will be use for distributed data management. Light 4j 
 is microservice platform framework; For microservice implementation, developing business 
