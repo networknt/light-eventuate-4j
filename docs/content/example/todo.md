@@ -235,9 +235,12 @@ java -jar ./target/eventuate-todo-query-service-0.1.0.jar
 1. Send request from command side the publish events:
 
  From postmand, send post request:
-   URL: http://localhost:8083/v1/todos
-   Headers:[{"key":"Content-Type","value":"application/json","description":""}]
-   Body: {"title":" this is the test todo from postman1","completed":false,"order":0}
+
+   URL: http://localhost:8083/v1/todos;
+
+   Headers:[{"key":"Content-Type","value":"application/json","description":""}];
+
+   Body: {"title":" this is the test todo from postman1","completed":false,"order":0};
 
    Response:
 {
@@ -245,13 +248,16 @@ java -jar ./target/eventuate-todo-query-service-0.1.0.jar
   "cancelled": false,
   "completedExceptionally": false,
   "numberOfDependents": 0
-}
+};
 
  This request will send request which will call backe-end service to generate a "create todo" event and publish to event store.
- Event sourcing system will save the event into event store
+
+ Event sourcing system will save the event into event store.
+
  CDC service will be triggered and will publish event to Kafka:
 
 The request will publish a "CreateTodo" event and will save the entity/event to the event store mysql database.
+
  we can use sql to verify:
 
  select * from entity;
@@ -268,7 +274,7 @@ For todo-list example, the event handle simply get the event and save the latest
 
 From Postman or from brower, send GET request:
 
-http://localhost:8082/v1/todos
+http://localhost:8082/v1/todos;
 
 Reponse:
 [
@@ -279,7 +285,7 @@ Reponse:
       "order": 0
     }
   }
-]
+];
 
 
 ## End
