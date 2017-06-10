@@ -10,3 +10,5 @@ Here is a list of architecure decisions for light-eventuate-4j:
 * [Event Driven](https://networknt.github.io/light-eventuate-4j/architecture/event-driven/) 
 
 * [Event Sourcing](https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/)
+
+* [CQRS](https://networknt.github.io/light-eventuate-4j/architecture/cqrs/)
