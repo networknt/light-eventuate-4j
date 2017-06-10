@@ -7,8 +7,8 @@ title: Getting Started
 
 One of the major issues that we have seen occur in a system with microservices is the way transactions 
 work when they span over different services. Within our old monolithic architecture, we have been using 
-distributed transactions to resolve this, but they come with their own issues. Especially deadlocks have 
-been a pain and scalability is a big headache. 
+distributed transactions to resolve this, but they come with their own issues. It is very hard to avoid
+deadlocks and scale the application when business grows. 
 
 Distributed transaction management is a key architectural consideration that needs to be addressed whenever 
 you are proposing a microservices deployment model to a customer. For developers from the monolithic 
@@ -66,4 +66,5 @@ in the event store, it is delivered to all interested subscribers.
 
 [Distributed Transactions: The Icebergs of Microserivces](http://www.grahamlea.com/2016/08/distributed-transactions-microservices-icebergs/)
 [Transactions in Microservices](https://dzone.com/articles/transactions-in-microservices)
-
+[Developing Transactional Microservices Using Aggregates, Event Sourcing and CQRS - Part 1](https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-1-richardson)
+[Developing Transactional Microservices Using Aggregates, Event Sourcing and CQRS - Part 2](https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson)
