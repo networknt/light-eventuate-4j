@@ -3,6 +3,14 @@
 
 ### Changed
 
+## 1.3.2 - 2017-06-14
+### Added
+- Fixes #17 add cleanup.sh to remove eventuate containers and images
+
+### Changed
+- Upgrade to light-4j 1.3.2
+
+
 ## 1.3.1 - 2017-06-04
 ### Added
 - Fixes #12 add cdcservice and add command and query servers
