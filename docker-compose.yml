@@ -4,7 +4,7 @@ version: "2"
 #
 services:
   mysql:
-     image: eventuateio/eventuateio-local-mysql:0.10.0
+     image: chenyan71/local-mysql:1.0
      ports:
       - 3306:3306
      environment:

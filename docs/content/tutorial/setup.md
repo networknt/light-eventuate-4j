@@ -1,6 +1,6 @@
 ---
 date: 2016-10-09T08:01:56-04:00
-title: Microservices
+title: Framework Setup
 ---
 
 ## Introduction
@@ -30,6 +30,7 @@ git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
 git clone git@github.com:networknt/light-hybrid-4j.git
 
+
 ## Prepare workspace
 
 Go into the projects folder above, and build the project with maven
@@ -39,7 +40,7 @@ mvn clean install
 
 ```
 
-## Prepare and start event store
+## Prepare and start event store (without docker)
 
 The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
 The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.
@@ -112,7 +113,7 @@ For example, to use our simple todo-list example:
 
 ## Query side service
 
- Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)
+ Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)
 
 
     create database todo_db;
@@ -135,10 +136,13 @@ For example, to use our simple todo-list example:
 
 
 
-## Dockerization
 
 
-# Event Store docker compose:
+# Dockerization
+
+* [How to build and create event store docker images for light-eventuate-4j framework](https://networknt.github.io/light-eventuate-4j/tutorial/docker/)
+
+## Event Store docker compose:
 
 Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
 
@@ -149,8 +153,9 @@ Docker can simplify the application delivery. For light event sourcing system, t
  system will start ALL required event store components (mysql, zookeeper, kafka)
 
 
-  For todo-list exampleocumentdocumentdd:
-   Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)
+  For todo-list example:
+
+   Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)
 
       create database todo_db;
 
@@ -167,7 +172,7 @@ Docker can simplify the application delivery. For light event sourcing system, t
 
 
 
-# For Restful Services
+## For Restful Services
 
  Start CDC service:
 
@@ -184,7 +189,7 @@ Docker can simplify the application delivery. For light event sourcing system, t
 
 
 
-# For Hybrid API Services
+## For Hybrid API Services
 
   -- From light-eventuate-4j project root folder: /light-eventuate-4j
 
