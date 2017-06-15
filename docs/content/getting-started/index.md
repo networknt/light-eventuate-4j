@@ -65,6 +65,9 @@ in the event store, it is delivered to all interested subscribers.
 ## Some useful links
 
 [Distributed Transactions: The Icebergs of Microserivces](http://www.grahamlea.com/2016/08/distributed-transactions-microservices-icebergs/)
+
 [Transactions in Microservices](https://dzone.com/articles/transactions-in-microservices)
+
 [Developing Transactional Microservices Using Aggregates, Event Sourcing and CQRS - Part 1](https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-1-richardson)
+
 [Developing Transactional Microservices Using Aggregates, Event Sourcing and CQRS - Part 2](https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson)
