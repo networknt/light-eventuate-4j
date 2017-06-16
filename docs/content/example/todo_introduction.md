@@ -1,6 +1,6 @@
 ---
 date: 2016-10-22T20:22:34-04:00
-title: TodoList
+title: TodoList Introduction
 ---
 
 # Introduction
@@ -22,7 +22,7 @@ There are five parts in this projects:
 
 
 
-# Common module
+## Common module
 
 common module define domain object and event object across module both command side and query side
 
@@ -35,7 +35,7 @@ public interface TodoEvent extends Event {
 by default, light event sourcing framework will use the annotation defined "com.networknt.eventuate.todolist.domain.TodoAggregate" as entity type for entity table and topic name for Kafka.
 
 
-#Command side API
+## Command side API
 
 Command side API implement command to process command and apply events. For todolist sample, it simply return TodoInfo object:
 
@@ -88,7 +88,7 @@ public class TodoAggregate extends ReflectiveMutableCommandProcessingAggregate<T
 
 
 
-#Command side microservice
+## Command side microservice
 
 Command side microservice is light-4j based microservice:
 
@@ -129,7 +129,7 @@ And then in the handler implementation, it will can command side service to publ
 
 
 
-#Query side microservice
+## Query side API
 
 Query side API implement event subscrible and process.
 
@@ -170,122 +170,6 @@ https://networknt.github.io/light-4j/tutorials/microservices/
 
 It initially generated from swaggen specification based on light-codegen. The service generated resfful based microservice to expose API to external which can be call and subscrible the events from event sourcing system.
 
-
-
-## Integration Test
-
-Following the steps on tutorial to start event store and CDC service.
-
-
-For command side service:
-
-From the root folder of the todo-list project: /light-eventuate-example/todo-list, use maven to build the project:
-
-
-```
-cmd: mvn clean install
-```
-
-
-Go to the  command serivce folder:/light-eventuate-example/todo-list/command-service:
-
-Start command side service:
-```
-mvn exec:exec
-```
-
-Or
-```
-java -jar ./target/eventuate-todo-command-service-0.1.0.jar
-```
-
-
-
-For query side service:
-```
-
-Go to the  query serivce folder:/light-eventuate-example/todo-list/query-service::
-
-Start command side service:
-```
-mvn exec:exec
-```
-
-Or
-```
-java -jar ./target/eventuate-todo-query-service-0.1.0.jar
-```
-
-
-## Dockerization
-
-  -- go to project root folder: /light-eventuate-example/todo-list/
-
-  run command:
-
-
-  docker-compose up
-
-
-
-
-
-##Verify result:
-
-1. Send request from command side the publish events:
-
- From postmand, send post request:
-
-   URL: http://localhost:8083/v1/todos;
-
-   Headers:[{"key":"Content-Type","value":"application/json","description":""}];
-
-   Body: {"title":" this is the test todo from postman1","completed":false,"order":0};
-
-   Response:
-{
-  "done": true,
-  "cancelled": false,
-  "completedExceptionally": false,
-  "numberOfDependents": 0
-};
-
- This request will send request which will call backe-end service to generate a "create todo" event and publish to event store.
-
- Event sourcing system will save the event into event store.
-
- CDC service will be triggered and will publish event to Kafka:
-
-The request will publish a "CreateTodo" event and will save the entity/event to the event store mysql database.
-
- we can use sql to verify:
-
- select * from entity;
-
- select * from events;
-
-
-
-
-2. Subscrible the event and process event on the query side:
-
-Event sourcing system will subscrible the events from event store and process user defined event handlers.
-For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.
-
-From Postman or from brower, send GET request:
-
-http://localhost:8082/v1/todos;
-
-Reponse:
-[
-  {
-    "0000015c8a1b67af-0242ac1200060000": {
-      "title": " this is the test todo from postman1",
-      "completed": false,
-      "order": 0
-    }
-  }
-];
 
 
 ## End
