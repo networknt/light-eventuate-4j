@@ -126,7 +126,7 @@ Step 7:  Query side service  process the request and get the todo list from loca
 Step 8: Query side service return the http response back.
 
 
-##Verify result:
+## Verify result:
 
 1. Send request from command side the publish events:
 
