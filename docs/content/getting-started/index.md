@@ -23,7 +23,8 @@ model supported transaction control across disparate relational data sources.
 In today's world, however, the focus is on modular, self-contained APIs. To make these services self-contained 
 and aligned with the microservices deployment paradigm, the data is also self-contained within the module, 
 loosely coupled from other APIs. Encapsulating the data allows the services to grow independently, but a major 
-problem is dealing with keeping data consistent across the services.
+problem is dealing with keeping data consistent across the services. If every service has its own database,
+then distributed transaction is not an option. 
 
 A microservices architecture promotes availability over consistency, hence leveraging a distributed transaction
 coordinator with a two-phase commit protocol is usually not an option. It gets even more complicated with the 
@@ -48,7 +49,23 @@ have a credit limit. The application must ensure that a new order will not excee
 credit limit. Since Orders and Customers are in different databases the application cannot simply 
 use a local ACID transaction.
 
-## Solution
+## Event-driven architecture
+
+A good way to solve these distributed data management challenges is by using an event-driven 
+architecture. In an event-driven application services publish and consume events. A service 
+publishes an event whenever it changes the state of an entity. Another service can subscribe 
+to that event and update its own entities and possibly publish other events. You can implement 
+a business transaction that updates multiple entities as a series of steps, each of which 
+updates one entity and publishes an event that triggers the next step. Also, a service can 
+maintain the consistency of a replica by subscribing to the events that are published when 
+the master copy is updated.
+
+## Event Sourcing
+
+One essential requirement in an EDA is the ability to atomically update state and publish events. 
+In a traditional application the database storing the state and the message broker could participate 
+in a distributed transactions. But the lack of 2PC in a cloud native world makes this a challenging 
+problem to solve. 
 
 A good solution to this problem is to use event sourcing. Event sourcing persists the state of 
 a business entity as a sequence of state-changing events. Whenever the state of a business entity 

@@ -7,7 +7,7 @@ title: Components
 
 eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka
 
-eventuate-cdcservice:                   Handle MySQL replication stream and publishes them to Apache Kafka;
+eventuate-cdcservice:                  Handle MySQL replication stream and publishes them to Apache Kafka;
 
 eventuate-client/eventuate-common :    Eventuate domain and core interface
 
