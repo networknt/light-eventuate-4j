@@ -7,4 +7,4 @@ The following examples can be found in [light-example-4j](https://github.com/net
 
 * [TODO List](https://networknt.github.io/light-eventuate-4j/example/todo/) - Todo list example
 
-* [Account Money Transfer](https://networknt.github.io/light-eventuate-4j/example/moneyTransfer/) - Account Money Transfer example
+* [Account Money Transfer](https://networknt.github.io/light-eventuate-4j/example/transfer/) - Account Money Transfer example

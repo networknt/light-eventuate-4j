@@ -12,7 +12,7 @@ title: Account Money Transfer
 ## Build related projects:
 
 Checkout related projects.
-```
+
 cd ~/networknt
 git clone git@github.com:networknt/light-4j.git
 git clone git@github.com:networknt/light-rest-4j.git
@@ -22,10 +22,10 @@ git clone git@github.com:networknt/light-eventuate-4j.git
 ## Prepare workspace
 Go into the projects folder above, and build the project with maven
 
-```
+
 mvn clean install
 
-```
+
 
 ## Build Account-management example
 
@@ -41,7 +41,6 @@ mvn clean install
 
 
 ![setting](/images/setting.png)
-
 
 
 

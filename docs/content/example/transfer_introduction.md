@@ -17,8 +17,11 @@ These components can be deployed either as separate services or packaged as a mo
 Modules:
 
 common:  common module for the application. - the domain logic consists of Domain-Driven Design (DDD) aggregates that using event sourcing.
+
 command:  command side common components, include command, services
+
 query:   query side common components, include command, services
+
 e2etest: end to end test module
 
 
