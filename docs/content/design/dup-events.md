@@ -12,6 +12,6 @@ There are several ways to handle duplicate messages.
 
 ## Idempotency
 
-2. Vector clock
+## Vector clock
 
-3. 
+ 

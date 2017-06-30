@@ -13,4 +13,4 @@ Here is a list of architecure decisions for light-eventuate-4j:
 
 * [CQRS](https://networknt.github.io/light-eventuate-4j/architecture/cqrs/)
 
-* [Why not use Kafka as source of truth]()
+* [Why not use Kafka as source of truth](kafka-eventstore/)
