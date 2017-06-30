@@ -1,6 +1,6 @@
 ---
 date: 2016-10-22T20:22:34-04:00
-title: TodoList
+title: Account Money Transfer Example
 ---
 
 * [Account Money transfer Introduction](https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/) - Account Money Transfer example introduction
