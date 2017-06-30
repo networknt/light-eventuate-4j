@@ -14,10 +14,17 @@ title: Account Money Transfer
 Checkout related projects.
 
 cd ~/networknt
+
 git clone git@github.com:networknt/light-4j.git
+
 git clone git@github.com:networknt/light-rest-4j.git
+
 git clone git@github.com:networknt/light-codegen.git
+
 git clone git@github.com:networknt/light-eventuate-4j.git
+
+
+
 
 ## Prepare workspace
 Go into the projects folder above, and build the project with maven
