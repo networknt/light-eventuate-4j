@@ -102,8 +102,6 @@
         <module>cdccore</module>
         <module>cdcserver</module>
         <module>cdcservice</module>
-        <module>command</module>
-        <module>query</module>
         <module>testdomain</module>
         <module>test</module>
         <module>event</module>
@@ -186,11 +184,6 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-cdcservice</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.networknt</groupId>
-                <artifactId>eventuate-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
