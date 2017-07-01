@@ -149,8 +149,6 @@ curl -X DELETE \
   http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001 \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: 13652607-03c2-6c76-3674-19c280b59bfc'
-
 
 
 
@@ -208,30 +206,38 @@ Result:
 ## Create new customer (C1):
 
 POST URL: http://localhost:8083/v1/createcustomer
+
 Header: Content-Type: application/json
+
 Body:
 ```
 {"name":{"firstName":"Google1222","lastName":"Com1"},"email":"aaa1.bbb1@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}
 ```
 
 ## Create an account with the customer (replace the customer id with real customer id):
+
 POST URL: http://localhost:8081/v1/openaccount
+
 Header: Content-Type: application/json
-Body:
-{"customerId":"0000015cf4be6114-0242ac1200060001","title":"RRSP account","description":"account for testing","initialBalance":12355}
+
+Body: {"customerId":"0000015cf4be6114-0242ac1200060001","title":"RRSP account","description":"account for testing","initialBalance":12355}
 
 
 ## Create an account (no link with customer)
+
 POST URL: http://localhost:8081/v1/openaccount
+
 Header: Content-Type: application/json
-Body:
-{"title":"RRSP account","description":"account for testing","initialBalance":12355}
+
+Body: {"title":"RRSP account","description":"account for testing","initialBalance":12355}
 
 
 ## Create new customer (C2):
 
 POST URL: http://localhost:8083/v1/createcustomer
+
 Header: Content-Type: application/json
+
 Body:
 ```
 {"name":{"firstName":"Google12","lastName":"Com1"},"email":"aaa2.bbb2@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}
@@ -241,22 +247,25 @@ Body:
 ## Link account to customer (replace the customer id and account with real Id):
 
 POST URL: http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000
+
 Header: Content-Type: application/json
-Body:
-{"id":"0000015cf4b080c7-0242ac1200070001","title":"title","owner":"google","description":"test case"}
+
+Body: {"id":"0000015cf4b080c7-0242ac1200070001","title":"title","owner":"google","description":"test case"}
 
 
 ## Transfer money from account (replace the from account and to account id with real id):
 
 POST URL: http://localhost:8085/v1/transfers
+
 Header: Content-Type: application/json
-Body:
-{"fromAccountId":"2222-22222","toAccountId":"2222-22223","amount":5000,"description":"test"}
+
+Body:{"fromAccountId":"2222-22222","toAccountId":"2222-22223","amount":5000,"description":"test"}
 
 
 ## Delete account:
 
 DELETE URL: http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001
+
 Header: Content-Type: application/json
 
 
