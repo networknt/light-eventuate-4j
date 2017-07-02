@@ -8,7 +8,7 @@ If you only have one service jar file, then your can include the jar file into t
 class path as below.
 
 ```
-java -cp target/eventuate-command-1.3.1.jar com.networknt.server.Server
+java -cp target/eventuate-command-1.3.3.jar com.networknt.server.Server
 ```
 
 or
