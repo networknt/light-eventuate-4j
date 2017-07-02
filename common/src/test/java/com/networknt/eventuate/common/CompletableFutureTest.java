@@ -25,7 +25,7 @@ public class CompletableFutureTest {
       f3.get();
       fail();
     } catch (ExecutionException e ) {
-      e.printStackTrace();
+    //  e.printStackTrace();
       assertTrue(e.getCause() instanceof RuntimeException);
       assertEquals("z", e.getCause().getMessage());
     }
