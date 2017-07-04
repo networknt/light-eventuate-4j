@@ -65,7 +65,7 @@ curl -X POST \
   http://localhost:8083/v1/createcustomer \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -d '{"name":{"firstName":"Google11”,”lastName":"Com"},"email":"aaa1.bbb1@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}'
+  -d '{"name":{"firstName":"Google11","lastName":"Com"},"email":"aaa1.bbb1@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}'
 
   Sample Result:
 

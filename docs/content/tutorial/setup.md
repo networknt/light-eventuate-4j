@@ -82,7 +82,7 @@ CDC service use database replication to populate data from database (mysql) to d
 
 -- run command line:
   ```
-  java -cp target/eventuate-command-1.3.1.jar com.networknt.server.Server
+  java -cp target/eventuate-command-1.3.3.jar com.networknt.server.Server
   ```
 
   or
