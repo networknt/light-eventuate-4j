@@ -15,17 +15,18 @@ public class CompletableFutureTest {
   public void exploreHandleAsync() throws ExecutionException, InterruptedException {
     CompletableFuture<Void> f = new CompletableFuture<>();
     CompletableFuture<Void> f2 = f.handleAsync((r, t) -> {
+
       throw new RuntimeException("y", t);
     });
     CompletableFuture<Void> f3 = f2.handleAsync((r, t) -> {
+
       throw new RuntimeException("z", t);
     });
     f.completeExceptionally(new RuntimeException("x"));
-    try {
+   try {
       f3.get();
       fail();
     } catch (ExecutionException e ) {
-    //  e.printStackTrace();
       assertTrue(e.getCause() instanceof RuntimeException);
       assertEquals("z", e.getCause().getMessage());
     }
