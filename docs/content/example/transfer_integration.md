@@ -139,7 +139,7 @@ Result: 0000015cf50bfe50-0242ac1200060001
 
 
 ## Transfer money from account (replace the from account and to account id with real id):
-
+ 
 * On transaction command side, system send MoneyTransferCommand and apply the MoneyTransferCreatedEvent event with certain amount
 * On account command side, system subscrible the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
 * If the balance is not enough, system publish AccountDebitFailedDueToInsufficientFundsEvent. Otherwise, system send AccountCreditedEvent/AccountDebitedEvent.
