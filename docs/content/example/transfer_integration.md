@@ -11,19 +11,12 @@ title: Account Money Transfer
 
 ## Build related projects:
 
-Checkout related projects.
+Checkout light-eventuate-4j framework projects.
 
 cd ~/networknt
 
-git clone git@github.com:networknt/light-4j.git
-
-git clone git@github.com:networknt/light-rest-4j.git
-
-git clone git@github.com:networknt/light-codegen.git
 
 git clone git@github.com:networknt/light-eventuate-4j.git
-
-
 
 
 ## Prepare workspace
@@ -60,6 +53,10 @@ mvn clean install
 
 ## Create new customer (C1):
 
+* On customer command side, system sent the cCreateCustomerCommand and apply CustomerCreatedEvent event.
+* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+
+
 ```
 curl -X POST \
   http://localhost:8083/v1/createcustomer \
@@ -76,6 +73,9 @@ curl -X POST \
 
 ## Create an account with the customer (replace the customer id with real customer id):
 
+* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
+* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account and account/customer relationship to local database.
+
 curl -X POST \
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
@@ -90,6 +90,9 @@ Result:
 
 ## Create an account (no link with customer)
 
+* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
+* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
+
 curl -X POST \\
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
@@ -102,6 +105,10 @@ Result:
 
 
 ## Create new customer (C2):
+
+* On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
+* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+
 ```
 curl -X POST \
   http://localhost:8083/v1/createcustomer \
@@ -118,6 +125,9 @@ Result:
 
 ## Link account to customer (replace the customer id and account with real Id):
 
+* On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.
+* On customer view side, system subscrible the  CustomerAddedToAccount event by registered event handles. On the example, system will process event and save customer/account relationship to local database.
+
 curl -X POST \
   http://localhost:8083/v1/customers/toaccounts/{customerId} \
   -H 'cache-control: no-cache' \
@@ -129,6 +139,14 @@ Result: 0000015cf50bfe50-0242ac1200060001
 
 
 ## Transfer money from account (replace the from account and to account id with real id):
+
+* On transaction command side, system send MoneyTransferCommand and apply the MoneyTransferCreatedEvent event with certain amount
+* On account command side, system subscrible the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
+* If the balance is not enough, system publish AccountDebitFailedDueToInsufficientFundsEvent. Otherwise, system send AccountCreditedEvent/AccountDebitedEvent.
+* On transaction command side, if subscribed events are AccountCreditedEvent/AccountDebitedEvent, system will process event and publish CreditRecordedEvent/debitRecordedevent,
+  if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system will publish FailedDebitRecordedEvent.
+* On account view side, if subscribed events are creditRecorded event and debitRecorded event, system will update local account balance and update the transaction status to COMPLETED.
+  if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.
 
 curl -X POST \
   http://localhost:8085/v1/transfers \
@@ -144,6 +162,10 @@ Result:
 
 
 ## Delete account:
+
+* On account command side, system sent the DeleteAccountCommand  and apply AccountDeletedEvent event.
+* On account view side, system subscrible the  AccountDeletedEvent by registered event handles. On the example, system will process event and inactive account to local database.
+* On customer view side, system subscrible the  AccountDeletedEvent event by registered event handles. On the example, system will process event and delete customer/account relationship to local database.
 
 curl -X DELETE \
   http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001 \
