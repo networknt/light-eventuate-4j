@@ -80,7 +80,7 @@ curl -X POST \
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -d '{"customerId":"0000015cf50351d8-0242ac1200060000","title":"RRSP account","description":"account for testing","initialBalance":12355}'
+  -d '{"customerId":"0000015d0faf4981-0242ac1200070000","title":"RRSP account","description":"account for testing","initialBalance":12355}'
 
 Result:
 
@@ -93,7 +93,7 @@ Result:
 * On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
 * On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
 
-curl -X POST \\
+curl -X POST \
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
