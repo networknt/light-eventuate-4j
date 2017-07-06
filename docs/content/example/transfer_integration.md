@@ -76,11 +76,13 @@ curl -X POST \
 * On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
 * On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account and account/customer relationship to local database.
 
+```
 curl -X POST \
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"customerId":"0000015cf50351d8-0242ac1200060000","title":"RRSP account","description":"account for testing","initialBalance":12355}'
+```
 
 Result:
 
@@ -93,11 +95,13 @@ Result:
 * On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
 * On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
 
+```
 curl -X POST \\
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"title":"RRSP account","description":"account for testing","initialBalance":12355}'
+```
 
 Result:
 
@@ -128,12 +132,13 @@ Result:
 * On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.
 * On customer view side, system subscrible the  CustomerAddedToAccount event by registered event handles. On the example, system will process event and save customer/account relationship to local database.
 
+```
 curl -X POST \
   http://localhost:8083/v1/customers/toaccounts/{customerId} \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"id":"0000015cf5084627-0242ac1200090001","title":"title","owner":"google","description":"test case"}'
-
+```
 
 Result: 0000015cf50bfe50-0242ac1200060001
 
@@ -148,12 +153,13 @@ Result: 0000015cf50bfe50-0242ac1200060001
 * On account view side, if subscribed events are creditRecorded event and debitRecorded event, system will update local account balance and update the transaction status to COMPLETED.
   if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.
 
+```
 curl -X POST \
   http://localhost:8085/v1/transfers \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"fromAccountId":"0000015cf505ed48-0242ac1200090001","toAccountId":"0000015cf5084627-0242ac1200090001","amount":5000,"description":"test"}'
-
+```
 
 Result:
 
@@ -167,11 +173,12 @@ Result:
 * On account view side, system subscrible the  AccountDeletedEvent by registered event handles. On the example, system will process event and inactive account to local database.
 * On customer view side, system subscrible the  AccountDeletedEvent event by registered event handles. On the example, system will process event and delete customer/account relationship to local database.
 
+```
 curl -X DELETE \
   http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001 \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-
+```
 
 
 
