@@ -96,7 +96,7 @@ Result:
 * On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
 
 ```
-curl -X POST \\
+curl -X POST \
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
