@@ -105,8 +105,9 @@ curl -X POST \\
 
 Result:
 
+```
 {"accountId":"0000015cf5084627-0242ac1200090001","balance":12355}
-
+```
 
 ## Create new customer (C2):
 
@@ -163,8 +164,9 @@ curl -X POST \
 
 Result:
 
+```
 {"moneyTransferId":"0000015cf5118e64-0242ac1200080000"}
-
+```
 
 
 ## Delete account:
@@ -186,7 +188,9 @@ curl -X DELETE \
 
 --View the new customer by email (provide wildcard search):
 
+```
   http://localhost:8084/v1/customers/aaa1.bbb1@google.com
+```
 
 Result:
 
@@ -197,7 +201,9 @@ Result:
 
 --View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)
 
+```
   http://localhost:8084/v1/customer/{customerId}
+```
 
 Result:
 
@@ -211,12 +217,15 @@ http://localhost:8082/v1/accounts/{accountId}
 
 Result:
 
+```
 {"accountId":"0000015cf505ed48-0242ac1200090001","balance":73550000,"title":"RRSP account","description":"account for testing"}
-
+```
 
 -- View account transaction history:
 
+```
 http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
+```
 
 Result:
 
@@ -323,8 +332,6 @@ http://localhost:8082/v1/accounts/{accountId}
 -- View account transaction history:
 
 http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
-
-
 
 
 
