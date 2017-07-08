@@ -26,7 +26,7 @@ enableTwoWayTls: false
 truststoreName: tls/server.truststore
 
 # Unique service identifier. Used in service registration and discovery etc.
-serviceId: com.networknt.eventuate-command-1.3.3
+serviceId: com.networknt.eventuate-command-1.3.4
 
 # Flag to enable service registration. Only be true if running as standalone Java jar.
 enableRegistry: false
