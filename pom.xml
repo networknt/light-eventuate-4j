@@ -70,7 +70,7 @@
         <version.light-hybrid-4j>1.3.4</version.light-hybrid-4j>
         <version.kafka-clients>0.10.1.1</version.kafka-clients>
         <version.rxjava>1.2.2</version.rxjava>
-        <version.jackson>2.8.7</version.jackson>
+        <version.jackson>2.8.9</version.jackson>
         <version.slf4j>1.7.25</version.slf4j>
         <version.jose4j>0.5.5</version.jose4j>
         <version.antlr4>4.7</version.antlr4>
@@ -82,7 +82,6 @@
         <version.junit>4.12</version.junit>
         <version.mockito>2.7.21</version.mockito>
         <version.undertow>1.4.11.Final</version.undertow>
-        <version.jsonpath>2.2.0</version.jsonpath>
         <version.httpclient>4.5.2</version.httpclient>
         <version.httpasyncclient>4.1.2</version.httpasyncclient>
         <version.hamcrest>1.3</version.hamcrest>
@@ -90,26 +89,32 @@
         <version.hdrhistogram>2.1.8</version.hdrhistogram>
         <version.json-schema-validator>0.1.7</version.json-schema-validator>
         <version.debezium>0.4.1</version.debezium>
-        <version.curator>3.2.1</version.curator>
+        <version.curator>3.3.0</version.curator>
         <version.hikaricp>2.5.1</version.hikaricp>
         <version.fastscanner>2.0.8</version.fastscanner>
+        <version.mysql>5.1.41</version.mysql>
+        <version.mysql-binlog>0.12.1</version.mysql-binlog>
         <version.h2>1.3.176</version.h2>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
     </properties>
 
     <modules>
-        <module>common</module>
-        <module>cdccore</module>
-        <module>cdcserver</module>
-        <module>cdcservice</module>
-        <module>testdomain</module>
-        <module>test</module>
-        <module>event</module>
-        <module>client</module>
-        <module>jdbc</module>
-        <module>testutil</module>
-        <module>testjdbc</module>
-        <module>testexample</module>
+        <module>cdc-common</module>
+        <module>cdc-mysql</module>
+        <module>cdc-service</module>
+        <module>cdc-server</module>
+        <module>test-domain</module>
+        <module>test-example</module>
+        <module>test-util</module>
+        <module>test-jdbc</module>
+        <module>eventuate-common</module>
+        <module>eventuate-event</module>
+        <module>eventuate-client</module>
+        <module>eventuate-jdbc</module>
+        <module>eventuate-kafka</module>
+        <module>eventuate-test</module>
+        <module>hybrid-command</module>
+        <module>hybrid-query</module>
     </modules>
 
     <dependencyManagement>
@@ -168,27 +173,42 @@
 
             <dependency>
                 <groupId>com.networknt</groupId>
+                <artifactId>cdc-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>cdc-mysql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>cdc-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>cdc-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
                 <artifactId>eventuate-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-cdccore</artifactId>
+                <artifactId>eventuate-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-cdcserver</artifactId>
+                <artifactId>test-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-cdcservice</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.networknt</groupId>
-                <artifactId>eventuate-testdomain</artifactId>
+                <artifactId>test-example</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -213,54 +233,26 @@
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-testutil</artifactId>
+                <artifactId>test-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-testjdbc</artifactId>
+                <artifactId>test-jdbc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-testexample</artifactId>
+                <artifactId>hybrid-command</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>hybrid-query</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- External dependencies -->
 
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-embedded</artifactId>
-                <version>${version.debezium}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.containers</groupId>
-                        <artifactId>jersey-container-servlet</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-servlets</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-server</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-mysql</artifactId>
-                <version>${version.debezium}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-postgres</artifactId>
-                <version>${version.debezium}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
@@ -285,11 +277,15 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${version.jackson}</version>
-
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
                 <version>${version.jackson}</version>
             </dependency>
             <dependency>
@@ -318,16 +314,6 @@
                 <version>${version.commons.codec}</version>
             </dependency>
             <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-core</artifactId>
-                <version>${version.metrics}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.dropwizard.metrics</groupId>
-                <artifactId>metrics-influx</artifactId>
-                <version>${version.metrics}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${version.httpclient}</version>
@@ -352,7 +338,16 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${version.logback}</version>
             </dependency>
-
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${version.mysql}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.shyiko</groupId>
+                <artifactId>mysql-binlog-connector-java</artifactId>
+                <version>${version.mysql-binlog}</version>
+            </dependency>
             <!-- Test dependencies -->
             <dependency>
                 <groupId>junit</groupId>
