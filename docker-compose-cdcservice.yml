@@ -4,9 +4,9 @@ version: "2"
 #
 services:
    cdcservice:
-      build: ./cdcservice/
+      build: ./cdc/
       volumes:
-        - ./docker/cdcservice/config:/config
+        - ./docker/cdc/config:/config
       networks:
           - localnet
 
