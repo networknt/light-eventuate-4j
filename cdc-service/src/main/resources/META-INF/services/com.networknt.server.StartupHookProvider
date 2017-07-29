@@ -1,0 +1,5 @@
+# This is the place to plugin your startup hooks to initialize Spring application context,
+# set up db connection pools and allocate resources.
+
+# Start event table changes to aggregate topic relay service
+com.networknt.eventuate.cdc.service.CdcServiceStartupHookProvider
