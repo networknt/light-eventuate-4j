@@ -222,6 +222,13 @@ java -cp ~/networknt/light-eventuate-4j/docker/query/service/*:target/hybrid-que
 
 ## Start command server and query server together with Docker
 
+You can start both command server and query server along with their services
+with docker-compose.
+
+```$xslt
+cd ~/networknt/light-docker
+docker-compose -f docker-compose-hybrid.yml up
+```
 
 
 ## Test with todo-list example application
