@@ -14,7 +14,8 @@ create table events (
   entity_type VARCHAR(256),
   entity_id VARCHAR(256),
   triggering_event VARCHAR(256),
-   PRIMARY KEY(event_id)
+  metadata VARCHAR(1024),
+  PRIMARY KEY(event_id)
 );
 
 create table entities (
