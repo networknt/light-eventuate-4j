@@ -1,23 +1,35 @@
 ---
 date: 2016-10-09T08:01:56-04:00
-title: Framework Setup
+title: Workspace Setup
 ---
 
 ## Introduction
 
-Microservices enable businesses to innovate faster and stay ahead of the competition.
-But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database.
-It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+Microservices enable businesses to innovate faster and stay ahead of the competitions.
+But one major challenge with the microservices architecture is the management of
+distributed data. Each microservice has its own private database. It is difficult to
+implement business transactions that maintain data consistency across multiple services
+as well as queries that retrieve data from multiple services.
 
-The light event sourcing framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.
-The programming model is based on two well established patterns: Event Sourcing and Command Query Responsibility Segregation (CQRS).
-Eventuate consists of a scalable, distributed event store server and client libraries for various languages and frameworks.
+The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet
+powerful event-driven programming model that solves the distributed data management
+problems inherent in a microservice architecture.
+
+The programming model is based on two well established patterns: Event Sourcing (ES)
+and Command Query Responsibility Segregation (CQRS).
+
+light-eventuate-4j consists of a scalable, distributed event store server and client
+libraries for frameworks like light-rest-4j, light-graphql-4j and light-hybrid-4.
+
 
 ## Prepare workspace
 
 All specifications and code of the services are on github.com but we are going to
-redo it again by following the steps in the tutorial. Let's first create a
-workspace. I have created a directory named networknt under user directory.
+redo it again by following the steps in the tutorial. Let's first create a workspace.
+
+I have created a directory named networknt under user directory. So my workspace is
+~/networknt
+
 
 Checkout related projects.
 
