@@ -1,10 +1,8 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.cdc.common.BinlogFileOffset;
 import com.networknt.eventuate.cdc.common.PublishedEvent;
 import com.networknt.eventuate.common.impl.JSonMapper;
-import com.networknt.eventuate.kafka.KafkaConfig;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.Test;
@@ -14,9 +12,13 @@ import java.util.UUID;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled
+ * unless you are working on the CDC.
+ */
 public class DuplicatePublishingDetectorTest extends AbstractCdcTest {
 
-  @Test
+  //@Test
   public void emptyTopicTest() {
     DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector(kafkaConfig.getBootstrapServers());
 
@@ -25,7 +27,7 @@ public class DuplicatePublishingDetectorTest extends AbstractCdcTest {
     assertTrue(duplicatePublishingDetector.shouldBePublished(bfo, generateUniqueTopicName()));
   }
 
-  @Test
+  //@Test
   public void shouldBePublishedTest() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();
@@ -39,7 +41,7 @@ public class DuplicatePublishingDetectorTest extends AbstractCdcTest {
     assertTrue(duplicatePublishingDetector.shouldBePublished(new BinlogFileOffset(binlogFilename, 10), topicName));
   }
 
-  @Test
+  //@Test
   public void shouldHandlePublishCheckForOldEntires() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();

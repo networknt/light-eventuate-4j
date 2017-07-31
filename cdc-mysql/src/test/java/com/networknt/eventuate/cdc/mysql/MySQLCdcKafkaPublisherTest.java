@@ -1,11 +1,9 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.cdc.common.PublishedEvent;
 import com.networknt.eventuate.cdc.mysql.exception.EventuateLocalPublishingException;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateLocalAggregateStore;
-import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.Before;
@@ -14,6 +12,10 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
+/**
+ * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled
+ * unless you are working on the CDC.
+ */
 public class MySQLCdcKafkaPublisherTest extends AbstractCdcTest {
 
   private DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore;
@@ -24,7 +26,7 @@ public class MySQLCdcKafkaPublisherTest extends AbstractCdcTest {
 
   private MySQLCdcProcessor<PublishedEvent> mySQLCdcProcessor;
 
-  @Before
+  //@Before
   public void init() {
 
     SourceTableNameSupplier supplier = new SourceTableNameSupplier(cdcConfig.getSourceTableName(), "EVENTS");
@@ -47,7 +49,7 @@ public class MySQLCdcKafkaPublisherTest extends AbstractCdcTest {
   }
 
 
-  @Test
+  //@Test
   public void shouldSendPublishedEventsToKafka() throws InterruptedException {
     MySQLCdcKafkaPublisher<PublishedEvent> mySQLCdcKafkaPublisher = new MySQLCdcKafkaPublisher<>(binlogOffsetKafkaStore,
             kafkaConfig.getBootstrapServers(),
