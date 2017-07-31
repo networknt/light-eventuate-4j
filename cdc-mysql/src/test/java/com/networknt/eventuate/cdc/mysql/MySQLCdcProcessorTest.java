@@ -19,6 +19,10 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled
+ * unless you are working on the CDC.
+ */
 public class MySQLCdcProcessorTest extends AbstractCdcTest {
 
   private MySqlBinaryLogClient<PublishedEvent> mySqlBinaryLogClient;
@@ -28,7 +32,7 @@ public class MySQLCdcProcessorTest extends AbstractCdcTest {
 
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  @Before
+  //@Before
   public void init() {
 
     SourceTableNameSupplier supplier = new SourceTableNameSupplier(cdcConfig.getSourceTableName(), "EVENTS");
@@ -49,7 +53,7 @@ public class MySQLCdcProcessorTest extends AbstractCdcTest {
     localAggregateCrud = new EventuateLocalAggregateStore(dataSource);
   }
 
-  @Test
+  //@Test
   public void shouldReadNewEventsOnly() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
     MySQLCdcProcessor<PublishedEvent> mySQLCdcProcessor = new MySQLCdcProcessor<>(mySqlBinaryLogClient, binlogOffsetKafkaStore);
@@ -76,7 +80,7 @@ public class MySQLCdcProcessorTest extends AbstractCdcTest {
     mySQLCdcProcessor.stop();
   }
 
-  @Test
+  //@Test
   public void shouldReadUnprocessedEventsAfterStartup() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
 
