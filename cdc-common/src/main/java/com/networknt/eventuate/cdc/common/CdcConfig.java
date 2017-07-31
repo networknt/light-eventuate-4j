@@ -13,8 +13,6 @@ public class CdcConfig {
     int maximumPoolSize;
     String kafka;
     String zookeeper;
-    String cdcDbUser;
-    String cdcDbPass;
     long binlogClientId;
 
     public CdcConfig() {
@@ -83,22 +81,6 @@ public class CdcConfig {
 
     public void setZookeeper(String zookeeper) {
         this.zookeeper = zookeeper;
-    }
-
-    public String getCdcDbUser() {
-        return cdcDbUser;
-    }
-
-    public void setCdcDbUser(String cdcDbUser) {
-        this.cdcDbUser = cdcDbUser;
-    }
-
-    public String getCdcDbPass() {
-        return cdcDbPass;
-    }
-
-    public void setCdcDbPass(String cdcDbPass) {
-        this.cdcDbPass = cdcDbPass;
     }
 
     public String getDbHistoryTopicName() {

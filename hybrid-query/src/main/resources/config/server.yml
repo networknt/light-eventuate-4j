@@ -11,7 +11,7 @@ httpPort: 8082
 enableHttp: true
 
 # Https port if enableHttps is true.
-httpsPort: 8443
+httpsPort: 8482
 
 # Enable HTTPS should be true on official environment.
 enableHttps: true

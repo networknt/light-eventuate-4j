@@ -16,6 +16,8 @@ singletons:
   - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateEventsAdapter
 - com.networknt.eventuate.common.SnapshotManager:
   - com.networknt.eventuate.common.SnapshotManagerImpl
+- com.networknt.eventuate.common.MissingApplyEventMethodStrategy:
+  - com.networknt.eventuate.common.DefaultMissingApplyEventMethodStrategy
 - com.networknt.eventuate.common.EventuateAggregateStore:
   - com.networknt.eventuate.common.impl.EventuateAggregateStoreImpl
 - com.networknt.eventuate.common.sync.EventuateAggregateStore:
