@@ -1,14 +1,9 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.config.Config;
-import com.networknt.eventuate.cdc.common.CdcConfig;
 import com.networknt.eventuate.cdc.common.PublishedEvent;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateLocalAggregateStore;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -18,9 +13,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled
+ * unless you are working on the CDC.
+ */
 public class MySqlBinlogCdcIntegrationTest extends AbstractCdcTest {
 
-  @Test
+  //@Test
   public void shouldGetEvents() throws IOException, TimeoutException, InterruptedException, ExecutionException {
 
     SourceTableNameSupplier supplier = new SourceTableNameSupplier(cdcConfig.getSourceTableName(), "EVENTS");

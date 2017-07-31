@@ -12,35 +12,40 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+/**
+ * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled
+ * unless you are working on the CDC.
+ */
+
 public class DatabaseBinlogOffsetKafkaStoreTest extends AbstractCdcTest{
 
   EventuateKafkaProducer eventuateKafkaProducer;
 
-  @Before
+  //@Before
   public void init() {
     eventuateKafkaProducer = new EventuateKafkaProducer(kafkaConfig.getBootstrapServers());
   }
 
-  @Test
+  //@Test
   public void shouldSendBinlogFilenameAndOffset() throws InterruptedException {
     generateAndSaveBinlogFileOffset();
   }
 
-  @Test
+  //@Test
   public void shouldGetEmptyOptionalFromEmptyTopic() {
     DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore = getDatabaseBinlogOffsetKafkaStore(UUID.randomUUID().toString(), "mySqlBinaryLogClientName");
     assertFalse(binlogOffsetKafkaStore.getLastBinlogFileOffset().isPresent());
     binlogOffsetKafkaStore.stop();
   }
 
-  @Test
+  //@Test
   public void shouldWorkCorrectlyWithMultipleDifferentNamedBinlogs() throws InterruptedException {
     floodTopic(cdcConfig.getDbHistoryTopicName(), "mySqlBinaryLogClientName1");
 
     generateAndSaveBinlogFileOffset();
   }
 
-  @Test
+  //@Test
   public void shouldReadTheLastRecordMultipleTimes() throws InterruptedException {
     BinlogFileOffset bfo = generateAndSaveBinlogFileOffset();
 
