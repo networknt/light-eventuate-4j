@@ -1,6 +1,6 @@
 ---
 dbType: mysql
-jdbcUrl: jdbc:mysql://localhost:3306/eventuate
+jdbcUrl: jdbc:mysql://localhost:3306/eventuate?useSSL=false
 dbHost: localhost
 dbPort: 3306
 dbUser: root
@@ -11,5 +11,3 @@ sourceTableName: EVENTS
 maximumPoolSize: 10
 kafka: localhost:9092
 zookeeper: localhost:2181
-cdcDbUser: root
-cdcDbPass: rootpassword

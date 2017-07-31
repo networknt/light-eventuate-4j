@@ -11,5 +11,3 @@ sourceTableName: EVENTS
 maximumPoolSize: 10
 kafka: localhost:9092
 zookeeper: localhost:2181
-cdcDbUser: root
-cdcDbPass: rootpassword

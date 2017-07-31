@@ -7,10 +7,3 @@ dbUser: root
 dbPass: rootpassword
 kafka: kafka:9092
 zookeeper: zookeeper:2181
-cdcDbUser: root
-cdcDbPass: rootpassword
-postgresDbHost: localhost
-postgresDBPort: 5432
-postgresDbUser: postgres
-postgresDbPass: postgres
-postgresDbName: postgres
