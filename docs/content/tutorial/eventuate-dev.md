@@ -230,24 +230,6 @@ cd ~/networknt/light-docker
 docker-compose -f docker-compose-hybrid.yml up
 ```
 
+Once you have your dev environment setup, you can follow the [todo-list](https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/) 
+tutorial to get started. 
 
-## Test with todo-list example application
-
- Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)
-
-
-    create database todo_db;
-
-    CREATE  TABLE TODO (
-      ID varchar(255),
-      TITLE varchar(255),
-      COMPLETED BOOLEAN,
-      ORDER_ID INTEGER,
-      ACTIVE_FLG varchar(1) DEFAULT 'Y',
-      PRIMARY KEY(ID)
-    );
-
-    GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
-
- Go query-service module, run command line:
-   -- mvn package exec:exec
