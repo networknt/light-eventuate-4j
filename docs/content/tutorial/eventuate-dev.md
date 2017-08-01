@@ -146,14 +146,14 @@ You can start it manually by following these steps.
 
 ```$xslt
 cd ~/networknt/light-eventuate-4j/cdc-server
-java -jar target/cdc-server-1.3.4.jar
+java -jar target/cdc-server-1.3.5.jar
 ``` 
 
 or 
 
 ```$xslt
 cd ~/networknt/light-eventuate-4j/cdc-server
-java -cp target/cdc-server-1.3.4.jar com.networknt.server.Server
+java -cp target/cdc-server-1.3.5.jar com.networknt.server.Server
 ```
 
 or 
@@ -202,7 +202,7 @@ services and their dependencies are located at ~/networknt/light-eventuate-4j/do
 
 ```$xslt
 cd ~/networknt/light-eventuate-4j/hybrid-command
-java -cp ~/networknt/light-eventuate-4j/docker/command/service/*:target/hybrid-command-1.3.4.jar com.networknt.server.Server
+java -cp ~/networknt/light-eventuate-4j/docker/command/service/*:target/hybrid-command-1.3.5.jar com.networknt.server.Server
 ```
 
 
@@ -216,7 +216,7 @@ To start the query server manually.
 
 ```$xslt
 cd ~/networknt/light-eventuate-4j/hybrid-query
-java -cp ~/networknt/light-eventuate-4j/docker/query/service/*:target/hybrid-query-1.3.4.jar com.networknt.server.Server
+java -cp ~/networknt/light-eventuate-4j/docker/query/service/*:target/hybrid-query-1.3.5.jar com.networknt.server.Server
 
 ```
 

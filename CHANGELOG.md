@@ -3,6 +3,16 @@
 
 ### Changed
 
+## 1.3.5 - 2017-08-01
+### Added
+
+### Changed
+- fixes #24 refactor hybrid-command and hybrid-query servers
+- fixes #23 disable cdc-mysql test cases so that it can be built independently
+- fixes #22 move docker-compose files to light-docker
+- fixes #21 refactor to sync with eventuate-local and eventuate-client
+- Upgrade to light-4j 1.3.5
+
 ## 1.3.4 - 2017-07-08
 ### Added
 
