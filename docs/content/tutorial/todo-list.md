@@ -134,7 +134,7 @@ Now let's update rest-command module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
 ```$xslt
-        <version.light-eventuate-4j>1.3.4</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
 
 
         <dependency>
@@ -396,7 +396,7 @@ Now let's update rest-query module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
 ```$xslt
-        <version.light-eventuate-4j>1.3.4</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
 
 
         <dependency>
@@ -969,7 +969,7 @@ Now let's change the dependencies to add light-eventuate-4j modules and todo-lis
 modules.
 
 ```
-        <version.light-eventuate-4j>1.3.4</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
 
 ```
 
@@ -1512,7 +1512,7 @@ Now let's change the dependencies to add light-eventuate-4j modules and todo-lis
 modules.
 
 ```
-        <version.light-eventuate-4j>1.3.4</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
 
 ```
 
@@ -1855,7 +1855,7 @@ we are going to copy all of them into light-docker/
 
 ```
 cd ~/networknt/light-docker/eventuate/hybrid-command/service
-cp ~/networknt/light-eventuate-4j/cdc-service/target/cdc-service-1.3.4.jar .
+cp ~/networknt/light-eventuate-4j/cdc-service/target/cdc-service-1.3.5.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
@@ -1863,7 +1863,7 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-command
-java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.3.4.jar com.networknt.server.Server
+java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.3.5.jar com.networknt.server.Server
 
 ```
 
@@ -1884,7 +1884,7 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-q
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-query
-java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.3.4.jar com.networknt.server.Server
+java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.3.5.jar com.networknt.server.Server
 
 ```
 
