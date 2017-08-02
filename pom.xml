@@ -113,8 +113,12 @@
         <module>eventuate-jdbc</module>
         <module>eventuate-kafka</module>
         <module>eventuate-test</module>
+        <!--
+        These two modules contain no Java code and cause maven
+        release failed. These two should be released to docker hub instead.
         <module>hybrid-command</module>
         <module>hybrid-query</module>
+        -->
     </modules>
 
     <dependencyManagement>
@@ -241,6 +245,7 @@
                 <artifactId>test-jdbc</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!--
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>hybrid-command</artifactId>
@@ -251,6 +256,8 @@
                 <artifactId>hybrid-query</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            -->
+
             <!-- External dependencies -->
 
             <dependency>
