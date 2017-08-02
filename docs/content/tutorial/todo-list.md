@@ -681,7 +681,7 @@ singletons:
 The rest-query will subscribe events from light-eventuate-4j so it need to
 config event handler registration in the StartupHookProvider.
 
-```$xslt
+```
 # This is the place to plugin your startup hooks to initialize Spring application context,
 # set up db connection pools and allocate resources.
 
@@ -691,7 +691,7 @@ com.networknt.eventuate.client.EventuateClientStartupHookProvider
 
 Now let's verify that all modules can be built.
 
-```$xslt
+```
 mvn clean install
 ```
 
@@ -713,7 +713,7 @@ are going to create another database called todo_db
 Here is the db script and you can use mysql command line or just using any GUI tools
 to run it against Mysql server.
 
-```$xslt
+```mysql
 create database todo_db;
 
 GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
@@ -737,7 +737,7 @@ CREATE  TABLE TODO (
 
 Remember that Mysql root user and password as follows.
 
-```$xslt
+```
 dbUser: root
 dbPass: rootpassword
 
@@ -745,14 +745,14 @@ dbPass: rootpassword
 
 Now let's start rest-command service
 
-```$xslt
+```
 cd ~/networknt/light-example-4j/eventuate/todo-list/rest-command
 java -jar target/rest-command-1.0.0.jar
 ```
 
 Now let's start rest-query service
 
-```$xslt
+```
 cd ~/networknt/light-example-4j/eventuate/todo-list/rest-query
 java -jar target/rest-query-1.0.0.jar
 ```
@@ -760,7 +760,7 @@ java -jar target/rest-query-1.0.0.jar
 
 Let's create a todo item with curl
 
-```$xslt
+```
 curl -X POST \
   http://localhost:8083/v1/todos \
   -H 'cache-control: no-cache' \
@@ -770,7 +770,7 @@ curl -X POST \
 
 And the response will be 
 
-```$xslt
+```json
 {
     "cancelled": false,
     "done": true,
@@ -781,13 +781,13 @@ And the response will be
 
 Now let's access the rest-query service
 
-```$xslt
+```
 curl -X GET http://localhost:8082/v1/todos
 ```
 
 And the response will be something like this.
 
-```$xslt
+```json
 [
     {
         "0000015d968eacee-0e23a9398a990001": {
