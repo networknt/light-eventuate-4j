@@ -5,8 +5,9 @@ set -ex
 IMAGE_NAME="networknt/eventuate-cdcserver"
 TAG="${1}"
 
-if [docker images | grep -c ${IMAGE_NAME} -ge 0]; then
-	docker rmi -f ${IMAGE_NAME}
+if docker inspect ${IMAGE_NAME} &> /dev/null; then
+	docker rmi -f ${IMAGE_NAME}:latest
+	docker rmi -f ${IMAGE_NAME}:${TAG}
 fi
 
 docker build -t ${IMAGE_NAME} .
