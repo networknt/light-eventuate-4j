@@ -17,3 +17,5 @@ The following tutorials will help users to get started and more will be added la
 * [How to do integration test](https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/)
 
 * [Todo List Application](https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/)
+
+* [How to debug Kafka](https://networknt.github.io/light-eventuate-4j/tutorial/kafka/)
