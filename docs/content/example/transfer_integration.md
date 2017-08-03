@@ -9,23 +9,6 @@ title: Account Money Transfer
 # Integration Test Setting
 
 
-## Build related projects:
-
-Checkout light-eventuate-4j framework projects.
-
-cd ~/networknt
-
-
-git clone git@github.com:networknt/light-eventuate-4j.git
-
-
-## Prepare workspace
-Go into the projects folder above, and build the project with maven
-
-
-mvn clean install
-
-
 
 ## Build Account-management example
 
@@ -39,9 +22,15 @@ mvn clean install
 
 ## Run the Event store and Mocroservices:
 
+Before starting any service, we need to make sure that light-eventuate-4j is
+up and running. Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
+to set up.
 
-![setting](/images/setting.png)
+Start Account money transfer service with docker compose:
 
+cd ~/networknt/light-eventuate-example/account-management
+
+docker-compose up
 
 
 
