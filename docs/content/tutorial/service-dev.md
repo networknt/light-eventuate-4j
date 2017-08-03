@@ -64,7 +64,7 @@ have this DOCKER_HOST_IP set.
 Assume you have a working directory under your home directory called networknt
 
 
-```$xslt
+```
 cd ~/networknt
 git clone git@github.com:networknt/light-docker.git
 cd light-docker
@@ -79,7 +79,7 @@ docker-compose down first before up.
 
 Open another terminal
 
-```$xslt
+```
 cd ~/networknt/light-docker
 docker-compose -f docker-compose-cdcserver.yml up
 ```
@@ -92,7 +92,7 @@ side services and share the same hybrid command server.
 
 Here is the steps to start both command server and query server.
 
-```$xslt
+```
 cd ~/networknt/light-docker
 docker-compose -f docker-compose-hybrid.yml up
 ```
