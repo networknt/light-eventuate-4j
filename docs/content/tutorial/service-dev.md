@@ -77,7 +77,10 @@ docker-compose down first before up.
 
 ## Start CDC server
 
-Open another terminal
+Open another terminal to start CDC server with another docker-compose.
+
+Note: You have to wait until above Mysql, Zookeeper and Kafka compose are all started
+successfully before running the docker-compose-cdcserver. 
 
 ```
 cd ~/networknt/light-docker
