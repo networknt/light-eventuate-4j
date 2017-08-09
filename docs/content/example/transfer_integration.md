@@ -37,11 +37,18 @@ cd ~/networknt/light-eventuate-example/account-management
 mvn clean install
 
 
-## Run the Event store and Mocroservices:
+## Run the Event store and Microservices:
 
+First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and running.
 
-![setting](/images/setting.png)
+You can follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
+to start all of them with docker-compose.
 
+Then start service docker compose file for account money transfer services
+
+cd ~/networknt/light-eventuate-example/account-management
+docker-compose down
+docker-compose up
 
 
 
