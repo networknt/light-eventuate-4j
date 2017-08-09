@@ -46,9 +46,14 @@ to start all of them with docker-compose.
 
 Then start service docker compose file for account money transfer services
 
+```
 cd ~/networknt/light-eventuate-example/account-management
+
 docker-compose down
+
 docker-compose up
+
+```
 
 
 
