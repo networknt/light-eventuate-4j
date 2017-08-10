@@ -3,4 +3,4 @@
 
 # registry all service handlers by from annotations
 com.networknt.rpc.router.RpcStartupHookProvider
-com.networknt.eventuate.cdc.service.CdcServiceStartupHookProvider
+# com.networknt.eventuate.cdc.service.CdcServiceStartupHookProvider

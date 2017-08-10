@@ -73,10 +73,6 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>cdc-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
         </dependency>
         <dependency>
@@ -91,11 +87,6 @@
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>cdc-service</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

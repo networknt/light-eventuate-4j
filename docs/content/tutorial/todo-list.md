@@ -763,7 +763,17 @@ config.json
   "name": "hybrid-command",
   "version": "0.1.0",
   "overwriteHandler": true,
-  "overwriteHandlerTest": true
+  "overwriteHandlerTest": true,
+  "httpPort": 8080,
+  "enableHttp": true,
+  "httpsPort": 8443,
+  "enableHttps": false,
+  "enableRegistry": false,
+  "supportOracle": false,
+  "supportMysql": false,
+  "supportPostgresql": false,
+  "supportH2ForTest": false,
+  "supportClient": false
 }
 
 ```
@@ -849,9 +859,11 @@ schema.json
 }
 ```
 
-Now let's run the light-codegen command line to generate the project.
+Now let's run the light-codegen command line to generate the project (get latest light-codegen from master branch).
 
 ```
+cd ~/networknt/light-codegen
+
 java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-command -m ../model-config/hybrid/todo-command/schema.json -c ../model-config/hybrid/todo-command/config.json
 ```
 
@@ -897,11 +909,6 @@ modules.
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-jdbc</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
@@ -1278,7 +1285,7 @@ singletons:
       username: sa
       password: sa
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
-    - com.networknt.eventuate.test.jdbc.EventuateEmbeddedTestAggregateStore
+  - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
 - com.networknt.eventuate.common.impl.sync.AggregateEvents:
     - com.networknt.eventuate.client.EventuateLocalAggregatesEvents
 - com.networknt.eventuate.common.impl.AggregateCrud:
@@ -1349,7 +1356,17 @@ config.json
   "name": "hybrid-query",
   "version": "0.1.0",
   "overwriteHandler": true,
-  "overwriteHandlerTest": true
+  "overwriteHandlerTest": true,
+  "httpPort": 8080,
+  "enableHttp": true,
+  "httpsPort": 8443,
+  "enableHttps": false,
+  "enableRegistry": false,
+  "supportOracle": false,
+  "supportMysql": false,
+  "supportPostgresql": false,
+  "supportH2ForTest": false,
+  "supportClient": false
 }
 ```
 
@@ -1394,6 +1411,8 @@ schema.json
 Now let's run the light-codegen command line to generate the project.
 
 ```
+cd ~/networknt/light-codegen
+
 java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-query -m ../model-config/hybrid/todo-query/schema.json -c ../model-config/hybrid/todo-query/config.json
 ```
 
@@ -1440,11 +1459,6 @@ modules.
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-jdbc</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
@@ -1755,7 +1769,7 @@ We will start hybrid-command server and hybrid-query server manually first and
 then start them together along with services in a docker-compose.
 
 The first step is to make sure light-eventuate-4j platform is up and running.
-There is no need to start cdc-server though. Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
+Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
 
 To start hybrid servers manually, we need to checkout light-eventuate-4j as these
 two servers are part of it.
@@ -1775,7 +1789,7 @@ we are going to copy all of them into light-docker/
 
 ```
 cd ~/networknt/light-docker/eventuate/hybrid-command/service
-cp ~/networknt/light-eventuate-4j/cdc-service/target/cdc-service-1.3.5.jar .
+
 cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
@@ -1783,6 +1797,9 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-command
+
+mvn clean install
+
 java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.3.5.jar com.networknt.server.Server
 
 ```
@@ -1804,6 +1821,9 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-q
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-query
+
+mvn clean install
+
 java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.3.5.jar com.networknt.server.Server
 
 ```
@@ -1815,7 +1835,6 @@ curl -X POST \
   http://localhost:8083/api/json \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: a9a7dd04-c621-7f83-a92c-33cc69e1b5ac' \
   -d '{"host":"lightapi.net","service":"todo","action":"create", "version": "0.1.0", "title": "create todo item from hybrid-command", "completed": false, "order": 1}'
 ```
 
@@ -1826,7 +1845,6 @@ curl -X POST \
   http://localhost:8082/api/json \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: e797a185-5e5d-2c22-6001-98629303bcbb' \
   -d '{"host":"lightapi.net","service":"todo","action":"gettodos", "version": "0.1.0"}'
 ```
 
