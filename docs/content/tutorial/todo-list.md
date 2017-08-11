@@ -1920,7 +1920,7 @@ Then following same steps above to verify the service result from command line
 
 
 
-## Restful Service API:
+## Hybrid Service API:
 
 Copy service jar files to service folder:
 
