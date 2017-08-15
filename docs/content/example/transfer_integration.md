@@ -4,69 +4,66 @@ title: Account Money Transfer
 ---
 
 
+# Prepare environment
+
+We are going to use docker-compose to start light-eventuate-4j, cdcserver
+and account money transfer services. 
+
+The following assumes that we have a working directory under user directory
+called networknt. 
+
+## Start light-eventuate-4j and cdcserver
+
+First let's clone the light-docker repository that contains docker-compose
+to start light-eventuate-4j platform and cdcserver.
 
 
-# Integration Test Setting
+Clone light-docker.
 
-
-## Build related projects:
-
-Checkout light-eventuate-4j framework projects.
-
+```
 cd ~/networknt
+git clone git@github.com:networknt/light-docker.git
+```
 
-
-git clone git@github.com:networknt/light-eventuate-4j.git
-
-
-## Prepare workspace
-Go into the projects folder above, and build the project with maven
-
-
-mvn clean install
+Now you can follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/) 
+to start light-eventuate-4j and cdcserver.
 
 
 
-## Build Account-management example
+## Clone and Build Account-Management example
 
 Get the example project from github:
-git clone git@github.com:networknt/light-eventuate-example.git
 
-cd ~/networknt/light-eventuate-example/account-management
-
+```
+git clone git@github.com:networknt/light-example-4j.git
+cd ~/networknt/light-example-4j/eventuate/account-management
 mvn clean install
+```
 
 
-## Run the Event store and Microservices:
+## Start Account-Management services
 
-First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and running.
+First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and 
+running by following the previous steps.
 
-You can follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
-to start all of them with docker-compose.
-
-Then start service docker compose file for account money transfer services
+Then start services with docker compose file for account money transfer services
 
 ```
-cd ~/networknt/light-eventuate-example/account-management
-
+cd ~/networknt/light-example-4j/eventuate/account-management
 docker-compose down
-
 docker-compose up
-
 ```
-
 
 
 # Test and verify result:
-
 
 
 ## From command line:
 
 ## Create new customer (C1):
 
-* On customer command side, system sent the cCreateCustomerCommand and apply CustomerCreatedEvent event.
-* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+* On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
+* On customer view side, system subscribe the CustomerCreatedEvent by registered event handlers. In the example, system will process event and save customer to local database.
 
 
 ```
@@ -75,18 +72,19 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"name":{"firstName":"Google11","lastName":"Com"},"email":"aaa1.bbb1@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}'
-
-  Sample Result:
-
-  {"id":"0000015cf50351d8-0242ac1200060000","customerInfo":{"name":{"firstName":"Google22","lastName":"Com"},"email":"aaa1.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
 ```
 
+Sample Result:
+
+```
+{"id":"0000015cf50351d8-0242ac1200060000","customerInfo":{"name":{"firstName":"Google22","lastName":"Com"},"email":"aaa1.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
+```
 
 
 ## Create an account with the customer (replace the customer id with real customer id):
 
-* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
-* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account and account/customer relationship to local database.
+* On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.
+* On account view side, system subscribe the  AccountOpenedEvent by registered event handlers. In the example, system will process event and save account and account/customer relationship to local database.
 
 ```
 curl -X POST \
@@ -98,14 +96,15 @@ curl -X POST \
 
 Result:
 
+```
 {"accountId":"0000015cf505ed48-0242ac1200090001","balance":12355}
-
+```
 
 
 ## Create an account (no link with customer)
 
-* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
-* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
+* On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.
+* On account view side, system subscribe the AccountOpenedEvent by registered event handlers. In the example, system will process event and save account to local database.
 
 ```
 curl -X POST \
@@ -124,7 +123,7 @@ Result:
 ## Create new customer (C2):
 
 * On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
-* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+* On customer view side, system subscribe the CustomerCreatedEvent by registered event handlers. In the example, system will process event and save customer to local database.
 
 ```
 curl -X POST \
@@ -143,7 +142,7 @@ Result:
 ## Link account to customer (replace the customer id and account with real Id):
 
 * On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.
-* On customer view side, system subscrible the  CustomerAddedToAccount event by registered event handles. On the example, system will process event and save customer/account relationship to local database.
+* On customer view side, system subscribe the CustomerAddedToAccount event by registered event handlers. In the example, system will process event and save customer/account relationship to local database.
 
 ```
 curl -X POST \
@@ -159,7 +158,7 @@ Result: 0000015cf50bfe50-0242ac1200060001
 ## Transfer money from account (replace the from account and to account id with real id):
  
 * On transaction command side, system send MoneyTransferCommand and apply the MoneyTransferCreatedEvent event with certain amount
-* On account command side, system subscrible the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
+* On account command side, system subscribes the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
 * If the balance is not enough, system publish AccountDebitFailedDueToInsufficientFundsEvent. Otherwise, system send AccountCreditedEvent/AccountDebitedEvent.
 * On transaction command side, if subscribed events are AccountCreditedEvent/AccountDebitedEvent, system will process event and publish CreditRecordedEvent/debitRecordedevent,
   if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system will publish FailedDebitRecordedEvent.
@@ -201,7 +200,7 @@ curl -X DELETE \
 --View the new customer by email (provide wildcard search):
 
 ```
-  http://localhost:8084/v1/customers/aaa1.bbb1@google.com
+curl http://localhost:8084/v1/customers/aaa1.bbb1@google.com
 ```
 
 Result:
@@ -214,7 +213,7 @@ Result:
 --View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)
 
 ```
-  http://localhost:8084/v1/customer/{customerId}
+curl http://localhost:8084/v1/customer/{customerId}
 ```
 
 Result:
@@ -225,7 +224,9 @@ Result:
 
 -- view account by Id (replace the Id with real account Id)
 
-http://localhost:8082/v1/accounts/{accountId}
+```
+curl http://localhost:8082/v1/accounts/{accountId}
+```
 
 Result:
 
@@ -236,7 +237,7 @@ Result:
 -- View account transaction history:
 
 ```
-http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
+curl http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
 ```
 
 Result:
