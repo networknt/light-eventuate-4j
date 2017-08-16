@@ -80,11 +80,14 @@ Sample Result:
 {"id":"0000015cf50351d8-0242ac1200060000","customerInfo":{"name":{"firstName":"Google22","lastName":"Com"},"email":"aaa1.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
 ```
 
+The json format result include system generated customer id for new created customer: "id":"0000015cf50351d8-0242ac1200060000". Save the customer id (C1) in a text file.  We could use the customer id in the open account restful API call to open account the customer.
+
 
 ## Create an account with the customer (replace the customer id with real customer id):
 
 * On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.
 * On account view side, system subscribe the  AccountOpenedEvent by registered event handlers. In the example, system will process event and save account and account/customer relationship to local database.
+* Open account for the customer created above, use the customer id above in the json data for HTTP POST: customerId":"0000015cf50351d8-0242ac1200060000"
 
 ```
 curl -X POST \
@@ -99,6 +102,9 @@ Result:
 ```
 {"accountId":"0000015cf505ed48-0242ac1200090001","balance":12355}
 ```
+
+The json format result include system generated account id for new opened account: "accountId":"0000015cf505ed48-0242ac1200090001". Save the account id (A1) in a text file. We could use the account Id for money transfer restful API.
+
 
 
 ## Create an account (no link with customer)
@@ -120,6 +126,9 @@ Result:
 {"accountId":"0000015cf5084627-0242ac1200090001","balance":12355}
 ```
 
+The json format result include system generated account id for new opened account: "accountId":"0000015cf5084627-0242ac1200090001". Save the account id (A2) in a text file.  It will be used to link with customer (C2) in "Link account to customer" service call.
+
+
 ## Create new customer (C2):
 
 * On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
@@ -138,11 +147,15 @@ Result:
 {"id":"0000015cf50bfe50-0242ac1200060001","customerInfo":{"name":{"firstName":"Google11","lastName":"Com"},"email":"aaa2.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
 ```
 
+The json format result include system generated customer id for new created customer: "id":"0000015cf50bfe50-0242ac1200060001". Save the customer id (C2) in a text file.  It will be used to link with account (opened on previous service call) in "Link account to customer" service call.
+
+
 
 ## Link account to customer (replace the customer id and account with real Id):
 
 * On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.
 * On customer view side, system subscribe the CustomerAddedToAccount event by registered event handlers. In the example, system will process event and save customer/account relationship to local database.
+* Use the new created customer id (replace the {customerId}  with customer id (C2) in the url) and account id (A2) in POST json data which created on previous service call.
 
 ```
 curl -X POST \
@@ -155,6 +168,7 @@ curl -X POST \
 Result: 0000015cf50bfe50-0242ac1200060001
 
 
+
 ## Transfer money from account (replace the from account and to account id with real id):
  
 * On transaction command side, system send MoneyTransferCommand and apply the MoneyTransferCreatedEvent event with certain amount
@@ -164,6 +178,7 @@ Result: 0000015cf50bfe50-0242ac1200060001
   if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system will publish FailedDebitRecordedEvent.
 * On account view side, if subscribed events are creditRecorded event and debitRecorded event, system will update local account balance and update the transaction status to COMPLETED.
   if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.
+* Use the two new opened account id (A1, A2) for the fromAccountId and toAccountId in the following service call.
 
 ```
 curl -X POST \
@@ -178,6 +193,8 @@ Result:
 ```
 {"moneyTransferId":"0000015cf5118e64-0242ac1200080000"}
 ```
+
+Return system generated money transfer transaction id
 
 
 ## Delete account:
