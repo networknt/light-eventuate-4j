@@ -90,7 +90,7 @@
         <version.json-schema-validator>0.1.7</version.json-schema-validator>
         <version.debezium>0.4.1</version.debezium>
         <version.curator>3.3.0</version.curator>
-        <version.hikaricp>2.5.1</version.hikaricp>
+        <version.hikaricp>2.6.0</version.hikaricp>
         <version.fastscanner>2.0.8</version.fastscanner>
         <version.mysql>5.1.41</version.mysql>
         <version.mysql-binlog>0.12.1</version.mysql-binlog>
