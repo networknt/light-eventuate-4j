@@ -552,6 +552,42 @@ singletons:
 
 ```
 
+
+Since query side service will subscrible event from  kafka, we need create kafka config file: kafka.yml under config folder:
+
+```yaml
+
+description: Kafka producer and consumer properties setting
+acks: all
+retries: 0
+batchSize: 16384
+lingerms: 1
+bufferMemory: 33554432
+keySerializer: org.apache.kafka.common.serialization.StringSerializer
+valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+keyDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
+valueDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
+sessionTimeout: 30000
+autoOffsetreset: earliest
+enableaAutocommit: false
+bootstrapServers: localhost:9092
+
+```
+
+
+The rest-query will subscribe events from light-eventuate-4j so it need to
+config event handler registration in the StartupHookProvider. (com.networknt.server.StartupHookProvider file under folder: src/main/resources/META-INFO.services )
+
+
+```
+# This is the place to plugin your startup hooks to initialize Spring application context,
+# set up db connection pools and allocate resources.
+
+# config event handle registration
+com.networknt.eventuate.client.EventuateClientStartupHookProvider
+```
+
+
 As there are test cases and a test server will be started, we need to create a
 service.yml in /src/test/resources/config folder to utilize H2 database for
 our test cases. 
@@ -598,16 +634,6 @@ singletons:
 
 ```
 
-The rest-query will subscribe events from light-eventuate-4j so it need to
-config event handler registration in the StartupHookProvider.
-
-```
-# This is the place to plugin your startup hooks to initialize Spring application context,
-# set up db connection pools and allocate resources.
-
-# config event handle registration
-com.networknt.eventuate.client.EventuateClientStartupHookProvider
-```
 
 Now let's verify that all modules can be built.
 
