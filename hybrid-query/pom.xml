@@ -31,8 +31,6 @@
         <version.mockito>2.1.0-RC.1</version.mockito>
         <version.undertow>1.4.11.Final</version.undertow>
         <version.jsonpath>2.2.0</version.jsonpath>
-        <version.httpclient>4.5.2</version.httpclient>
-        <version.httpasyncclient>4.1.2</version.httpasyncclient>
         <version.fastscanner>2.0.8</version.fastscanner>
         <version.json-schema-validator>0.1.7</version.json-schema-validator>
     </properties>
@@ -108,10 +106,6 @@
         <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.lukehutch</groupId>
