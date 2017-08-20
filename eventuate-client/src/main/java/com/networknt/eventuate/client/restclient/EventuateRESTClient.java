@@ -1,29 +1,31 @@
 package com.networknt.eventuate.client.restclient;
 
+import com.networknt.client.Http2Client;
 import com.networknt.eventuate.common.*;
 import com.networknt.eventuate.common.impl.*;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.util.EntityUtils;
+import io.undertow.client.ClientConnection;
+import io.undertow.client.ClientRequest;
+import io.undertow.client.ClientResponse;
+import io.undertow.util.Headers;
+import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.networknt.client.Client;
+import org.xnio.IoUtils;
+import org.xnio.OptionMap;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 
 /**
- *  RestFul Client used for process Event Sourcing Aggregate Crud process
- * Created by gavin on 2017-04-16.
+ * RestFul Client used for process Event Sourcing Aggregate Crud process
+ * @author gavin
  */
 public class EventuateRESTClient implements AggregateCrud{
 
@@ -31,8 +33,8 @@ public class EventuateRESTClient implements AggregateCrud{
     public static final String  FIND = "find";
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
-    private Client client;
-    private  URI url;
+    private Http2Client client;
+    private URI url;
     private String correlationId;
     private String traceabilityId;
     private String authToken;
@@ -42,7 +44,7 @@ public class EventuateRESTClient implements AggregateCrud{
     }
 
     public EventuateRESTClient(String authToken, URI url, String correlationId, String traceabilityId) {
-        client = Client.getInstance();
+        client = Http2Client.getInstance();
         this.authToken = authToken;
         this.url = url;
         this.correlationId = correlationId;
@@ -94,69 +96,96 @@ public class EventuateRESTClient implements AggregateCrud{
             options.flatMap(AggregateCrudSaveOptions::getEntityId).ifPresent(request::setEntityId);
 
             String json = JSonMapper.toJson(request);
-            HttpPost httpPost = new HttpPost(url);
 
-            ResponseHandler<String> responseHandler = response -> {
-                int status = response.getStatusLine().getStatusCode();
-               if (status >= 200 && status < 300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
-                }
-            };
-            String responseBody;
+            final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+            final CountDownLatch latch = new CountDownLatch(1);
+            final ClientConnection connection;
             try {
-                httpPost.setEntity(new StringEntity(json));
-                httpPost.setHeader("Content-type", "application/json");
-                client.populateHeader(httpPost, authToken, correlationId, traceabilityId );
-                responseBody = client.getSyncClient().execute(httpPost, responseHandler);
-                CreateEntityResponse r = JSonMapper.fromJson(responseBody, CreateEntityResponse.class);
-                cf.complete(new EntityIdVersionAndEventIds(r.getEntityId(), r.getEntityVersion(), r.getEventIds()));
-                logger.debug("message = " + responseBody);
+                connection = client.connect(url, Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, OptionMap.EMPTY).get();
+                try {
+                    connection.getIoThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            final ClientRequest request = new ClientRequest().setMethod(Methods.POST);
+                            request.getRequestHeaders().put(Headers.HOST, "localhost");
+                            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+                            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+                            connection.sendRequest(request, client.createClientCallback(reference, latch, json));
+                        }
+                    });
+
+                    latch.await(10, TimeUnit.SECONDS);
+                } catch (Exception e) {
+                    logger.error("IOException: ", e);
+                    cf.completeExceptionally(e);
+                } finally {
+                    IoUtils.safeClose(connection);
+                }
+                int statusCode = reference.get().getResponseCode();
+                String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+                if (statusCode >= 200 && statusCode < 300) {
+                    CreateEntityResponse r = JSonMapper.fromJson(body, CreateEntityResponse.class);
+                    cf.complete(new EntityIdVersionAndEventIds(r.getEntityId(), r.getEntityVersion(), r.getEventIds()));
+                    logger.debug("responseBody = " + body);
+                } else {
+                    cf.completeExceptionally(new RuntimeException("Unexpected response status: " + statusCode + " body: " + body));
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception:", e);
                 cf.completeExceptionally(e);
             }
-
-
             return cf;
-        });    }
+        });
+    }
 
     @Override
     public <T extends Aggregate<T>> CompletableFuture<LoadedEvents> find(String aggregateType, String entityId, Optional<AggregateCrudFindOptions> findOptions) {
         return withRetry(() -> {
             CompletableFuture<LoadedEvents> cf = new CompletableFuture<>();
             String path =  "/" + aggregateType + "/" + entityId + makeGetQueryString(findOptions.flatMap(AggregateCrudFindOptions::getTriggeringEvent));
-            HttpGet httpGet = new HttpGet(path);
-            ResponseHandler<String> responseHandler = response -> {
-                int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
-                }
-            };
 
-            String responseBody;
+            final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+            final CountDownLatch latch = new CountDownLatch(1);
+            final ClientConnection connection;
             try {
-                httpGet.setHeader("Content-type", "application/json");
-                client.populateHeader(httpGet, authToken, correlationId, traceabilityId );
-                responseBody = client.getSyncClient().execute(httpGet, responseHandler);
-                GetEntityResponse r = JSonMapper.fromJson(responseBody, GetEntityResponse.class);
-                if (r.getEvents().isEmpty())
-                    cf.completeExceptionally(new EntityNotFoundException());
-                else {
-                    Optional<SerializedSnapshotWithVersion> snapshot = Optional.empty();  // TODO - retrieve snapshot
-                    cf.complete(new LoadedEvents(snapshot, r.getEvents()));
+                connection = client.connect(url, Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, OptionMap.EMPTY).get();
+                try {
+                    connection.getIoThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            final ClientRequest request = new ClientRequest().setMethod(Methods.GET).setPath(path);
+                            request.getRequestHeaders().put(Headers.HOST, "localhost");
+                            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+                            connection.sendRequest(request, client.createClientCallback(reference, latch));
+                        }
+                    });
+
+                    latch.await(10, TimeUnit.SECONDS);
+                } catch (Exception e) {
+                    logger.error("IOException: ", e);
+                    cf.completeExceptionally(e);
+                } finally {
+                    IoUtils.safeClose(connection);
                 }
-                logger.debug("message = " + responseBody);
+                int statusCode = reference.get().getResponseCode();
+                String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+                if (statusCode >= 200 && statusCode < 300) {
+
+                    GetEntityResponse r = JSonMapper.fromJson(body, GetEntityResponse.class);
+                    if (r.getEvents().isEmpty())
+                        cf.completeExceptionally(new EntityNotFoundException());
+                    else {
+                        Optional<SerializedSnapshotWithVersion> snapshot = Optional.empty();  // TODO - retrieve snapshot
+                        cf.complete(new LoadedEvents(snapshot, r.getEvents()));
+                    }
+                    logger.debug("responseBody = " + body);
+                } else {
+                    cf.completeExceptionally(new RuntimeException("Unexpected response status: " + statusCode + " body: " + body));
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception:", e);
                 cf.completeExceptionally(e);
             }
-
             return cf;
         });
     }
@@ -180,32 +209,43 @@ public class EventuateRESTClient implements AggregateCrud{
             String json = JSonMapper.toJson(request);
             String path = "/" + entityIdAndType.getEntityType() + "/" + entityIdAndType.getEntityId();
 
-
-            HttpPost httpPost = new HttpPost(path);
-
-            ResponseHandler<String> responseHandler = response -> {
-                int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
-                }
-            };
-            String responseBody;
+            final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+            final CountDownLatch latch = new CountDownLatch(1);
+            final ClientConnection connection;
             try {
-                httpPost.setEntity(new StringEntity(json));
-                httpPost.setHeader("Content-type", "application/json");
-                client.populateHeader(httpPost, authToken, correlationId, traceabilityId );
-                responseBody = client.getSyncClient().execute(httpPost, responseHandler);
-                CreateEntityResponse r = JSonMapper.fromJson(responseBody, CreateEntityResponse.class);
-                cf.complete(new EntityIdVersionAndEventIds(r.getEntityId(), r.getEntityVersion(), r.getEventIds()));
-                logger.debug("message = " + responseBody);
+                connection = client.connect(url, Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, OptionMap.EMPTY).get();
+                try {
+                    connection.getIoThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            final ClientRequest request = new ClientRequest().setMethod(Methods.POST).setPath(path);
+                            request.getRequestHeaders().put(Headers.HOST, "localhost");
+                            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+                            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+                            connection.sendRequest(request, client.createClientCallback(reference, latch, json));
+                        }
+                    });
+
+                    latch.await(10, TimeUnit.SECONDS);
+                } catch (Exception e) {
+                    logger.error("IOException: ", e);
+                    cf.completeExceptionally(e);
+                } finally {
+                    IoUtils.safeClose(connection);
+                }
+                int statusCode = reference.get().getResponseCode();
+                String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+                if (statusCode >= 200 && statusCode < 300) {
+                    CreateEntityResponse r = JSonMapper.fromJson(body, CreateEntityResponse.class);
+                    cf.complete(new EntityIdVersionAndEventIds(r.getEntityId(), r.getEntityVersion(), r.getEventIds()));
+                    logger.debug("responseBody = " + body);
+                } else {
+                    cf.completeExceptionally(new RuntimeException("Unexpected response status: " + statusCode + " body: " + body));
+                }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception:", e);
                 cf.completeExceptionally(e);
             }
-
             return cf;
         });
     }
