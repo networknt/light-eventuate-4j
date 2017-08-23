@@ -2,4 +2,4 @@
 # If you want to close database connections, release allocated resources etc. please
 # implement com.networknt.server.ShutdownHookProvider interface and put your class here.
 
-com.networknt.eventuate.cdc.service.CdcServiceShutdownHookProvider
+# com.networknt.eventuate.cdc.service.CdcServiceShutdownHookProvider

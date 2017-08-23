@@ -4,46 +4,56 @@ title: Account Money Transfer
 ---
 
 
+# Prepare environment
 
+We are going to use docker-compose to start light-eventuate-4j, cdcserver
+and account money transfer services. 
 
-# Integration Test Setting
+The following assumes that we have a working directory under user directory
+called networknt. 
 
+## Start light-eventuate-4j and cdcserver
 
+First let's clone the light-docker repository that contains docker-compose
+to start light-eventuate-4j platform and cdcserver.
 
-## Build Account-management example
+```
+cd ~/networknt
+git clone git@github.com:networknt/light-docker.git
+```
 
-Get the example project from github:
-git clone git@github.com:networknt/light-eventuate-example.git
-
-cd ~/networknt/light-eventuate-example/account-management
-
-mvn clean install
-
+Now you can follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/) 
+to start light-eventuate-4j and cdcserver.
 
 ## Run the Event store and Mocroservices:
 
 Before starting any service, we need to make sure that light-eventuate-4j is
 up and running. Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
-to set up.
+to start it up.
 
-Start Account money transfer service with docker compose:
 
-cd ~/networknt/light-eventuate-example/account-management
+## Start Account-Management services
 
+First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and 
+running by following the previous steps.
+
+Then start services with docker compose file for account money transfer services
+
+```
+cd ~/networknt/light-example-4j/eventuate/account-management
+docker-compose down
 docker-compose up
-
-
+```
 
 # Test and verify result:
-
 
 
 ## From command line:
 
 ## Create new customer (C1):
 
-* On customer command side, system sent the cCreateCustomerCommand and apply CustomerCreatedEvent event.
-* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+* On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
+* On customer view side, system subscribe the CustomerCreatedEvent by registered event handlers. In the example, system will process event and save customer to local database.
 
 
 ```
@@ -52,18 +62,22 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{"name":{"firstName":"Google11","lastName":"Com"},"email":"aaa1.bbb1@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}'
-
-  Sample Result:
-
-  {"id":"0000015cf50351d8-0242ac1200060000","customerInfo":{"name":{"firstName":"Google22","lastName":"Com"},"email":"aaa1.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
 ```
 
+Sample Result:
+
+```
+{"id":"0000015cf50351d8-0242ac1200060000","customerInfo":{"name":{"firstName":"Google22","lastName":"Com"},"email":"aaa1.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
+```
+
+The json format result include system generated customer id for new created customer: "id":"0000015cf50351d8-0242ac1200060000". Get the customer id (C1) from your real result and save it in a text file.  We could use the customer id in the open account restful API call to open account the customer.
 
 
 ## Create an account with the customer (replace the customer id with real customer id):
 
-* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
-* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account and account/customer relationship to local database.
+* On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.
+* On account view side, system subscribe the  AccountOpenedEvent by registered event handlers. In the example, system will process event and save account and account/customer relationship to local database.
+* Open account for the customer created above, use the customer id above in the json data for HTTP POST: customerId":"0000015cf50351d8-0242ac1200060000"
 
 ```
 curl -X POST \
@@ -75,14 +89,18 @@ curl -X POST \
 
 Result:
 
+```
 {"accountId":"0000015cf505ed48-0242ac1200090001","balance":12355}
+```
+
+The json format result include system generated account id for new opened account: "accountId":"0000015cf505ed48-0242ac1200090001". Get the account id (A1) from your real result and save it in a text file. We could use the account Id for money transfer restful API.
 
 
 
 ## Create an account (no link with customer)
 
-* On account command side, system sent the OpenAccountCommand  and apply AccountOpenedEvent event.
-* On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.
+* On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.
+* On account view side, system subscribe the AccountOpenedEvent by registered event handlers. In the example, system will process event and save account to local database.
 
 ```
 curl -X POST \
@@ -98,10 +116,13 @@ Result:
 {"accountId":"0000015cf5084627-0242ac1200090001","balance":12355}
 ```
 
+The json format result include system generated account id for new opened account: "accountId":"0000015cf5084627-0242ac1200090001". Get the account id (A2) from your real result and save it in a text file. It will be used to link with customer (C2) in "Link account to customer" service call.
+
+
 ## Create new customer (C2):
 
 * On customer command side, system sent the CreateCustomerCommand and apply CustomerCreatedEvent event.
-* On customer view side, system subscrible the  CustomerCreatedEvent by registered event handles. On the example, system will process event and save customer to local database.
+* On customer view side, system subscribe the CustomerCreatedEvent by registered event handlers. In the example, system will process event and save customer to local database.
 
 ```
 curl -X POST \
@@ -116,11 +137,15 @@ Result:
 {"id":"0000015cf50bfe50-0242ac1200060001","customerInfo":{"name":{"firstName":"Google11","lastName":"Com"},"email":"aaa2.bbb@google.com","password":"password","ssn":"9999999999","phoneNumber":"4166666666","address":{"street1":"Yonge St","street2":"2556 unit","city":"toronto","state":"ON","zipCode":"Canada","country":"L3R 5F5"}}}
 ```
 
+The json format result include system generated customer id for new created customer: "id":"0000015cf50bfe50-0242ac1200060001". Get the customer id (C2) from your real result and save it in a text file.  It will be used to link with account (opened on previous service call) in "Link account to customer" service call.
+
+
 
 ## Link account to customer (replace the customer id and account with real Id):
 
 * On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.
-* On customer view side, system subscrible the  CustomerAddedToAccount event by registered event handles. On the example, system will process event and save customer/account relationship to local database.
+* On customer view side, system subscribe the CustomerAddedToAccount event by registered event handlers. In the example, system will process event and save customer/account relationship to local database.
+* Use the new created customer id (replace the {customerId}  with customer id (C2) in the url) and replace tge account id (A2) in POST json data which created on previous service call.
 
 ```
 curl -X POST \
@@ -133,15 +158,17 @@ curl -X POST \
 Result: 0000015cf50bfe50-0242ac1200060001
 
 
+
 ## Transfer money from account (replace the from account and to account id with real id):
  
 * On transaction command side, system send MoneyTransferCommand and apply the MoneyTransferCreatedEvent event with certain amount
-* On account command side, system subscrible the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
+* On account command side, system subscribes the MoneyTransferCreatedEvent event. System will verify the account balance based on the debit event.
 * If the balance is not enough, system publish AccountDebitFailedDueToInsufficientFundsEvent. Otherwise, system send AccountCreditedEvent/AccountDebitedEvent.
 * On transaction command side, if subscribed events are AccountCreditedEvent/AccountDebitedEvent, system will process event and publish CreditRecordedEvent/debitRecordedevent,
   if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system will publish FailedDebitRecordedEvent.
 * On account view side, if subscribed events are creditRecorded event and debitRecorded event, system will update local account balance and update the transaction status to COMPLETED.
   if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.
+* Use the two new opened account id (A1, A2) on previous services for the fromAccountId and toAccountId in the following service call.
 
 ```
 curl -X POST \
@@ -156,6 +183,8 @@ Result:
 ```
 {"moneyTransferId":"0000015cf5118e64-0242ac1200080000"}
 ```
+
+Return system generated money transfer transaction id
 
 
 ## Delete account:
@@ -178,7 +207,7 @@ curl -X DELETE \
 --View the new customer by email (provide wildcard search):
 
 ```
-  http://localhost:8084/v1/customers/aaa1.bbb1@google.com
+curl http://localhost:8084/v1/customers/aaa1.bbb1@google.com
 ```
 
 Result:
@@ -191,7 +220,7 @@ Result:
 --View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)
 
 ```
-  http://localhost:8084/v1/customer/{customerId}
+curl http://localhost:8084/v1/customer/{customerId}
 ```
 
 Result:
@@ -202,7 +231,9 @@ Result:
 
 -- view account by Id (replace the Id with real account Id)
 
-http://localhost:8082/v1/accounts/{accountId}
+```
+curl http://localhost:8082/v1/accounts/{accountId}
+```
 
 Result:
 
@@ -213,7 +244,7 @@ Result:
 -- View account transaction history:
 
 ```
-http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
+curl http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
 ```
 
 Result:
