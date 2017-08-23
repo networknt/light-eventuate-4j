@@ -33,7 +33,7 @@ recreate it in this tutorial.
 As other tutorials, we are going to use networknt under user's home directory as
 workspace. 
 
-```$xslt
+```
 cd ~/networknt
 git clone git@github.com:networknt/light-example-4j.git
 cd light-example-4j/eventuate
@@ -46,7 +46,7 @@ Once all done, the todo-list project in light-example-4j/eventuate will contain 
 ## Create a multiple modules maven project
 
 Let's create a todo-list folder and copy the pom.xml from the existing project.
-```$xslt
+```
 cd ~/networknt/light-example-4j/eventuate
 mkdir todo-list
 cd todo-list
@@ -62,7 +62,7 @@ one.
 - query contains query side service
  
 
-```$xslt
+```
 cd ~/networknt/light-example-4j/eventuate/todo-list
 cp -r ../todo-list.bak/common .
 cp -r ../todo-list.bak/command .
@@ -72,7 +72,7 @@ cp -r ../todo-list.bak/query .
 
 Now let's open pom.xml to remove other modules and only leave common, command and query:
 
-```$xslt
+```
     <modules>
         <module>common</module>
         <module>command</module>
@@ -83,7 +83,7 @@ Now let's open pom.xml to remove other modules and only leave common, command an
 
 Let's run the maven build to make sure these three modules can be built.
 
-```$xslt
+```
 cd ~/networknt/light-example-4j/eventuate/todo-list
 mvn clean install
 ```
@@ -95,7 +95,7 @@ for this service can be found at model-config repo.
 
 Let's first checkout model-config repo from github.
 
-```$xslt
+```
 git clone git@github.com:networknt/model-config.git
 
 ```
@@ -107,7 +107,7 @@ which is used to control how light-codegen going to generate the code.
 In order to generate the rest-command service, let's first clone the light-codegen
 project and build it.
 
-```$xslt
+```
 cd ~/networknt
 git clone git@github.com:networknt/light-codegen.git
 cd light-codegen
@@ -117,13 +117,13 @@ mvn clean install
 Generate rest-command service with the following command line. Assume we are still in
 light-codegen folder.
 
-```$xslt
+```
 java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-command -m ../model-config/rest/todo_command/1.0.0/swagger.json -c ../model-config/rest/todo_command/1.0.0/config.json
 ``` 
 
 Now add this rest-command into pom.xml and build it with maven.
 
-```$xslt
+```xml
     <modules>
         <module>common</module>
         <module>command</module>
@@ -133,7 +133,7 @@ Now add this rest-command into pom.xml and build it with maven.
 
 ```
 
-```$xslt
+```
 mvn clean install
 ```
 
@@ -142,8 +142,8 @@ The four modules should be built successfully.
 Now let's update rest-command module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
-```$xslt
-        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
+```xml
+        <version.light-eventuate-4j>1.4.0</version.light-eventuate-4j>
 
 
         <dependency>
@@ -181,7 +181,7 @@ First we need to update dependencies for this project by adding the following.
 
 And change the three handlers to the following.
 
-```$xslt
+```java
 package com.networknt.todolist.restcommand.handler;
 
 import com.networknt.body.BodyHandler;
@@ -226,7 +226,7 @@ public class TodosIdDeleteHandler implements HttpHandler {
 
 ```
 
-```$xslt
+```java
 package com.networknt.todolist.restcommand.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -279,7 +279,7 @@ public class TodosPostHandler implements HttpHandler {
 
 ```
 
-```$xslt
+```java
 package com.networknt.todolist.restcommand.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -332,7 +332,7 @@ public class TodosPutHandler implements HttpHandler {
 Since we are going to create some eventuate class instances from interfaces. Let's create a
 service.yml under resources/config folder.
 
-```$xslt
+```yaml
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
@@ -364,7 +364,7 @@ singletons:
 
 Now let's verify that all modules can be built.
 
-```$xslt
+```
 mvn clean install
 ```
 
@@ -378,13 +378,13 @@ which is used to control how light-codegen going to generate the code.
 Generate rest-query service with the following command line. Assume we are still in
 light-codegen folder.
 
-```$xslt
+```
 java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-query -m ../model-config/rest/todo_query/1.0.0/swagger.json -c ../model-config/rest/todo_query/1.0.0/config.json
 ``` 
 
 Now add this rest-query into parent pom.xml and build it with maven.
 
-```$xslt
+```xml
     <modules>
         <module>common</module>
         <module>command</module>
@@ -395,7 +395,7 @@ Now add this rest-query into parent pom.xml and build it with maven.
 
 ```
 
-```$xslt
+```
 mvn clean install
 ```
 
@@ -404,8 +404,8 @@ The five modules should be built successfully.
 Now let's update rest-query module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
-```$xslt
-        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
+```xml
+        <version.light-eventuate-4j>1.4.0</version.light-eventuate-4j>
 
 
         <dependency>
@@ -448,7 +448,7 @@ First we need to update dependencies for this project by adding the following.
 
 Now update the two handler as following.
 
-```$xslt
+```java
 package com.networknt.todolist.restquery.handler;
 
 import com.networknt.config.Config;
@@ -479,7 +479,7 @@ public class TodosGetHandler implements HttpHandler {
 ```
 
 
-```$xslt
+```java
 package com.networknt.todolist.restquery.handler;
 
 import com.networknt.config.Config;
@@ -512,7 +512,7 @@ public class TodosIdGetHandler implements HttpHandler {
 Since we are going to create some eventuate class instances from interfaces. Let's create a
 service.yml under src/main/resources/config folder.
 
-```$xslt
+```yaml
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
@@ -552,11 +552,47 @@ singletons:
 
 ```
 
+
+Since query side service will subscrible event from  kafka, we need create kafka config file: kafka.yml under config folder:
+
+```yaml
+
+description: Kafka producer and consumer properties setting
+acks: all
+retries: 0
+batchSize: 16384
+lingerms: 1
+bufferMemory: 33554432
+keySerializer: org.apache.kafka.common.serialization.StringSerializer
+valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+keyDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
+valueDeSerializer: org.apache.kafka.common.serialization.StringDeserializer
+sessionTimeout: 30000
+autoOffsetreset: earliest
+enableaAutocommit: false
+bootstrapServers: localhost:9092
+
+```
+
+
+The rest-query will subscribe events from light-eventuate-4j so it need to
+config event handler registration in the StartupHookProvider. (com.networknt.server.StartupHookProvider file under folder: src/main/resources/META-INFO.services )
+
+
+```
+# This is the place to plugin your startup hooks to initialize Spring application context,
+# set up db connection pools and allocate resources.
+
+# config event handle registration
+com.networknt.eventuate.client.EventuateClientStartupHookProvider
+```
+
+
 As there are test cases and a test server will be started, we need to create a
 service.yml in /src/test/resources/config folder to utilize H2 database for
 our test cases. 
 
-```$xslt
+```yaml
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
@@ -598,16 +634,6 @@ singletons:
 
 ```
 
-The rest-query will subscribe events from light-eventuate-4j so it need to
-config event handler registration in the StartupHookProvider.
-
-```
-# This is the place to plugin your startup hooks to initialize Spring application context,
-# set up db connection pools and allocate resources.
-
-# config event handle registration
-com.networknt.eventuate.client.EventuateClientStartupHookProvider
-```
 
 Now let's verify that all modules can be built.
 
@@ -753,7 +779,7 @@ These two files can be found in model-config/hybrid/todo-command folder.
 
 config.json
 
-```
+```json
 {
   "rootPackage": "com.networknt.todolist.command",
   "handlerPackage":"com.networknt.todolist.command.handler",
@@ -763,14 +789,24 @@ config.json
   "name": "hybrid-command",
   "version": "0.1.0",
   "overwriteHandler": true,
-  "overwriteHandlerTest": true
+  "overwriteHandlerTest": true,
+  "httpPort": 8080,
+  "enableHttp": true,
+  "httpsPort": 8443,
+  "enableHttps": false,
+  "enableRegistry": false,
+  "supportOracle": false,
+  "supportMysql": false,
+  "supportPostgresql": false,
+  "supportH2ForTest": false,
+  "supportClient": false
 }
 
 ```
 
 schema.json 
 
-```
+```json
 {
   "host": "lightapi.net",
   "service": "todo",
@@ -849,16 +885,18 @@ schema.json
 }
 ```
 
-Now let's run the light-codegen command line to generate the project.
+Now let's run the light-codegen command line to generate the project (get latest light-codegen from master branch).
 
 ```
+cd ~/networknt/light-codegen
+
 java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-command -m ../model-config/hybrid/todo-command/schema.json -c ../model-config/hybrid/todo-command/config.json
 ```
 
 Let's add this newly generated project to the parent pom.xml and build all
 modules.
 
-```
+```xml
     <modules>
         <module>common</module>
         <module>command</module>
@@ -869,7 +907,7 @@ modules.
     </modules>
 ```
 
-```
+```xml
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>hybrid-command</artifactId>
@@ -888,20 +926,15 @@ mvn clean install
 Now let's change the dependencies to add light-eventuate-4j modules and todo-list
 modules.
 
-```
-        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
+```xml
+        <version.light-eventuate-4j>1.4.0</version.light-eventuate-4j>
 
 ```
 
-```
+```xml
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-jdbc</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
@@ -930,7 +963,7 @@ modules.
 With all the dependencies are added, let's change the handler to wire in the
 right logic.
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -980,7 +1013,7 @@ public class CreateTodo implements Handler {
 
 ```
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -1029,7 +1062,7 @@ public class DeleteTodo implements Handler {
 
 ```
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -1084,7 +1117,7 @@ As we have to put the service jar into the hybrid server platform in order to ru
 it, we cannot wait then to test it. So for hybrid service development, end-to-end
 test is very important to ensure what you have built is working.
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
@@ -1146,7 +1179,7 @@ public class CreateTodoTest {
 }
 ```
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
@@ -1204,7 +1237,7 @@ public class DeleteTodoTest {
 }
 ```
 
-```
+```java
 package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
@@ -1269,7 +1302,7 @@ public class UpdateTodoTest {
 In order to make the test case works, we need to add a service.yml in
 src/test/resources/config folder
 
-```
+```yaml
 singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
@@ -1278,7 +1311,7 @@ singletons:
       username: sa
       password: sa
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
-    - com.networknt.eventuate.test.jdbc.EventuateEmbeddedTestAggregateStore
+  - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
 - com.networknt.eventuate.common.impl.sync.AggregateEvents:
     - com.networknt.eventuate.client.EventuateLocalAggregatesEvents
 - com.networknt.eventuate.common.impl.AggregateCrud:
@@ -1339,7 +1372,7 @@ These two files can be found in model-config/hybrid/todo-query folder.
 
 config.json
 
-```
+```json
 {
   "rootPackage": "com.networknt.todolist.query",
   "handlerPackage":"com.networknt.todolist.query.handler",
@@ -1349,13 +1382,23 @@ config.json
   "name": "hybrid-query",
   "version": "0.1.0",
   "overwriteHandler": true,
-  "overwriteHandlerTest": true
+  "overwriteHandlerTest": true,
+  "httpPort": 8080,
+  "enableHttp": true,
+  "httpsPort": 8443,
+  "enableHttps": false,
+  "enableRegistry": false,
+  "supportOracle": false,
+  "supportMysql": false,
+  "supportPostgresql": false,
+  "supportH2ForTest": false,
+  "supportClient": false
 }
 ```
 
 schema.json 
 
-```
+```json
 {
   "host": "lightapi.net",
   "service": "todo",
@@ -1394,13 +1437,15 @@ schema.json
 Now let's run the light-codegen command line to generate the project.
 
 ```
+cd ~/networknt/light-codegen
+
 java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-query -m ../model-config/hybrid/todo-query/schema.json -c ../model-config/hybrid/todo-query/config.json
 ```
 
 Let's add this newly generated project to the parent pom.xml and build all
 modules.
 
-```
+```xml
     <modules>
         <module>common</module>
         <module>command</module>
@@ -1412,7 +1457,7 @@ modules.
     </modules>
 ```
 
-```
+```xml
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>hybrid-query</artifactId>
@@ -1431,20 +1476,15 @@ mvn clean install
 Now let's change the dependencies to add light-eventuate-4j modules and todo-list
 modules.
 
-```
-        <version.light-eventuate-4j>1.3.5</version.light-eventuate-4j>
+```xml
+        <version.light-eventuate-4j>1.4.0</version.light-eventuate-4j>
 
 ```
 
-```
+```xml
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-jdbc</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
@@ -1478,7 +1518,7 @@ modules.
 With all the dependencies are added, let's change the handler to wire in the
 right logic.
 
-```
+```java
 package com.networknt.todolist.query.handler;
 
 import com.networknt.config.Config;
@@ -1514,7 +1554,7 @@ public class GetAllTodos implements Handler {
 
 ```
 
-```
+```java
 package com.networknt.todolist.query.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -1755,7 +1795,7 @@ We will start hybrid-command server and hybrid-query server manually first and
 then start them together along with services in a docker-compose.
 
 The first step is to make sure light-eventuate-4j platform is up and running.
-There is no need to start cdc-server though. Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
+Please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/)
 
 To start hybrid servers manually, we need to checkout light-eventuate-4j as these
 two servers are part of it.
@@ -1775,7 +1815,7 @@ we are going to copy all of them into light-docker/
 
 ```
 cd ~/networknt/light-docker/eventuate/hybrid-command/service
-cp ~/networknt/light-eventuate-4j/cdc-service/target/cdc-service-1.3.5.jar .
+
 cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
 cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
@@ -1783,7 +1823,10 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-command
-java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.3.5.jar com.networknt.server.Server
+
+mvn clean install
+
+java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.4.0.jar com.networknt.server.Server
 
 ```
 
@@ -1804,7 +1847,10 @@ cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-q
 
 ```
 cd ~/networknt/light-eventuate-4j/hybrid-query
-java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.3.5.jar com.networknt.server.Server
+
+mvn clean install
+
+java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.4.0.jar com.networknt.server.Server
 
 ```
 
@@ -1815,7 +1861,6 @@ curl -X POST \
   http://localhost:8083/api/json \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: a9a7dd04-c621-7f83-a92c-33cc69e1b5ac' \
   -d '{"host":"lightapi.net","service":"todo","action":"create", "version": "0.1.0", "title": "create todo item from hybrid-command", "completed": false, "order": 1}'
 ```
 
@@ -1826,9 +1871,135 @@ curl -X POST \
   http://localhost:8082/api/json \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: e797a185-5e5d-2c22-6001-98629303bcbb' \
   -d '{"host":"lightapi.net","service":"todo","action":"gettodos", "version": "0.1.0"}'
 ```
 
-## Console
+## Dockerization
 
+## Restful Service API:
+
+Let's copy docker config folder to the todo-list folder from existing
+one.
+
+- docker  contains docker config files
+
+
+```
+cd ~/networknt/light-example-4j/eventuate/todo-list
+cp -r ../todo-list.bak/docker .
+
+```
+
+There are two sub-folders in the docker module:
+
+
+\command-service      -- command side config, include service.yml file
+
+Since the service runs in the docker container, we need change the mysql host name to use docker image name:
+
+service.yml:
+
+```yaml
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: com.mysql.jdbc.Driver
+      jdbcUrl: jdbc:mysql://mysql:3306/eventuate?useSSL=false
+      username: mysqluser
+      password: mysqlpw
+
+```
+
+\query-service        -- query side config, include service.yml and kafka.yml file
+
+Since the service runs in the docker container, we need change the mysql host name and kafka host name to use docker image name:
+
+service.yml:
+
+```yaml
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: com.mysql.jdbc.Driver
+      jdbcUrl: jdbc:mysql://mysql:3306/todo_db?useSSL=false
+      username: mysqluser
+      password: mysqlpw
+
+```
+
+kafka.yml:
+
+```yaml
+bootstrapServers: kafka:9092
+
+```
+
+## Start command side and query side service from docker compose
+
+Instead of start service from command line, start service from docker compose file:
+
+```
+cd ~/networknt/light-example-4j/eventuate/todo-list
+docker-compose up
+
+```
+
+Then following same steps above to verify the service result from command line
+
+
+
+## Hybrid Service API:
+
+Copy service jar files to service folder:
+
+For hybrid command service :
+
+```
+cd ~/networknt/light-docker/eventuate/hybrid-command/service
+
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
+cp ~/networknt/light-eventuate-4j/hybrid-command/target/hybrid-command-1.4.0.jar .
+```
+
+For hybrid query:
+
+```
+cd ~/networknt/light-docker/eventuate/hybrid-query/service
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/query/target/todo-query-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-query-0.1.0.jar .
+cp ~/networknt/light-eventuate-4j/hybrid-query/target/hybrid-query-1.4.0.jar .
+
+```
+
+Go to light-docker root folder and start docker-compose file for eventutate hybrid service:
+
+```
+cd ~/networknt/light-docker/
+
+docker-compose -f docker-compose-eventuate-hybrid-local.yml up
+
+```
+
+Verify result with following command
+
+Create a todo item on command service with the following command.
+
+```
+curl -X POST \
+  http://localhost:8083/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{"host":"lightapi.net","service":"todo","action":"create", "version": "0.1.0", "title": "create todo item from hybrid-command", "completed": false, "order": 1}'
+```
+
+Let's get all the todo items from query service with the following command
+
+```
+curl -X POST \
+  http://localhost:8082/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{"host":"lightapi.net","service":"todo","action":"gettodos", "version": "0.1.0"}'
+```

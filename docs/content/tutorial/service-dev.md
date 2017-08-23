@@ -26,14 +26,45 @@ light-eventuate-4j framework for service to service communication. If you want t
 on the components in light-eventuate-4j, please follow this [tutorial](https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/) 
 to set up your working environment. 
 
-Also, the following steps assume that you have docker installed on your computer.
+Also, the following steps assume that you have docker installed on your computer. Your
+OS should be Linux or Mac. Windows these days are still not Docker friendly and there
+are some issue with docker-compose. 
+
+## Setting DOCKER_HOST_IP for Mac
+
+You can install Mysql, Kafka individually and start them at OS level and it is
+the only option if you are using Windows. However, the most convenient way is to
+use docker-compose to run the application services and eventuate infrastructure 
+services: Mysql, Zookeeper, Kafka and CDC server.
+
+There is no special configuration for Linux as Docker is native. On Mac, Docker
+still runs within a VM so you need to setup OS environment variable DOCKER_HOST_IP.
+
+This variable sets the advertised listener of the Kafka container. It must be an 
+IP address (or a DNS name) that is accessible from both Docker containers and, if 
+you want to do development, from applications running on the host. Unfortunately, 
+because of version/platform-specific variations in how Docker works, setting this 
+variable is a little tricky.
+
+Docker for Mac has [networking limitations](https://docs.docker.com/docker-for-mac/networking/)
+and you need to follow the steps below to set it up.
+
+```
+sudo ifconfig lo0 alias 10.200.10.1/24  # (where 10.200.10.1 is some unused IP address)
+export DOCKER_HOST_IP=10.200.10.1
+```
+
+Once you have complete the export command, please ues the same terminal to start
+docker-compose-eventuate.yml described in the next step as other terminal doesn't
+have this DOCKER_HOST_IP set.
+
 
 ## Start Mysql, Zookeeper and Kafka
 
 Assume you have a working directory under your home directory called networknt
 
 
-```$xslt
+```
 cd ~/networknt
 git clone git@github.com:networknt/light-docker.git
 cd light-docker
@@ -46,9 +77,12 @@ docker-compose down first before up.
 
 ## Start CDC server
 
-Open another terminal
+Open another terminal to start CDC server with another docker-compose.
 
-```$xslt
+Note: You have to wait until above Mysql, Zookeeper and Kafka compose are all started
+successfully before running the docker-compose-cdcserver.
+
+```
 cd ~/networknt/light-docker
 docker-compose -f docker-compose-cdcserver.yml up
 ```
@@ -61,7 +95,7 @@ side services and share the same hybrid command server.
 
 Here is the steps to start both command server and query server.
 
-```$xslt
+```
 cd ~/networknt/light-docker
 docker-compose -f docker-compose-hybrid.yml up
 ```

@@ -1,6 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
 import com.networknt.eventuate.cdc.common.BinLogEvent;
+import com.networknt.eventuate.cdc.common.CdcConfig;
 import com.networknt.eventuate.cdc.mysql.exception.EventuateLocalPublishingException;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.leader.LeaderSelector;
@@ -17,12 +18,14 @@ public class EventTableChangesToAggregateTopicTranslator<M extends BinLogEvent> 
   private final LeaderSelector leaderSelector;
   private MySQLCdcKafkaPublisher<M> mySQLCdcKafkaPublisher;
   private MySQLCdcProcessor<M> mySQLCdcProcessor;
+  private CdcConfig cdcConfig;
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  public EventTableChangesToAggregateTopicTranslator(MySQLCdcKafkaPublisher<M> mySQLCdcKafkaPublisher, MySQLCdcProcessor<M> mySQLCdcProcessor, CuratorFramework client) {
+  public EventTableChangesToAggregateTopicTranslator(MySQLCdcKafkaPublisher<M> mySQLCdcKafkaPublisher, MySQLCdcProcessor<M> mySQLCdcProcessor, CuratorFramework client, CdcConfig cdcConfig) {
     this.mySQLCdcKafkaPublisher = mySQLCdcKafkaPublisher;
     this.mySQLCdcProcessor = mySQLCdcProcessor;
+    this.cdcConfig = cdcConfig;
     this.leaderSelector = new LeaderSelector(client, "/eventuatelocal/cdc/leader", new LeaderSelectorListener() {
 
       @Override
@@ -85,6 +88,8 @@ public class EventTableChangesToAggregateTopicTranslator<M extends BinLogEvent> 
 
   public void startCapturingChanges() throws InterruptedException {
     logger.debug("Starting to capture changes");
+    CdcStartupValidator cdcStartupValidator = new CdcStartupValidator(cdcConfig.getJdbcUrl(), cdcConfig.getDbUser(), cdcConfig.getDbPass(), cdcConfig.getKafka());
+    cdcStartupValidator.validateEnvironment();
 
     mySQLCdcKafkaPublisher.start();
     try {
