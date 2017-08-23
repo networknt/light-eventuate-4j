@@ -1,0 +1,13 @@
+---
+dbType: mysql
+jdbcUrl: jdbc:mysql://mysql:3306/eventuate?useSSL=false
+dbHost: mysql
+dbPort: 3306
+dbUser: root
+dbPass: rootpassword
+dbName: eventuate
+dbHistoryTopicName: db.history.topic
+sourceTableName: EVENTS
+maximumPoolSize: 10
+kafka: kafka:9092
+zookeeper: zookeeper:2181

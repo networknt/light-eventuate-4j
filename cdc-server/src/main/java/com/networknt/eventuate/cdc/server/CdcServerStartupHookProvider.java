@@ -36,6 +36,9 @@ public class CdcServerStartupHookProvider implements StartupHookProvider {
     public static EventTableChangesToAggregateTopicTranslator<PublishedEvent> translator;
 
     public void onStartup() {
+        CdcStartupValidator cdcStartupValidator = new CdcStartupValidator(cdcConfig.getJdbcUrl(), cdcConfig.getDbUser(), cdcConfig.getDbPass(), cdcConfig.getKafka());
+        cdcStartupValidator.validateEnvironment();
+
         curatorFramework = makeStartedCuratorClient(cdcConfig.getZookeeper());
 
         SourceTableNameSupplier supplier = new SourceTableNameSupplier(cdcConfig.getSourceTableName(), "EVENTS");
@@ -58,17 +61,17 @@ public class CdcServerStartupHookProvider implements StartupHookProvider {
         MySQLCdcProcessor<PublishedEvent> mySQLCdcProcessor = new MySQLCdcProcessor<>(mySqlBinaryLogClient, binlogOffsetKafkaStore);
 
         MySQLCdcKafkaPublisher<PublishedEvent> mySQLCdcKafkaPublisher = new MySQLCdcKafkaPublisher<>(binlogOffsetKafkaStore, kafkaConfig.getBootstrapServers(), new PublishedEventPublishingStrategy());
-        translator = new EventTableChangesToAggregateTopicTranslator<>(mySQLCdcKafkaPublisher, mySQLCdcProcessor, curatorFramework);
+        translator = new EventTableChangesToAggregateTopicTranslator<>(mySQLCdcKafkaPublisher, mySQLCdcProcessor, curatorFramework, cdcConfig );
         translator.start();
 
         System.out.println("CdcServerStartupHookProvider is called");
     }
 
     CuratorFramework makeStartedCuratorClient(String connectionString) {
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(2000, 6, 2000);
         CuratorFramework client = CuratorFrameworkFactory.
-                builder().retryPolicy(retryPolicy)
-                .connectString(connectionString)
+                builder().connectString(connectionString)
+                .retryPolicy(retryPolicy)
                 .build();
         client.start();
         return client;
