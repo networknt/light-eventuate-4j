@@ -3,6 +3,17 @@
 
 ### Changed
 
+## 1.4.0 - 2017-08-22
+### Added
+
+### Changed
+- fixes #28 Replace Client with Http2Client and remove apache httpclient
+- cdc re-try config and implement
+- fixes #26 Upgrade to Undertow 1.4.18.Final for Http2
+- comment out hybrid-command and hybrid-query for release
+- change to lastest kafka version
+- Upgrade to light-4j 1.4.0
+
 ## 1.3.5 - 2017-08-01
 ### Added
 
