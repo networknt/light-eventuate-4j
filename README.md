@@ -1,4 +1,5 @@
-An eventual consistency framework implementation based on event sourcing, CQRS and Kafka on top of light-4j. 
+An eventual consistency framework implementation based on event sourcing, CQRS and Kafka on top of light-4j.
+It is based on the open source project [eventuate-local](https://github.com/eventuate-local/eventuate-local) from Chris Richardson
 
 [Developer Chat](https://gitter.im/networknt/light-eventuate-4j) |
 [Documentation](https://networknt.github.io/light-eventuate-4j) |
