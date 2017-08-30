@@ -3,6 +3,13 @@
 
 ### Changed
 
+## 1.4.1 - 2017-08-30
+### Added
+
+### Changed
+- fixes #29 Upgrade to newer version for Undertow and Jackson
+- Upgrade to light-4j 1.4.1
+
 ## 1.4.0 - 2017-08-22
 ### Added
 
