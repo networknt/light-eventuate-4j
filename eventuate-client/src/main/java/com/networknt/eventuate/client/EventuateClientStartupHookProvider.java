@@ -28,8 +28,8 @@ public class EventuateClientStartupHookProvider implements StartupHookProvider {
     public void onStartup() {
         // Initialize event dispatcher.
         EventDispatcherInitializer eventDispatcherInitializer = new EventDispatcherInitializer(
-                (EventHandlerProcessor[])SingletonServiceFactory.getBean(EventHandlerProcessor.class),
-                (EventuateAggregateStore)SingletonServiceFactory.getBean(EventuateAggregateStore.class),
+                SingletonServiceFactory.getBeans(EventHandlerProcessor.class),
+                SingletonServiceFactory.getBean(EventuateAggregateStore.class),
                 Executors.newCachedThreadPool(),
                 (SubscriptionsRegistry)SingletonServiceFactory.getBean(SubscriptionsRegistry.class));
         // lookup all EventSubscriber and register them to subscribe event.
