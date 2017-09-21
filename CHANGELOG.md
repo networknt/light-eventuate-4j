@@ -3,6 +3,12 @@
 
 ### Changed
 
+## 1.4.4 - 2017-09-20
+### Added
+
+### Changed
+- Upgrade to light-4j 1.4.4
+
 ## 1.4.3 - 2017-09-10
 ### Added
 
