@@ -1,9 +1,5 @@
 package com.networknt.eventuate.cdc.common;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 public class BinlogFileOffset {
 
   private String binlogFilename;
@@ -48,16 +44,29 @@ public class BinlogFileOffset {
     return false;
   }
 
-  public boolean equals(Object obj) {
-    return EqualsBuilder.reflectionEquals(this, obj);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    BinlogFileOffset that = (BinlogFileOffset) o;
+
+    if (offset != that.offset) return false;
+    return binlogFilename != null ? binlogFilename.equals(that.binlogFilename) : that.binlogFilename == null;
   }
 
+  @Override
   public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this);
+    int result = binlogFilename != null ? binlogFilename.hashCode() : 0;
+    result = 31 * result + (int) (offset ^ (offset >>> 32));
+    return result;
   }
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this);
+    return "BinlogFileOffset{" +
+            "binlogFilename='" + binlogFilename + '\'' +
+            ", offset=" + offset +
+            '}';
   }
 }

@@ -1,13 +1,8 @@
 package com.networknt.eventuate.test.util;
 
 import com.networknt.eventuate.common.*;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Abstract base class for writing unit tests for aggregates
@@ -55,6 +50,7 @@ public abstract class AggregateTest<T extends ReflectiveMutableCommandProcessing
     return events;
   }
 
+  /*
   protected void assertEventsEquals(Event... expectedEvents) {
     if (expectedEvents.length != events.size())
       fail(String.format("After processing %s expected %s event(s) but got %s", ToStringBuilder.reflectionToString(command), expectedEvents.length, events.size()));
@@ -69,5 +65,5 @@ public abstract class AggregateTest<T extends ReflectiveMutableCommandProcessing
       }
     }
   }
-
+  */
 }
