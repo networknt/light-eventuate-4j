@@ -12,30 +12,6 @@
     <packaging>jar</packaging>
     <description>A light-hybrid-4j microservice server for command side services.</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.light-4j>1.4.6</version.light-4j>
-        <version.light-hybrid-4j>1.4.6</version.light-hybrid-4j>
-        <version.jackson>2.8.10</version.jackson>
-        <version.slf4j>1.7.25</version.slf4j>
-        <version.jose4j>0.5.5</version.jose4j>
-        <version.antlr4>4.7</version.antlr4>
-        <version.commons-lang>2.6</version.commons-lang>
-        <version.commons.io>2.5</version.commons.io>
-        <version.commons.codec>1.10</version.commons.codec>
-        <version.encoder>1.2.1</version.encoder>
-        <version.logback>1.2.3</version.logback>
-        <version.junit>4.12</version.junit>
-        <version.mockito>2.1.0-RC.1</version.mockito>
-        <version.undertow>1.4.19.Final</version.undertow>
-        <version.fastscanner>2.0.8</version.fastscanner>
-        <version.json-schema-validator>0.1.7</version.json-schema-validator>
-        <version.hikaricp>2.5.1</version.hikaricp>
-        <version.mysql>6.0.4</version.mysql>
-
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -96,7 +72,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${version.logback}</version>
         </dependency>
         <dependency>
             <groupId>io.undertow</groupId>
@@ -109,14 +84,6 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-recipes</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.reactivex</groupId>
-            <artifactId>rxjava</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -133,6 +100,11 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
@@ -141,6 +113,11 @@
         <directory>target</directory>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions.maven-version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
