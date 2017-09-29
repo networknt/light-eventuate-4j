@@ -1,7 +1,5 @@
 package com.networknt.eventuate.kafka.consumer;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,10 +21,10 @@ public class TopicPartitionOffsets {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
-            .append("unprocessed", unprocessed)
-            .append("processed", processed)
-            .toString();
+    return "TopicPartitionOffsets{" +
+            "unprocessed=" + unprocessed +
+            ", processed=" + processed +
+            '}';
   }
 
   public void noteUnprocessed(long offset) {

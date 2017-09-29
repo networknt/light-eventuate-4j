@@ -1,6 +1,5 @@
 package com.networknt.eventuate.kafka.consumer;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 
@@ -17,9 +16,9 @@ public class OffsetTracker {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
-            .append("state", state)
-            .toString();
+    return "OffsetTracker{" +
+            "state=" + state +
+            '}';
   }
 
   TopicPartitionOffsets fetch(TopicPartition topicPartition) {
