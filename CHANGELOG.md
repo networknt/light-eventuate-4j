@@ -3,6 +3,13 @@
 
 ### Changed
 
+## 1.5.0 - 2017-10-23
+### Added
+
+### Changed
+- fixes #32 Upgrade dependencies and add maven-version
+- Upgrade to light-4j 1.5.0
+
 ## 1.4.6 - 2017-09-24
 ### Added
 
