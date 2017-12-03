@@ -1,18 +1,11 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.server.common.BinlogFileOffset;
 import com.networknt.eventuate.common.impl.JSonMapper;
-import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.Properties;
-import java.util.UUID;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
