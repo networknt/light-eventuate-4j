@@ -25,26 +25,14 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>cdc-mysql</artifactId>
+    <artifactId>eventuate-cdc-connector-common</artifactId>
     <packaging>jar</packaging>
-    <description>A mysql change data capture through binlog</description>
+    <description>A shared module between cdc connector implementations</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-server-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-cdc-connector-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -56,9 +44,8 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-client-jdbc-common</artifactId>
+            <artifactId>eventuate-server-common</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
@@ -79,10 +66,6 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -99,22 +82,6 @@
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-domain</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-cdc-connector-test-util</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
 </project>
