@@ -2,7 +2,6 @@ package com.networknt.eventuate.jdbc;
 
 import com.networknt.eventuate.common.Aggregate;
 import com.networknt.eventuate.common.DuplicateTriggeringEventException;
-import com.networknt.eventuate.common.EntityAlreadyExistsException;
 import com.networknt.eventuate.common.EntityIdAndType;
 import com.networknt.eventuate.common.EntityNotFoundException;
 import com.networknt.eventuate.common.EventContext;

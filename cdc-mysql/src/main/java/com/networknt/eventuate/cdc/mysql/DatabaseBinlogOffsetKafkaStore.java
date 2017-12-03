@@ -17,12 +17,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class DatabaseBinlogOffsetKafkaStore {
+public class DatabaseBinlogOffsetKafkaStore extends OffsetKafkaStore {
 
-  private static final String CONFIG_NAME = "kafka";
-  private static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
-
-  private final String dbHistoryTopicName;
   private final String mySqlBinaryLogClientName;
 
   private ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
@@ -33,7 +29,8 @@ public class DatabaseBinlogOffsetKafkaStore {
   private Optional<BinlogFileOffset> recordToSave = Optional.empty();
 
   public DatabaseBinlogOffsetKafkaStore(String dbHistoryTopicName, String mySqlBinaryLogClientName, EventuateKafkaProducer eventuateKafkaProducer) {
-    this.dbHistoryTopicName = dbHistoryTopicName;
+    super(dbHistoryTopicName);
+
     this.mySqlBinaryLogClientName = mySqlBinaryLogClientName;
     this.eventuateKafkaProducer = eventuateKafkaProducer;
 
@@ -49,31 +46,12 @@ public class DatabaseBinlogOffsetKafkaStore {
     this.recordToSave = Optional.of(binlogFileOffset);
   }
 
-  public Optional<BinlogFileOffset> getLastBinlogFileOffset() {
-    try (KafkaConsumer<String, String> consumer = createConsumer()) {
-      consumer.partitionsFor(dbHistoryTopicName);
-      consumer.subscribe(Arrays.asList(dbHistoryTopicName));
-
-      int count = N;
-      BinlogFileOffset result = null;
-      boolean lastRecordFound = false;
-      while (!lastRecordFound) {
-        ConsumerRecords<String, String> records = consumer.poll(100);
-        if (records.isEmpty()) {
-          count--;
-          if (count == 0)
-            lastRecordFound = true;
-        } else {
-          count = N;
-          for (ConsumerRecord<String, String> record : records) {
-            if (record.key().equals(mySqlBinaryLogClientName)) {
-              result = JSonMapper.fromJson(record.value(), BinlogFileOffset.class);
-            }
-          }
-        }
-      }
-      return Optional.ofNullable(result);
+  @Override
+  protected BinlogFileOffset handleRecord(ConsumerRecord<String, String> record) {
+    if (record.key().equals(mySqlBinaryLogClientName)) {
+      return JSonMapper.fromJson(record.value(), BinlogFileOffset.class);
     }
+    return null;
   }
 
   public synchronized void stop() {
@@ -98,19 +76,5 @@ public class DatabaseBinlogOffsetKafkaStore {
       e.printStackTrace();
       throw new RuntimeException(e);
     }
-  }
-
-  private KafkaConsumer<String, String> createConsumer() {
-    Properties props = new Properties();
-    props.put("bootstrap.servers", config.getBootstrapServers());
-    props.put("auto.offset.reset", "earliest");
-    props.put("group.id", UUID.randomUUID().toString());
-    props.put("enable.auto.commit", "false");
-    props.put("auto.commit.interval.ms", "1000");
-    props.put("session.timeout.ms", "30000");
-    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-
-    return new KafkaConsumer<>(props);
   }
 }
