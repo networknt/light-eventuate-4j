@@ -1,13 +1,5 @@
 package com.networknt.eventuate.client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
-import com.networknt.eventuate.common.impl.EventIdTypeAndData;
-import com.networknt.eventuate.jdbc.IdGeneratorImpl;
-import org.apache.kafka.clients.producer.MockProducer;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 
 public class EventuateLocalPublishAggregateCrudTest {
 

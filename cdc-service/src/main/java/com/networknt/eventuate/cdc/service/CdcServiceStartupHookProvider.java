@@ -1,8 +1,8 @@
 package com.networknt.eventuate.cdc.service;
 
 import com.networknt.config.Config;
-import com.networknt.eventuate.cdc.common.CdcConfig;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.CdcConfig;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.cdc.mysql.*;
 import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
@@ -12,10 +12,6 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 /**
  * CdcService StartupHookProvider. start cdc service

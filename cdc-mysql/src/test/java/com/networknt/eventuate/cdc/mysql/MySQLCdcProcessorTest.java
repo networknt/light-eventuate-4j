@@ -1,13 +1,10 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateLocalAggregateStore;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

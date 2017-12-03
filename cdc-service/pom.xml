@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>cdc-common</artifactId>
+            <artifactId>eventuate-server-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>

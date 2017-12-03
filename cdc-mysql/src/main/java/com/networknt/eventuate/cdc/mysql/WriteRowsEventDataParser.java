@@ -2,8 +2,8 @@ package com.networknt.eventuate.cdc.mysql;
 
 import com.github.shyiko.mysql.binlog.event.WriteRowsEventData;
 import com.github.shyiko.mysql.binlog.event.deserialization.json.JsonBinary;
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.PublishedEvent;
 
 import javax.sql.DataSource;
 import java.io.IOException;

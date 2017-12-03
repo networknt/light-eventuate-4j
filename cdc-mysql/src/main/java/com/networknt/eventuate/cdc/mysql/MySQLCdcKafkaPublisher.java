@@ -1,6 +1,6 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.BinLogEvent;
+import com.networknt.eventuate.server.common.BinLogEvent;
 import com.networknt.eventuate.cdc.mysql.exception.EventuateLocalPublishingException;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import org.slf4j.Logger;
