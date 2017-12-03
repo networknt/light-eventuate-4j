@@ -1,0 +1,15 @@
+singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: org.h2.jdbcx.JdbcDataSource
+      jdbcUrl: jdbc:h2:~/test
+      username: sa
+      password: sa
+- com.networknt.eventuate.jdbc.EventuateSchema: com.networknt.eventuate.jdbc.EventuateJdbcAccessServiceInitializer::eventuateSchema
+- com.networknt.eventuate.jdbc.EventuateJdbcAccess:
+  - com.networknt.eventuate.jdbc.EventuateJdbcAccessImpl
+- com.networknt.eventuate.eventhandling.exceptionhandling.EventuateClientScheduler:
+  - com.networknt.eventuate.jdbc.JdkTimerBasedEventuateClientScheduler
+- com.networknt.eventuate.common.impl.sync.AggregateCrud,com.networknt.eventuate.common.impl.sync.AggregateEvents: com.networknt.eventuate.jdbc.EventuateJdbcAccessServiceInitializer::eventuateEmbeddedTestAggregateStore
+- com.networknt.eventuate.common.impl.AggregateCrud: com.networknt.eventuate.jdbc.EventuateJdbcAccessServiceInitializer::aggregateCrud
+- com.networknt.eventuate.common.impl.AggregateEvents: com.networknt.eventuate.jdbc.EventuateJdbcAccessServiceInitializer::aggregateEvents

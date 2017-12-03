@@ -1,11 +1,19 @@
 package com.networknt.eventuate.client;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public interface SubscriptionsRegistry {
+public class SubscriptionsRegistry {
 
-  List<RegisteredSubscription> getRegisteredSubscriptions();
+  public List<RegisteredSubscription> getRegisteredSubscriptions() {
+    return registeredSubscriptions;
+  }
 
-  void add(RegisteredSubscription registeredSubscription);
+  private List<RegisteredSubscription> registeredSubscriptions = new LinkedList<>();
+
+  public void add(RegisteredSubscription registeredSubscription) {
+    registeredSubscriptions.add(registeredSubscription);
+  }
+
 
 }
