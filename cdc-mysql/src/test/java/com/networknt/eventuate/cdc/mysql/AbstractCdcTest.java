@@ -1,9 +1,9 @@
 package com.networknt.eventuate.cdc.mysql;
 
 import com.networknt.config.Config;
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
-import com.networknt.eventuate.cdc.common.CdcConfig;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.CdcConfig;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.EntityIdAndType;
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;

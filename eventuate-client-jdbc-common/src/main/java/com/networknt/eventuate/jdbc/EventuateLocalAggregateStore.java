@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
+@Deprecated
 public class EventuateLocalAggregateStore extends AbstractEventuateJdbcAggregateStore
         implements AggregateCrud, AggregateEvents {
 

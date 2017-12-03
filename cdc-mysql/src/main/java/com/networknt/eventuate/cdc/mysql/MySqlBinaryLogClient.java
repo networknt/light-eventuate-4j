@@ -6,8 +6,8 @@ import com.github.shyiko.mysql.binlog.event.*;
 import com.github.shyiko.mysql.binlog.event.deserialization.EventDeserializer;
 import com.github.shyiko.mysql.binlog.event.deserialization.NullEventDataDeserializer;
 import com.github.shyiko.mysql.binlog.event.deserialization.WriteRowsEventDataDeserializer;
-import com.networknt.eventuate.cdc.common.BinLogEvent;
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.BinLogEvent;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

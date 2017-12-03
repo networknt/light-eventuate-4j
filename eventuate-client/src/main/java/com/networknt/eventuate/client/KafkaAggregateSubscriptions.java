@@ -1,7 +1,7 @@
 package com.networknt.eventuate.client;
 
-import com.networknt.eventuate.cdc.common.AggregateTopicMapping;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.AggregateTopicMapping;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.kafka.consumer.EventuateKafkaConsumer;
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.SubscriberOptions;

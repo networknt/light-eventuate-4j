@@ -1,9 +1,8 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateLocalAggregateStore;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

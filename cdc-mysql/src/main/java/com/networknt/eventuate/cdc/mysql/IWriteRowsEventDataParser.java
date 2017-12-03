@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
 import com.github.shyiko.mysql.binlog.event.WriteRowsEventData;
-import com.networknt.eventuate.cdc.common.BinLogEvent;
+import com.networknt.eventuate.server.common.BinLogEvent;
 
 import java.io.IOException;
 

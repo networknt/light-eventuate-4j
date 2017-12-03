@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
 import com.networknt.config.Config;
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
 import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;

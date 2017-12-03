@@ -1,7 +1,7 @@
 package com.networknt.eventuate.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.EntityIdAndType;
 import com.networknt.eventuate.common.EventContext;
 import com.networknt.eventuate.common.impl.EventIdTypeAndData;

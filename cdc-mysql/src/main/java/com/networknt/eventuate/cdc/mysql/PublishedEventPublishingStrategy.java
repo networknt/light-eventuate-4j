@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.AggregateTopicMapping;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.AggregateTopicMapping;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.impl.JSonMapper;
 

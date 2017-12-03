@@ -91,7 +91,7 @@
     </properties>
 
     <modules>
-        <module>cdc-common</module>
+        <module>eventuate-server-common</module>
         <module>cdc-mysql</module>
         <module>cdc-service</module>
         <module>cdc-server</module>
@@ -175,7 +175,7 @@
 
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>cdc-common</artifactId>
+                <artifactId>eventuate-server-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
