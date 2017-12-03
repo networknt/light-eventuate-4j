@@ -1,4 +1,4 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
 import com.github.shyiko.mysql.binlog.event.WriteRowsEventData;
 import com.networknt.eventuate.server.common.BinLogEvent;

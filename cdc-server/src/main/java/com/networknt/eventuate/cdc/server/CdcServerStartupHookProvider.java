@@ -1,11 +1,11 @@
 package com.networknt.eventuate.cdc.server;
 
 import com.networknt.config.Config;
+import com.networknt.eventuate.cdc.mysql.binlog.*;
 import com.networknt.eventuate.jdbc.EventuateSchema;
 import com.networknt.eventuate.server.common.CdcConfig;
 import com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator;
 import com.networknt.eventuate.server.common.PublishedEvent;
-import com.networknt.eventuate.cdc.mysql.*;
 import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import com.networknt.eventuate.server.common.PublishedEventPublishingStrategy;
