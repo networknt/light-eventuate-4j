@@ -25,18 +25,18 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>test-jdbc</artifactId>
+    <artifactId>eventuate-client-jdbc</artifactId>
     <packaging>jar</packaging>
-    <description>Test embedded jdbc database AggregateStore implementation.</description>
+    <description>A client jdbc component of light eventuate framework.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>service</artifactId>
+            <artifactId>eventuate-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-common</artifactId>
+            <artifactId>eventuate-event</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -44,7 +44,11 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>test-util</artifactId>
+            <artifactId>utility</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>service</artifactId>
         </dependency>
 
         <dependency>
@@ -78,11 +82,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>test-domain</artifactId>
             <scope>test</scope>
         </dependency>
 

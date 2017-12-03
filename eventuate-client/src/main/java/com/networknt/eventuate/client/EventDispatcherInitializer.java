@@ -5,9 +5,12 @@ import com.networknt.eventuate.event.EventDispatcher;
 import com.networknt.eventuate.event.EventHandler;
 import com.networknt.eventuate.event.EventHandlerProcessor;
 import com.networknt.eventuate.event.SwimlaneBasedDispatcher;
+import com.networknt.eventuate.eventhandling.exceptionhandling.EventDeliveryExceptionHandler;
+import com.networknt.eventuate.eventhandling.exceptionhandling.EventDeliveryExceptionHandlerManagerImpl;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.fasterxml.jackson.databind.util.ClassUtil.getDeclaredMethods;
+import static java.util.stream.Collectors.toList;
 
 /**
  * General process to register the event handles and dispatcher the event to eventHandle processor,
@@ -136,6 +140,19 @@ public class EventDispatcherInitializer {
 
     Map<Class<?>, EventHandler> eventTypesAndHandlers = makeEventTypesAndHandlers(handlers);
 
+    List<EventDeliveryExceptionHandler> exceptionHandlers = Arrays.stream(eventHandlerBean.getClass()
+            .getDeclaredFields())
+            .filter(this::isExceptionHandlerField)
+            .map(f -> {
+              try {
+                f.setAccessible(true);
+                return (EventDeliveryExceptionHandler) f.get(eventHandlerBean);
+              } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+              }
+            })
+            .collect(toList());
+
     EventSubscriber a = null;
     try {
       a = AnnotationUtils.findAnnotation( Class.forName(beanName), EventSubscriber.class);
@@ -147,7 +164,7 @@ public class EventDispatcherInitializer {
 
     String subscriberId = StringUtils.isBlank(a.id()) ? beanName : a.id();
 
-    EventDispatcher eventDispatcher = new EventDispatcher(subscriberId, eventTypesAndHandlers);
+    EventDispatcher eventDispatcher = new EventDispatcher(subscriberId, eventTypesAndHandlers, new EventDeliveryExceptionHandlerManagerImpl(exceptionHandlers));
 
     SwimlaneBasedDispatcher swimlaneBasedDispatcher = new SwimlaneBasedDispatcher(subscriberId, executorService);
 
@@ -166,6 +183,10 @@ public class EventDispatcherInitializer {
     } catch (InterruptedException | TimeoutException | ExecutionException e) {
       throw new EventuateSubscriptionFailedException(subscriberId, e);
     }
+  }
+
+  private boolean isExceptionHandlerField(Field f) {
+    return EventDeliveryExceptionHandler.class.isAssignableFrom(f.getType());
   }
 
   private Map<Class<?>, EventHandler> makeEventTypesAndHandlers(List<EventHandler> handlers) {
