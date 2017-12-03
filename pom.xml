@@ -101,7 +101,6 @@
         <module>test-domain</module>
         <module>test-example</module>
         <module>test-util</module>
-        <module>test-jdbc</module>
         <module>eventuate-common</module>
         <module>eventuate-event</module>
         <module>eventuate-client-jdbc-common</module>
