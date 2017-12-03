@@ -25,7 +25,7 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>cdc-mysql</artifactId>
+    <artifactId>eventuate-cdc-connector-mysql-binlog</artifactId>
     <packaging>jar</packaging>
     <description>A mysql change data capture through binlog</description>
 

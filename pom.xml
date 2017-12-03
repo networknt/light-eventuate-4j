@@ -95,7 +95,7 @@
         <module>eventuate-server-jdbc</module>
         <module>eventuate-cdc-connector-common</module>
         <module>eventuate-cdc-connector-test-util</module>
-        <module>cdc-mysql</module>
+        <module>eventuate-cdc-connector-mysql-binlog</module>
         <module>cdc-service</module>
         <module>cdc-server</module>
         <module>test-domain</module>
@@ -198,7 +198,7 @@
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>cdc-mysql</artifactId>
+                <artifactId>eventuate-cdc-connector-mysql-binlog</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

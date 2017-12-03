@@ -1,4 +1,4 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
 
 public class SourceTableNameSupplier {

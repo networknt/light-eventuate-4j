@@ -1,4 +1,4 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
 import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.eventuate.server.common.BinlogFileOffset;

@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>cdc-mysql</artifactId>
+            <artifactId>eventuate-cdc-connector-mysql-binlog</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
