@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-kafka</artifactId>
+            <artifactId>eventuate-server-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
