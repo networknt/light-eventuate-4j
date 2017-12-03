@@ -25,18 +25,14 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>test-example</artifactId>
+    <artifactId>eventuate-client-test-domain</artifactId>
     <packaging>jar</packaging>
-    <description>Test banking event handling example objects.</description>
+    <description>Test banking domain objects.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>test-domain</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-client</artifactId>
+            <artifactId>eventuate-common</artifactId>
         </dependency>
 
         <dependency>
@@ -46,10 +42,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.reactivex</groupId>
-            <artifactId>rxjava</artifactId>
         </dependency>
 
         <dependency>

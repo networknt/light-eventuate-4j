@@ -25,14 +25,18 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>test-domain</artifactId>
+    <artifactId>eventuate-client-test</artifactId>
     <packaging>jar</packaging>
-    <description>Test banking domain objects.</description>
+    <description>Test cases for eventuate components.</description>
 
     <dependencies>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>eventuate-client-test-domain</artifactId>
         </dependency>
 
         <dependency>
