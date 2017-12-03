@@ -107,7 +107,7 @@
         <module>eventuate-client-jdbc-common</module>
         <module>eventuate-client</module>
         <module>eventuate-client-jdbc</module>
-        <module>eventuate-kafka</module>
+        <module>eventuate-server-kafka</module>
         <module>eventuate-test</module>
         <!--
         These two modules contain no Java code and cause maven
@@ -218,7 +218,7 @@
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-kafka</artifactId>
+                <artifactId>eventuate-server-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
