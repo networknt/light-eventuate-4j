@@ -102,7 +102,8 @@
         <module>eventuate-common</module>
         <module>eventuate-event</module>
         <module>eventuate-client</module>
-        <module>eventuate-jdbc</module>
+        <module>eventuate-client-jdbc-common</module>
+        <module>eventuate-client-jdbc</module>
         <module>eventuate-kafka</module>
         <module>eventuate-test</module>
         <!--
@@ -119,6 +120,11 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>config</artifactId>
+                <version>${version.light-4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>utility</artifactId>
                 <version>${version.light-4j}</version>
             </dependency>
             <dependency>
@@ -224,7 +230,12 @@
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
-                <artifactId>eventuate-jdbc</artifactId>
+                <artifactId>eventuate-client-jdbc-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-client-jdbc</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
