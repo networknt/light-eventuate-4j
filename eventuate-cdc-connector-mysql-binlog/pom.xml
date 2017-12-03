@@ -101,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>test-domain</artifactId>
+            <artifactId>eventuate-client-test-domain</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
