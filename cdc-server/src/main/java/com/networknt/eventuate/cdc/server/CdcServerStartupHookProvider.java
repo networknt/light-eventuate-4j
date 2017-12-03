@@ -1,11 +1,14 @@
 package com.networknt.eventuate.cdc.server;
 
 import com.networknt.config.Config;
+import com.networknt.eventuate.jdbc.EventuateSchema;
 import com.networknt.eventuate.server.common.CdcConfig;
+import com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator;
 import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.cdc.mysql.*;
 import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
+import com.networknt.eventuate.server.common.PublishedEventPublishingStrategy;
 import com.networknt.server.StartupHookProvider;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.curator.RetryPolicy;
@@ -36,13 +39,11 @@ public class CdcServerStartupHookProvider implements StartupHookProvider {
     public static EventTableChangesToAggregateTopicTranslator<PublishedEvent> translator;
 
     public void onStartup() {
-        CdcStartupValidator cdcStartupValidator = new CdcStartupValidator(cdcConfig.getJdbcUrl(), cdcConfig.getDbUser(), cdcConfig.getDbPass(), cdcConfig.getKafka());
-        cdcStartupValidator.validateEnvironment();
 
         curatorFramework = makeStartedCuratorClient(cdcConfig.getZookeeper());
 
         SourceTableNameSupplier supplier = new SourceTableNameSupplier(cdcConfig.getSourceTableName(), "EVENTS");
-        IWriteRowsEventDataParser eventDataParser = new WriteRowsEventDataParser(dataSource, supplier.getSourceTableName());
+        IWriteRowsEventDataParser eventDataParser = new WriteRowsEventDataParser(dataSource, supplier.getSourceTableName(), new EventuateSchema());
         MySqlBinaryLogClient<PublishedEvent> mySqlBinaryLogClient = new MySqlBinaryLogClient<>(
                 eventDataParser,
                 cdcConfig.getDbUser(),
@@ -50,7 +51,9 @@ public class CdcServerStartupHookProvider implements StartupHookProvider {
                 cdcConfig.getDbHost(),
                 cdcConfig.getDbPort(),
                 cdcConfig.getBinlogClientId(),
-                supplier.getSourceTableName());
+                supplier.getSourceTableName(),
+                cdcConfig.getMySqlBinLogClientName()
+                );
 
 
         EventuateKafkaProducer eventuateKafkaProducer = new EventuateKafkaProducer(kafkaConfig.getBootstrapServers());
@@ -58,7 +61,10 @@ public class CdcServerStartupHookProvider implements StartupHookProvider {
         DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore = new DatabaseBinlogOffsetKafkaStore(
                 cdcConfig.getDbHistoryTopicName(), mySqlBinaryLogClient.getName(), eventuateKafkaProducer);
 
-        MySQLCdcProcessor<PublishedEvent> mySQLCdcProcessor = new MySQLCdcProcessor<>(mySqlBinaryLogClient, binlogOffsetKafkaStore);
+        DebeziumBinlogOffsetKafkaStore debeziumBinlogOffsetKafkaStore = new DebeziumBinlogOffsetKafkaStore(
+                cdcConfig.getDbHistoryTopicName());
+
+        MySQLCdcProcessor<PublishedEvent> mySQLCdcProcessor = new MySQLCdcProcessor<>(mySqlBinaryLogClient, binlogOffsetKafkaStore, debeziumBinlogOffsetKafkaStore);
 
         MySQLCdcKafkaPublisher<PublishedEvent> mySQLCdcKafkaPublisher = new MySQLCdcKafkaPublisher<>(binlogOffsetKafkaStore, kafkaConfig.getBootstrapServers(), new PublishedEventPublishingStrategy());
         translator = new EventTableChangesToAggregateTopicTranslator<>(mySQLCdcKafkaPublisher, mySQLCdcProcessor, curatorFramework, cdcConfig );

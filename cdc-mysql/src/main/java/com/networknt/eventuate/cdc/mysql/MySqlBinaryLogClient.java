@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 public class MySqlBinaryLogClient<M extends BinLogEvent> {
 
-  private final UUID name = UUID.randomUUID();
+  private String name;
 
   private BinaryLogClient client;
   private long binlogClientUniqueId;
@@ -43,21 +43,23 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
                               String host,
                               int port,
                               long binlogClientUniqueId,
-                              String sourceTableName) {
+                              String sourceTableName,
+                              String clientName) {
     this.writeRowsEventDataParser = writeRowsEventDataParser;
-
     this.binlogClientUniqueId = binlogClientUniqueId;
-
     this.dbUserName = dbUserName;
     this.dbPassword = dbPassword;
     this.host = host;
     this.port = port;
     this.sourceTableName = sourceTableName;
+    this.name = clientName;
   }
 
   public void start(Optional<BinlogFileOffset> binlogFileOffset, Consumer<M> eventConsumer) throws IOException, TimeoutException {
+
     client = new BinaryLogClient(host, port, dbUserName, dbPassword);
     client.setServerId(binlogClientUniqueId);
+    client.setKeepAliveInterval(5 * 1000);
 
     BinlogFileOffset bfo = binlogFileOffset.orElse(new BinlogFileOffset("", 4));
     logger.debug("Starting with {}", bfo);
@@ -123,9 +125,7 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
 
   public void stop() {
     try {
-      if(client != null) {
-        client.disconnect();
-      }
+      client.disconnect();
     } catch (IOException e) {
       logger.error("Cannot stop the MySqlBinaryLogClient", e);
     }
@@ -140,7 +140,7 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
   }
 
   public String getName() {
-    return name.toString();
+    return name;
   }
 
 }

@@ -4,6 +4,7 @@ import com.github.shyiko.mysql.binlog.event.WriteRowsEventData;
 import com.github.shyiko.mysql.binlog.event.deserialization.json.JsonBinary;
 import com.networknt.eventuate.server.common.BinlogFileOffset;
 import com.networknt.eventuate.server.common.PublishedEvent;
+import com.networknt.eventuate.jdbc.EventuateSchema;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -31,9 +32,12 @@ public class WriteRowsEventDataParser implements IWriteRowsEventDataParser<Publi
 
   private Map<String, Integer> columnOrders = new HashMap<>();
 
-  public WriteRowsEventDataParser(DataSource dataSource, String sourceTableName) {
+  private EventuateSchema eventuateSchema;
+
+  public WriteRowsEventDataParser(DataSource dataSource, String sourceTableName, EventuateSchema eventuateSchema) {
     this.dataSource = dataSource;
     this.sourceTableName = sourceTableName;
+    this.eventuateSchema = eventuateSchema;
   }
 
   @Override
@@ -75,7 +79,7 @@ public class WriteRowsEventDataParser implements IWriteRowsEventDataParser<Publi
       DatabaseMetaData metaData = connection.getMetaData();
 
       try (ResultSet columnResultSet =
-                   metaData.getColumns(null, "public", sourceTableName.toLowerCase(), null)) {
+                   metaData.getColumns(eventuateSchema.isEmpty() ? null : eventuateSchema.getEventuateDatabaseSchema(), "public", sourceTableName.toLowerCase(), null)) {
 
         while (columnResultSet.next()) {
           columnOrders.put(columnResultSet.getString("COLUMN_NAME").toLowerCase(),

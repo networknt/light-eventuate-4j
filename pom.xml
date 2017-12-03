@@ -92,6 +92,9 @@
 
     <modules>
         <module>eventuate-server-common</module>
+        <module>eventuate-server-jdbc</module>
+        <module>eventuate-cdc-connector-common</module>
+        <module>eventuate-cdc-connector-test-util</module>
         <module>cdc-mysql</module>
         <module>cdc-service</module>
         <module>cdc-server</module>
@@ -101,8 +104,8 @@
         <module>test-jdbc</module>
         <module>eventuate-common</module>
         <module>eventuate-event</module>
-        <module>eventuate-client</module>
         <module>eventuate-client-jdbc-common</module>
+        <module>eventuate-client</module>
         <module>eventuate-client-jdbc</module>
         <module>eventuate-kafka</module>
         <module>eventuate-test</module>
@@ -176,6 +179,21 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-server-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-server-jdbc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-cdc-connector-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-cdc-connector-test-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
