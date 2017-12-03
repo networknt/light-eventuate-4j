@@ -1,6 +1,6 @@
 package com.networknt.eventuate.kafka.producer;
 
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import org.apache.kafka.clients.producer.MockProducer;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,11 +1,10 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.impl.JSonMapper;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.junit.Test;
 
 import java.util.UUID;
 

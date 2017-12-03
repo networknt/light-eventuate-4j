@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.BinLogEvent;
-import com.networknt.eventuate.cdc.common.CdcConfig;
+import com.networknt.eventuate.server.common.BinLogEvent;
+import com.networknt.eventuate.server.common.CdcConfig;
 import com.networknt.eventuate.cdc.mysql.exception.EventuateLocalPublishingException;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.leader.LeaderSelector;
@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 public class EventTableChangesToAggregateTopicTranslator<M extends BinLogEvent> {
 

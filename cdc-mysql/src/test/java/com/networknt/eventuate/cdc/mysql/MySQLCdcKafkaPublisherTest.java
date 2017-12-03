@@ -1,13 +1,11 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.PublishedEvent;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.cdc.mysql.exception.EventuateLocalPublishingException;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateLocalAggregateStore;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.Collections;

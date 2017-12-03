@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql;
 
-import com.networknt.eventuate.cdc.common.BinLogEvent;
-import com.networknt.eventuate.cdc.common.BinlogFileOffset;
+import com.networknt.eventuate.server.common.BinLogEvent;
+import com.networknt.eventuate.server.common.BinlogFileOffset;
 
 import java.util.Optional;
 import java.util.function.Consumer;

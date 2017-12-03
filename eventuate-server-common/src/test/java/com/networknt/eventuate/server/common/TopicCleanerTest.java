@@ -1,4 +1,4 @@
-package com.networknt.eventuate.cdc.common;
+package com.networknt.eventuate.server.common;
 
 import org.junit.Assert;
 import org.junit.Test;
