@@ -1,10 +1,11 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
 import com.networknt.eventuate.jdbc.EventuateJdbcAccess;
 import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
 import com.networknt.eventuate.server.test.util.AbstractCdcTest;
+import com.networknt.service.SingletonServiceFactory;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,13 +18,11 @@ import java.util.concurrent.TimeoutException;
 
 public abstract class AbstractMySqlBinlogCdcIntegrationIT extends AbstractCdcTest {
 
-  private String dataSourceURL;
+  EventuateJdbcAccess eventuateJdbcAccess = SingletonServiceFactory.getBean(EventuateJdbcAccess.class);
 
-  EventuateJdbcAccess eventuateJdbcAccess;
+  private IWriteRowsEventDataParser eventDataParser = SingletonServiceFactory.getBean(IWriteRowsEventDataParser.class);
 
-  private WriteRowsEventDataParser eventDataParser;
-
-  private SourceTableNameSupplier sourceTableNameSupplier;
+  private SourceTableNameSupplier sourceTableNameSupplier = SingletonServiceFactory.getBean(SourceTableNameSupplier.class);
 
   @Test
   public void shouldGetEvents() throws IOException, TimeoutException, InterruptedException, ExecutionException {

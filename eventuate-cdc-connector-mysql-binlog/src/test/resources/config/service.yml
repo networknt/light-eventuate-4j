@@ -1,0 +1,24 @@
+singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      jdbcUrl: jdbc:mysql://localhost:3306/eventuate?useSSL=false
+      username: mysqluser
+      password: mysqlpw
+      maximumPoolSize: 15
+      useServerPrepStmts: true
+      cachePrepStmts: true
+      cacheCallableStmts: true
+      prepStmtCacheSize: 4096
+      prepStmtCacheSqlLimit: 2048
+- com.networknt.eventuate.jdbc.EventuateSchema: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::eventuateSchema
+- com.networknt.eventuate.cdc.mysql.binlog.SourceTableNameSupplier: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::sourceTableNameSupplier
+- com.networknt.eventuate.jdbc.EventuateJdbcAccess:
+  - com.networknt.eventuate.server.jdbckafkastore.EventuateLocalJdbcAccess
+- com.networknt.eventuate.cdc.mysql.binlog.IWriteRowsEventDataParser: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::eventDataParser
+- com.networknt.eventuate.cdc.mysql.binlog.MySqlBinaryLogClient: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySqlBinaryLogClient
+- com.networknt.eventuate.kafka.producer.EventuateKafkaProducer: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::eventuateKafkaProducer
+- com.networknt.eventuate.cdc.mysql.binlog.DatabaseBinlogOffsetKafkaStore: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::binlogOffsetKafkaStore
+- com.networknt.eventuate.cdc.mysql.binlog.DebeziumBinlogOffsetKafkaStore: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::debeziumBinlogOffsetKafkaStore
+- com.networknt.eventuate.server.common.PublishingStrategy:
+  - com.networknt.eventuate.server.common.PublishedEventPublishingStrategy
+- com.networknt.eventuate.server.common.CdcProcessor: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySQLCdcProcessor
