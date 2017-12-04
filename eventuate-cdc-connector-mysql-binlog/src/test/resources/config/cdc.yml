@@ -13,3 +13,4 @@ kafka: localhost:9092
 zookeeper: localhost:2181
 leadershipLockPath: /eventuatelocal/cdc/leader
 mySqlBinLogClientName: MySqlBinLog
+oldDbHistoryTopicName: eventuate.local.cdc.my-sql-connector.offset.storage

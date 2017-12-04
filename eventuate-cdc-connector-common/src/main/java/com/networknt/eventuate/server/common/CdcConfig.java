@@ -16,6 +16,7 @@ public class CdcConfig {
     long binlogClientId;
     String mySqlBinLogClientName;
     String leadershipLockPath;
+    String oldDbHistoryTopicName;
 
     public CdcConfig() {
         binlogClientId = System.currentTimeMillis();
@@ -137,5 +138,13 @@ public class CdcConfig {
 
     public void setLeadershipLockPath(String leadershipLockPath) {
         this.leadershipLockPath = leadershipLockPath;
+    }
+
+    public String getOldDbHistoryTopicName() {
+        return oldDbHistoryTopicName;
+    }
+
+    public void setOldDbHistoryTopicName(String oldDbHistoryTopicName) {
+        this.oldDbHistoryTopicName = oldDbHistoryTopicName;
     }
 }
