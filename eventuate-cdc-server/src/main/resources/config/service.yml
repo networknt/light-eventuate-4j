@@ -23,6 +23,9 @@ singletons:
 - com.networknt.eventuate.server.common.PublishingStrategy:
   - com.networknt.eventuate.server.common.PublishedEventPublishingStrategy
 - com.networknt.eventuate.server.common.CdcProcessor: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySQLCdcProcessor
+- com.networknt.eventuate.server.common.CdcKafkaPublisher: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySQLCdcKafkaPublisher
+- org.apache.curator.framework.CuratorFramework: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::curatorFramework
+- com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySqlEventTableChangesToAggregateTopicTranslator
 # HandlerProvider implementation
 - com.networknt.server.HandlerProvider:
   - com.networknt.eventuate.cdc.server.CdcServer
