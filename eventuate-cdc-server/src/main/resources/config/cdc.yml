@@ -1,7 +1,7 @@
 ---
 dbType: mysql
-jdbcUrl: jdbc:mysql://mysql:3306/eventuate?useSSL=false
-dbHost: mysql
+jdbcUrl: jdbc:mysql://localhost:3306/eventuate?useSSL=false
+dbHost: localhost
 dbPort: 3306
 dbUser: root
 dbPass: rootpassword
@@ -9,5 +9,8 @@ dbName: eventuate
 dbHistoryTopicName: db.history.topic
 sourceTableName: EVENTS
 maximumPoolSize: 10
-kafka: kafka:9092
-zookeeper: zookeeper:2181
+kafka: localhost:9092
+zookeeper: localhost:2181
+leadershipLockPath: /eventuatelocal/cdc/leader
+mySqlBinLogClientName: MySqlBinLog
+oldDbHistoryTopicName: eventuate.local.cdc.my-sql-connector.offset.storage
