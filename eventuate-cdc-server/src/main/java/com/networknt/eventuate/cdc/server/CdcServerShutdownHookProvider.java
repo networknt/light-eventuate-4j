@@ -1,6 +1,10 @@
 package com.networknt.eventuate.cdc.server;
 
+import com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.server.ShutdownHookProvider;
+import com.networknt.service.SingletonServiceFactory;
+import org.apache.curator.framework.CuratorFramework;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,20 +12,21 @@ import org.slf4j.LoggerFactory;
  * cDc service ShutdownHookProvider, stop cDc service
  */
 public class CdcServerShutdownHookProvider implements ShutdownHookProvider {
-    protected static Logger logger = LoggerFactory.getLogger(CdcServerShutdownHookProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(CdcServerShutdownHookProvider.class);
 
     public void onShutdown() {
-        if(CdcServerStartupHookProvider.translator != null) {
+        EventTableChangesToAggregateTopicTranslator<PublishedEvent> translator = SingletonServiceFactory.getBean(EventTableChangesToAggregateTopicTranslator.class);
+        if(translator != null) {
             try {
-                CdcServerStartupHookProvider.translator.stop();
+                translator.stop();
             } catch (Exception e) {
                 logger.error("Exception: ", e);
             }
         }
-
-        if(CdcServerStartupHookProvider.curatorFramework != null) {
-            CdcServerStartupHookProvider.curatorFramework.close();
+        CuratorFramework curatorFramework = SingletonServiceFactory.getBean(CuratorFramework.class);
+        if(curatorFramework != null) {
+            curatorFramework.close();
         }
-        System.out.println("CdcServerShutdownHookProvider is called");
+        logger.info("CdcServerShutdownHookProvider is called");
     }
 }
