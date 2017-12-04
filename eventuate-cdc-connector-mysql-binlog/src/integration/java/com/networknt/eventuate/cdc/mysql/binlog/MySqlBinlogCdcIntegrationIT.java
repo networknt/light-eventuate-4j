@@ -1,4 +1,4 @@
-package com.networknt.eventuate.cdc.mysql;
+package com.networknt.eventuate.cdc.mysql.binlog;
 
 /**
  * This test relies on Mysql, Zookeeper and Kafka running. All tests are disabled

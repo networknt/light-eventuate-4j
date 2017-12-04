@@ -10,6 +10,7 @@ import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.server.common.PublishingStrategy;
 import com.networknt.eventuate.server.common.exception.EventuateLocalPublishingException;
 import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
+import com.networknt.service.SingletonServiceFactory;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +24,11 @@ public abstract class CdcKafkaPublisherTest extends AbstractCdcTest {
   private static final String CONFIG_NAME = "kafka";
   private static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
 
-  protected EventuateJdbcAccess eventuateJdbcAccess;
+  protected EventuateJdbcAccess eventuateJdbcAccess = SingletonServiceFactory.getBean(EventuateJdbcAccess.class);
 
-  protected CdcProcessor<PublishedEvent> cdcProcessor;
+  protected CdcProcessor<PublishedEvent> cdcProcessor = SingletonServiceFactory.getBean(CdcProcessor.class);
 
-  protected PublishingStrategy<PublishedEvent> publishingStrategy;
+  protected PublishingStrategy<PublishedEvent> publishingStrategy = SingletonServiceFactory.getBean(PublishingStrategy.class);
 
   protected EventuateLocalAggregateCrud localAggregateCrud;
 
