@@ -48,6 +48,10 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
+            <artifactId>eventuate-server-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
             <artifactId>eventuate-server-common</artifactId>
         </dependency>
         <dependency>
