@@ -6,7 +6,7 @@ import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud
 import com.networknt.eventuate.server.test.util.CdcKafkaPublisherTest;
 import org.junit.Before;
 
-public class PollingCdcKafkaPublisherIT extends CdcKafkaPublisherTest {
+public class PollingCdcKafkaPublisherT extends CdcKafkaPublisherTest {
 
   @Before
   public void init() {
