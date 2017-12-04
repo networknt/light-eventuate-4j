@@ -96,6 +96,7 @@
         <module>eventuate-cdc-connector-common</module>
         <module>eventuate-cdc-connector-test-util</module>
         <module>eventuate-cdc-connector-mysql-binlog</module>
+        <module>eventuate-cdc-connector-polling</module>
         <module>eventuate-cdc-service</module>
         <module>eventuate-cdc-server</module>
         <module>eventuate-client-test-domain</module>
@@ -198,6 +199,11 @@
             <dependency>
                 <groupId>com.networknt</groupId>
                 <artifactId>eventuate-cdc-connector-mysql-binlog</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-cdc-connector-polling</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
