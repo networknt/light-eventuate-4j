@@ -8,6 +8,8 @@ import com.networknt.server.StartupHookProvider;
 import com.networknt.service.SingletonServiceFactory;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ClassInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
  * Eventuate Client  StartupHookProvider. start Eventuate event handler process service
  */
 public class EventuateClientStartupHookProvider implements StartupHookProvider {
+    static final private Logger logger = LoggerFactory.getLogger(EventuateClientStartupHookProvider.class);
+
     static final String CONFIG_NAME = "eventuate-client";
 
     static EventuateClientConfig config = (EventuateClientConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, EventuateClientConfig.class);
@@ -31,7 +35,8 @@ public class EventuateClientStartupHookProvider implements StartupHookProvider {
                 SingletonServiceFactory.getBeans(EventHandlerProcessor.class),
                 SingletonServiceFactory.getBean(EventuateAggregateStore.class),
                 Executors.newCachedThreadPool(),
-                (SubscriptionsRegistry)SingletonServiceFactory.getBean(SubscriptionsRegistry.class));
+                SingletonServiceFactory.getBean(SubscriptionsRegistry.class));
+
         // lookup all EventSubscriber and register them to subscribe event.
         List<String> subscribers =
                 classNameToClassInfo.values().stream()
