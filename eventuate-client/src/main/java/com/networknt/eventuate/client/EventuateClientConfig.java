@@ -1,21 +1,15 @@
 package com.networknt.eventuate.client;
 
 /**
- * eventuate  client package Configuration class
+ * eventuate client package Configuration class. It is used to control the scope of the
+ * classpath scanner to the package that contains the handlers. Otherwise, all classes
+ * in the classpath will be scanned.
+ *
  */
 public class EventuateClientConfig {
-    String description;
     String handlerPackage;
 
     public EventuateClientConfig() {
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getHandlerPackage() {
