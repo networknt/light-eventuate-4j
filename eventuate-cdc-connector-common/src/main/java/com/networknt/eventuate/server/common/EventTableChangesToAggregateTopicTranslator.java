@@ -17,7 +17,7 @@ public class EventTableChangesToAggregateTopicTranslator<EVENT> {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  public EventTableChangesToAggregateTopicTranslator(CdcKafkaPublisher<EVENT> cdcKafkaPublisher, CdcProcessor<EVENT> CdcProcessor, CuratorFramework client, CdcConfig cdcConfig) {
+  public EventTableChangesToAggregateTopicTranslator(CdcKafkaPublisher<EVENT> cdcKafkaPublisher, CdcProcessor<EVENT> cdcProcessor, CuratorFramework client, CdcConfig cdcConfig) {
     this.cdcKafkaPublisher = cdcKafkaPublisher;
     this.cdcProcessor = cdcProcessor;
     this.cdcConfig = cdcConfig;
@@ -53,6 +53,7 @@ public class EventTableChangesToAggregateTopicTranslator<EVENT> {
   }
 
   public void stop() throws InterruptedException {
+    logger.debug("stop is called");
     //stopCapturingChanges();
     leaderSelector.close();
   }

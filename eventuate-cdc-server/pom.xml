@@ -62,7 +62,11 @@
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-cdc-connector-mysql-binlog</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${version.kafka-clients}</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
