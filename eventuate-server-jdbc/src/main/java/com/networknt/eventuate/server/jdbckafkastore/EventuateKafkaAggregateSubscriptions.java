@@ -1,16 +1,14 @@
 package com.networknt.eventuate.server.jdbckafkastore;
 
 
-import com.networknt.config.Config;
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.SubscriberOptions;
 import com.networknt.eventuate.common.impl.AggregateEvents;
 import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.eventuate.common.impl.SerializedEvent;
-import com.networknt.eventuate.kafka.KafkaConfig;
+import com.networknt.eventuate.kafka.consumer.EventuateKafkaConsumer;
 import com.networknt.eventuate.server.common.AggregateTopicMapping;
 import com.networknt.eventuate.server.common.PublishedEvent;
-import com.networknt.eventuate.kafka.consumer.EventuateKafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

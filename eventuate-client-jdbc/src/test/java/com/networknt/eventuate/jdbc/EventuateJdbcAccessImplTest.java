@@ -67,9 +67,9 @@ public abstract class EventuateJdbcAccessImplTest {
 
     eventuateJdbcAccess.save(testAggregate, Collections.singletonList(eventTypeAndData), Optional.empty());
 
-  //  Assert.assertEquals(1, dbRowCount(readAllEventsSql()));
+    Assert.assertEquals(1, dbRowCount(readAllEventsSql()));
 
-  //  Assert.assertEquals(1, dbRowCount(readAllEntitiesSql()));
+    Assert.assertEquals(1, dbRowCount(readAllEntitiesSql()));
   }
 
   @Test
@@ -96,11 +96,11 @@ public abstract class EventuateJdbcAccessImplTest {
             saveUpdateResult.getEntityIdVersionAndEventIds().getEntityVersion(),
             Collections.singletonList(eventTypeAndData), Optional.of(new AggregateCrudUpdateOptions(Optional.empty(), Optional.of(new SerializedSnapshot("", "")))));
 
- //   Assert.assertEquals(2, dbRowCount(readAllEventsSql()));
+    Assert.assertEquals(2, dbRowCount(readAllEventsSql()));
 
-  //  Assert.assertEquals(1, dbRowCount(readAllEntitiesSql()));
+    Assert.assertEquals(1, dbRowCount(readAllEntitiesSql()));
 
-   /// Assert.assertEquals(1, dbRowCount(readAllSnapshots()));
+    Assert.assertEquals(1, dbRowCount(readAllSnapshots()));
 
     LoadedEvents loadedEvents = eventuateJdbcAccess.find(testAggregate, saveUpdateResult.getEntityIdVersionAndEventIds().getEntityId(), Optional.empty());
     Assert.assertTrue(loadedEvents.getSnapshot().isPresent());
