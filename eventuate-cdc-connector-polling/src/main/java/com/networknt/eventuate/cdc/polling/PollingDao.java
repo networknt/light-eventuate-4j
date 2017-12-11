@@ -60,7 +60,7 @@ public class PollingDao<EVENT_BEAN, EVENT, ID> {
 
   }
 
-  private List<PublishedEventBean> handleFindQuery  (String query, int maxEventsPerPolling) {
+  private List<PublishedEventBean> handleFindQuery(String query, int maxEventsPerPolling) {
     logger.info("cdc polling query:"  + query);
    System.out.println("cdc polling query:"  + query);
 
