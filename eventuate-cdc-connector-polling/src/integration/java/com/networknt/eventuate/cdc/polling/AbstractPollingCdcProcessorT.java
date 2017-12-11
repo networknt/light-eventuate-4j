@@ -7,7 +7,7 @@ import com.networknt.service.SingletonServiceFactory;
 
 public abstract class AbstractPollingCdcProcessorT extends CdcProcessorTest {
 
-  private PollingDao<PublishedEventBean, PublishedEvent, String> pollingDao = SingletonServiceFactory.getBean(PollingDao.class);
+  private PollingDao pollingDao = SingletonServiceFactory.getBean(PollingDao.class);
 
   @Override
   protected CdcProcessor<PublishedEvent> createCdcProcessor() {
