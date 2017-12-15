@@ -61,6 +61,7 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+
     </distributionManagement>
 
     <properties>
@@ -87,6 +88,7 @@
         <version.mysql-binlog>0.13.0</version.mysql-binlog>
         <version.h2>1.4.196</version.h2>
         <versions.maven-version>2.4</versions.maven-version>
+        <version.oracle>11.2.0.3</version.oracle>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
     </properties>
 
@@ -109,6 +111,7 @@
         <module>eventuate-client-jdbc</module>
         <module>eventuate-server-kafka</module>
         <module>eventuate-client-test</module>
+        <module>eventuate-cdc-polling-server</module>
         <!--
         These two modules contain no Java code and cause maven
         release failed. These two should be released to docker hub instead.
@@ -346,6 +349,11 @@
                 <version>${version.mockito}</version>
             </dependency>
             <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${version.oracle}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-library</artifactId>
                 <version>${version.hamcrest}</version>
@@ -578,4 +586,18 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+    </repositories>
 </project>

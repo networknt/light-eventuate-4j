@@ -1,13 +1,15 @@
 package com.networknt.eventuate.cdc.polling;
 
-import com.google.common.collect.ImmutableMap;
+import com.networknt.eventuate.server.common.PublishedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -16,13 +18,13 @@ import java.util.stream.Collectors;
 public class PollingDao<EVENT_BEAN, EVENT, ID> {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
-  private PollingDataProvider<EVENT_BEAN, EVENT, ID> pollingDataParser;
+  private EventPollingDataProvider pollingDataParser;
   private DataSource dataSource;
   private int maxEventsPerPolling;
   private int maxAttemptsForPolling;
   private int pollingRetryIntervalInMilliseconds;
 
-  public PollingDao(PollingDataProvider<EVENT_BEAN, EVENT, ID> pollingDataParser,
+  public PollingDao(EventPollingDataProvider pollingDataParser,
           DataSource dataSource,
           int maxEventsPerPolling,
           int maxAttemptsForPolling,
@@ -47,28 +49,62 @@ public class PollingDao<EVENT_BEAN, EVENT, ID> {
     this.maxEventsPerPolling = maxEventsPerPolling;
   }
 
-  public List<EVENT> findEventsToPublish() {
-    /*
-    String query = String.format("SELECT * FROM %s WHERE %s = 0 ORDER BY %s ASC LIMIT :limit",
+  public List<PublishedEvent> findEventsToPublish() {
+
+    String query = String.format("SELECT * FROM %s WHERE %s = 0 and ROWNUM <= ? ORDER BY %s ASC",
       pollingDataParser.table(), pollingDataParser.publishedField(), pollingDataParser.idField());
 
-    List<EVENT_BEAN> messageBeans = handleConnectionLost(() -> namedParameterJdbcTemplate.query(query,
-      ImmutableMap.of("limit", maxEventsPerPolling), new BeanPropertyRowMapper(pollingDataParser.eventBeanClass())));
+    List<PublishedEventBean> messageBeans = handleConnectionLost(() -> handleFindQuery(query, maxEventsPerPolling));
+
     return messageBeans.stream().map(pollingDataParser::transformEventBeanToEvent).collect(Collectors.toList());
-    */
-    return null;
+
   }
 
-  public void markEventsAsPublished(List<EVENT> events) {
+  private List<PublishedEventBean> handleFindQuery(String query, int maxEventsPerPolling) {
+    logger.info("cdc polling query:"  + query);
+   System.out.println("cdc polling query:"  + query);
 
-    List<ID> ids = events.stream().map(message -> pollingDataParser.getId(message)).collect(Collectors.toList());
 
-    String query = String.format("UPDATE %s SET %s = 1 WHERE %s in (:ids)",
-        pollingDataParser.table(), pollingDataParser.publishedField(), pollingDataParser.idField());
-    query.replaceAll(":ids", "%s");
-    query = String.format(query, preparePlaceHolders(ids.size()));
+    List<PublishedEventBean> events = new ArrayList<>();
+    try (final Connection connection = dataSource.getConnection()) {
+      PreparedStatement stmt = connection.prepareStatement(query);
+      stmt.setInt(1, maxEventsPerPolling);
+      ResultSet rs = stmt.executeQuery();
 
-    //handleConnectionLost(() -> namedParameterJdbcTemplate.update(query, ImmutableMap.of("ids", ids)));
+      while (rs.next()) {
+        PublishedEventBean publishedEventBean = new PublishedEventBean(rs.getString("event_id"), rs.getString("event_type"),
+                rs.getString("event_data"), rs.getString("entity_type"), rs.getString("entity_id"),
+                rs.getString("triggering_event"), rs.getString("metadata"));
+        events.add(publishedEventBean);
+      }
+    } catch (SQLException e) {
+      logger.error("SqlException:", e);
+    }
+     return events;
+  }
+
+  public void markEventsAsPublished(List<PublishedEvent> events) {
+
+    List<String> ids = events.stream().map(message -> pollingDataParser.getId(message)).collect(Collectors.toList());
+
+    String query = String.format("UPDATE %s SET %s = 1 WHERE %s in (%s)",
+        pollingDataParser.table(), pollingDataParser.publishedField(), pollingDataParser.idField(), preparePlaceHolders(ids.size()));
+
+    handleConnectionLost(() -> handleUpdatePublished(query, ids));
+  }
+
+  private int  handleUpdatePublished  (String query, List<String> ids) {
+    logger.info("mark Events As Published query:"  + query);
+    int count = 0;
+    try (final Connection connection = dataSource.getConnection()) {
+      PreparedStatement stmt = connection.prepareStatement(query);
+      setValues(stmt, ids.toArray());
+      count = stmt.executeUpdate();
+      System.out.println("result:" + count);
+    } catch (SQLException e) {
+      logger.error("SqlException:", e);
+    }
+    return count;
   }
 
   private <T> T handleConnectionLost(Callable<T> query) {
