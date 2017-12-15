@@ -1,0 +1,39 @@
+# Singleton service factory configuration/IoC injection
+singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: oracle.jdbc.pool.OracleDataSource
+      jdbcUrl: jdbc:oracle:thin:@localhost:1521:XE
+      username: SYSTEM
+      password: oracle
+      maximumPoolSize: 10
+      useServerPrepStmts: true
+      cachePrepStmts: true
+      cacheCallableStmts: true
+      prepStmtCacheSize: 10
+      prepStmtCacheSqlLimit: 2048
+      connectionTimeout: 2000
+
+- com.networknt.eventuate.jdbc.EventuateSchema: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::eventuateSchema
+- com.networknt.eventuate.jdbc.EventuateJdbcAccess:
+  - com.networknt.eventuate.server.jdbckafkastore.EventuateLocalJdbcAccess
+- com.networknt.eventuate.cdc.polling.EventPollingDataProvider:
+  - com.networknt.eventuate.cdc.polling.EventPollingDataProvider
+- com.networknt.eventuate.cdc.polling.PollingDao: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::pollingDao
+- com.networknt.eventuate.kafka.producer.EventuateKafkaProducer: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::eventuateKafkaProducer
+- com.networknt.eventuate.server.common.PublishingStrategy:
+  - com.networknt.eventuate.server.common.PublishedEventPublishingStrategy
+- com.networknt.eventuate.server.common.CdcProcessor: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::pollingCdcProcessor
+- com.networknt.eventuate.server.common.CdcKafkaPublisher: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::pollingCdcKafkaPublisher
+- org.apache.curator.framework.CuratorFramework: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::curatorFramework
+- com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator: com.networknt.eventuate.cdc.polling.PollingCdcServiceInitializer::pollingEventTableChangesToAggregateTopicTranslator
+# HandlerProvider implementation
+- com.networknt.server.HandlerProvider:
+  - com.networknt.eventuate.cdc.server.CdcServer
+# StartupHookProvider implementations, there are one to many and they are called in the same sequence defined.
+- com.networknt.server.StartupHookProvider:
+  - com.networknt.eventuate.cdc.server.CdcServerStartupHookProvider
+# ShutdownHookProvider implementations, there are one to many and they are called in the same sequence defined.
+- com.networknt.server.ShutdownHookProvider:
+  - com.networknt.eventuate.cdc.server.CdcServerShutdownHookProvider
+# MiddlewareHandler implementations, the calling sequence is as defined in the request/response chain.

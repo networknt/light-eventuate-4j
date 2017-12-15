@@ -1,0 +1,10 @@
+---
+sourceTableName: EVENTS
+maximumPoolSize: 10
+kafka: localhost:9092
+zookeeper: localhost:2181
+leadershipLockPath: /eventuatelocal/cdc/leader
+maxEventsPerPolling: 20
+maxAttemptsForPolling: 5
+pollingRetryIntervalInMilliseconds: 200
+pollingIntervalInMilliseconds: 500
