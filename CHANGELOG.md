@@ -3,6 +3,13 @@
 
 ### Changed
 
+## 1.5.5 - 2017-12-10
+### Added
+
+### Changed
+- refactor the framework with new module names
+- Upgrade to light-4j 1.5.5
+
 ## 1.5.1 - 2017-11-08
 ### Added
 
