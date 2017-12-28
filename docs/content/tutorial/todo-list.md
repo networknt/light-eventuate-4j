@@ -143,7 +143,7 @@ Now let's update rest-command module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
 ```xml
-        <version.light-eventuate-4j>1.5.5</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.5.6</version.light-eventuate-4j>
 
 
         <dependency>
@@ -405,7 +405,7 @@ Now let's update rest-query module to wire the logic.
 
 First we need to update dependencies for this project by adding the following.
 ```xml
-        <version.light-eventuate-4j>1.5.5</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.5.6</version.light-eventuate-4j>
 
 
         <dependency>
@@ -927,7 +927,7 @@ Now let's change the dependencies to add light-eventuate-4j modules and todo-lis
 modules.
 
 ```xml
-        <version.light-eventuate-4j>1.5.5</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.5.6</version.light-eventuate-4j>
 
 ```
 
@@ -1477,7 +1477,7 @@ Now let's change the dependencies to add light-eventuate-4j modules and todo-lis
 modules.
 
 ```xml
-        <version.light-eventuate-4j>1.5.5</version.light-eventuate-4j>
+        <version.light-eventuate-4j>1.5.6</version.light-eventuate-4j>
 
 ```
 
