@@ -2,7 +2,7 @@ An eventual consistency framework implementation based on event sourcing, CQRS a
 It is based on the open source project [eventuate-local](https://github.com/eventuate-local/eventuate-local) from Chris Richardson
 
 [Developer Chat](https://gitter.im/networknt/light-eventuate-4j) |
-[Documentation](https://networknt.github.io/light-eventuate-4j) |
+[Documentation](https://doc.networknt.com/style/light-eventuate-4j/) |
 [Contribution Guide](CONTRIBUTING.md) |
 
 [![Build Status](https://travis-ci.org/networknt/light-eventuate-4j.svg?branch=master)](https://travis-ci.org/networknt/light-eventuate-4j)
@@ -13,7 +13,7 @@ communication.
 
 ## Synchronous, Request/Response Communication
 
-In light-4j, this means to use [Client](https://networknt.github.io/light-4j/other/client/)
+In light-4j, this means to use [Client](https://doc.networknt.com/concern/client/)
 module to call other services in the request/response fashion regardless light-rest-4j,
 light-graphql-4j or light-hybrid-4j is used.
  
@@ -26,7 +26,7 @@ aggregates to serve consumer independently.
 
 ## Which Style to Choose
 
-For pros and cons of each communication patterns, please see [here](https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/)
+For pros and cons of each communication patterns, please see [here](https://doc.networknt.com/style/light-eventuate-4j/comm-pattern/)
 
 
 ## Why light-eventuate-4j 
