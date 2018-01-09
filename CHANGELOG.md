@@ -1,6 +1,13 @@
 # Change Log
 
-## [1.5.6](https://github.com/networknt/light-eventuate-4j/tree/1.5.6) (2017-12-30)
+## [1.5.7](https://github.com/networknt/light-eventuate-4j/tree/1.5.7) (2018-01-09)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.6...1.5.7)
+
+**Closed issues:**
+
+- remove docs folder and move it to light-doc repo [\#43](https://github.com/networknt/light-eventuate-4j/issues/43)
+
+## [1.5.6](https://github.com/networknt/light-eventuate-4j/tree/1.5.6) (2017-12-28)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.1...1.5.6)
 
 **Closed issues:**
