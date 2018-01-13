@@ -16,6 +16,7 @@ import com.networknt.eventuate.common.impl.EventTypeAndData;
 import com.networknt.eventuate.common.impl.LoadedEvents;
 import com.networknt.eventuate.common.impl.SerializedSnapshot;
 import com.networknt.eventuate.common.impl.SerializedSnapshotWithVersion;
+import com.networknt.service.SingletonServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,13 +41,16 @@ public class EventuateJdbcAccessImpl implements EventuateJdbcAccess {
   private String eventTable;
   private String snapshotTable;
 
-  public EventuateJdbcAccessImpl(DataSource dataSource) {
+  private static EventuateSchema eventuateSchema =  SingletonServiceFactory.getBean(EventuateSchema.class);
 
-    this(dataSource, new EventuateSchema());
+  public EventuateJdbcAccessImpl(DataSource dataSource) {
+    this(dataSource, eventuateSchema);
   }
 
   public EventuateJdbcAccessImpl(DataSource dataSource, EventuateSchema eventuateSchema) {
+
     this.dataSource = dataSource;
+    if (eventuateSchema ==null) eventuateSchema = new EventuateSchema();
 
     entityTable = eventuateSchema.qualifyTable("entities");
     eventTable = eventuateSchema.qualifyTable("events");
