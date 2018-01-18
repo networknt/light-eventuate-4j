@@ -13,7 +13,7 @@ public class PollingCdcKafkaPublisher<EVENT> extends CdcKafkaPublisher<EVENT> {
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public PollingCdcKafkaPublisher(String kafkaBootstrapServers, PublishingStrategy<EVENT> publishingStrategy) {
-    super(kafkaBootstrapServers, publishingStrategy);
+    super(publishingStrategy);
   }
 
   @Override

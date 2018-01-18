@@ -16,10 +16,10 @@ public class MySQLCdcKafkaPublisher<EVENT extends BinLogEvent> extends CdcKafkaP
   private DuplicatePublishingDetector duplicatePublishingDetector;
 
   public MySQLCdcKafkaPublisher(DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore, String kafkaBootstrapServers, PublishingStrategy<EVENT> publishingStrategy) {
-    super(kafkaBootstrapServers, publishingStrategy);
+    super(publishingStrategy);
 
     this.binlogOffsetKafkaStore = binlogOffsetKafkaStore;
-    this.duplicatePublishingDetector = new DuplicatePublishingDetector(kafkaBootstrapServers);
+    this.duplicatePublishingDetector = new DuplicatePublishingDetector();
   }
 
   @Override

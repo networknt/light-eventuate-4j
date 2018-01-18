@@ -21,7 +21,7 @@ public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
 
   @Test
   public void emptyTopicTest() {
-    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector(kafkaConfig.getBootstrapServers());
+    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector();
 
     BinlogFileOffset bfo = generateBinlogFileOffset();
 
@@ -32,7 +32,7 @@ public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
   public void shouldBePublishedTest() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();
-    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector(kafkaConfig.getBootstrapServers());
+    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector();
 
     Producer<String, String> producer = createProducer(kafkaConfig.getBootstrapServers());
     floodTopic(producer, binlogFilename, topicName);
@@ -46,7 +46,7 @@ public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
   public void shouldHandlePublishCheckForOldEntires() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();
-    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector(kafkaConfig.getBootstrapServers());
+    DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector();
 
     Producer<String, String> producer = createProducer(kafkaConfig.getBootstrapServers());
     floodTopic(producer, binlogFilename, topicName);

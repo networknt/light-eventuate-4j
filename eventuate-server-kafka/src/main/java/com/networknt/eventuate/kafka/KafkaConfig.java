@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 public class KafkaConfig {
+    public static final String CONFIG_NAME = "kafka";
+
     private String acks;
     private int retries;
     private int batchSize;

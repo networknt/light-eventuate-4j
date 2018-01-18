@@ -18,20 +18,13 @@ import java.util.concurrent.TimeUnit;
 public class EventuateKafkaProducer {
 
   private Producer<String, String> producer;
-  private String bootstrapServers;
   private Properties producerProps;
 
-  static String CONFIG_NAME = "kafka";
-  static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
+  static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(KafkaConfig.CONFIG_NAME, KafkaConfig.class);
 
-  public EventuateKafkaProducer(){
-    this(config.getBootstrapServers());
-  }
-
-  public EventuateKafkaProducer(String bootstrapServers) {
-    this.bootstrapServers = bootstrapServers;
+  public EventuateKafkaProducer() {
     producerProps = new Properties();
-    producerProps.put("bootstrap.servers", bootstrapServers);
+    producerProps.put("bootstrap.servers", config.getBootstrapServers());
     producerProps.put("acks", config.getAcks());
     producerProps.put("retries", config.getRetries());
     producerProps.put("batch.size", config.getBatchSize());
@@ -44,7 +37,6 @@ public class EventuateKafkaProducer {
 
 
   public void setProducer (Producer<String, String> producer) {
-
     this.producer = producer;
   }
 

@@ -7,19 +7,17 @@ import org.slf4j.LoggerFactory;
 
 public abstract class CdcKafkaPublisher<EVENT> {
 
-  private String kafkaBootstrapServers;
   protected PublishingStrategy<EVENT> publishingStrategy;
   protected EventuateKafkaProducer producer;
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  public CdcKafkaPublisher(String kafkaBootstrapServers, PublishingStrategy<EVENT> publishingStrategy) {
-    this.kafkaBootstrapServers = kafkaBootstrapServers;
+  public CdcKafkaPublisher(PublishingStrategy<EVENT> publishingStrategy) {
     this.publishingStrategy = publishingStrategy;
   }
 
   public void start() {
     logger.debug("Starting CdcKafkaPublisher");
-    producer = new EventuateKafkaProducer(kafkaBootstrapServers);
+    producer = new EventuateKafkaProducer();
     logger.debug("Starting CdcKafkaPublisher");
   }
 
