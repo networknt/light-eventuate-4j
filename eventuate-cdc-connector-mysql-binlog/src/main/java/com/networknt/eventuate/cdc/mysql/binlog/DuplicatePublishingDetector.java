@@ -1,5 +1,7 @@
 package com.networknt.eventuate.cdc.mysql.binlog;
 
+import com.networknt.config.Config;
+import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.server.common.BinlogFileOffset;
 import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.common.impl.JSonMapper;
@@ -20,13 +22,13 @@ import static java.util.stream.Collectors.toList;
 
 public class DuplicatePublishingDetector {
 
-  private Logger logger = LoggerFactory.getLogger(getClass());
+  static private final Logger logger = LoggerFactory.getLogger(DuplicatePublishingDetector.class);
+  static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(KafkaConfig.CONFIG_NAME, KafkaConfig.class);
+
   private Map<String, Optional<BinlogFileOffset>> maxOffsetsForTopics = new HashMap<>();
   private boolean okToProcess = false;
-  private String kafkaBootstrapServers;
 
-  public DuplicatePublishingDetector(String kafkaBootstrapServers) {
-    this.kafkaBootstrapServers = kafkaBootstrapServers;
+  public DuplicatePublishingDetector() {
   }
 
   public boolean shouldBePublished(BinlogFileOffset sourceBinlogFileOffset, String destinationTopic) {
@@ -44,7 +46,7 @@ public class DuplicatePublishingDetector {
 
   private Optional<BinlogFileOffset> fetchMaxOffsetFor(String destinationTopic) {
     String subscriberId = "duplicate-checker-" + destinationTopic + "-" + System.currentTimeMillis();
-    Properties consumerProperties = ConsumerPropertiesFactory.makeConsumerProperties(kafkaBootstrapServers, subscriberId);
+    Properties consumerProperties = ConsumerPropertiesFactory.makeConsumerProperties(config, subscriberId);
     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
 
     List<PartitionInfo> partitions = EventuateKafkaConsumer.verifyTopicExistsBeforeSubscribing(consumer, destinationTopic);

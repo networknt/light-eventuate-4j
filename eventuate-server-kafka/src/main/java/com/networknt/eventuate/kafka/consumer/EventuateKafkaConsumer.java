@@ -24,9 +24,7 @@ import java.util.function.BiConsumer;
 public class EventuateKafkaConsumer {
 
   private static Logger logger = LoggerFactory.getLogger(EventuateKafkaConsumer.class);
-  static String CONFIG_NAME = "kafka";
-  static KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
-  static String bootstrapServers = config.getBootstrapServers();
+  static KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(KafkaConfig.CONFIG_NAME, KafkaConfig.class);
 
   private final String subscriberId;
   private final BiConsumer<ConsumerRecord<String, String>, BiConsumer<Void, Throwable>> handler;
@@ -45,7 +43,7 @@ public class EventuateKafkaConsumer {
     this.subscriberId = subscriberId;
     this.handler = handler;
     this.topics = topics;
-    this.consumerProperties = ConsumerPropertiesFactory.makeConsumerProperties(bootstrapServers, subscriberId);
+    this.consumerProperties = ConsumerPropertiesFactory.makeConsumerProperties(config, subscriberId);
   }
 
   public static List<PartitionInfo> verifyTopicExistsBeforeSubscribing(KafkaConsumer<String, String> consumer, String topic) {
