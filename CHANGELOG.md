@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.5.8](https://github.com/networknt/light-eventuate-4j/tree/1.5.8) (2018-02-03)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.7...1.5.8)
+
+**Closed issues:**
+
+- consolidate both consumer and producer to use kafka.yml for config [\#46](https://github.com/networknt/light-eventuate-4j/issues/46)
+- \[discusssion\] Go away from broker centric systems and SQL database to get performance [\#45](https://github.com/networknt/light-eventuate-4j/issues/45)
+- update readme.md to move document site to doc.networknt.com [\#44](https://github.com/networknt/light-eventuate-4j/issues/44)
+
 ## [1.5.7](https://github.com/networknt/light-eventuate-4j/tree/1.5.7) (2018-01-09)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.6...1.5.7)
 
