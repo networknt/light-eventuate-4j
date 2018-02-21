@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.5.9](https://github.com/networknt/light-eventuate-4j/tree/1.5.9) (2018-02-21)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.8...1.5.9)
+
+**Closed issues:**
+
+- throwing RuntimeException breaks light-saga-4j integration tests [\#51](https://github.com/networknt/light-eventuate-4j/issues/51)
+- disable travis ci develop branch build [\#49](https://github.com/networknt/light-eventuate-4j/issues/49)
+
 ## [1.5.8](https://github.com/networknt/light-eventuate-4j/tree/1.5.8) (2018-02-03)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.7...1.5.8)
 
