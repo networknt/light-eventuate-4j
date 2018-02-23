@@ -30,6 +30,7 @@ public class EventDispatcher {
    * Construct EventDispatcher
    * @param subscriberId defined topic subscriberId
    * @param eventTypesAndHandlers defined event handlers
+   * @param eventDeliveryExceptionHandlerManager exception handler manager
    */
   public EventDispatcher(String subscriberId, Map<Class<?>, EventHandler> eventTypesAndHandlers, EventDeliveryExceptionHandlerManager eventDeliveryExceptionHandlerManager) {
     this.subscriberId = subscriberId;

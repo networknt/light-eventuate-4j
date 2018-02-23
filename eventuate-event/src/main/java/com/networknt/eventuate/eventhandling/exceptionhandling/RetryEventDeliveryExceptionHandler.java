@@ -44,7 +44,7 @@ public class RetryEventDeliveryExceptionHandler implements EventDeliveryExceptio
    * @param t the throwable
    * @param retry invoked asynchronously to retry
    * @param fail invoked asynchronously to fail
-   * @param ignore
+   * @param ignore Runnable
    */
   @Override
   public void handle(EventDeliveryExceptionHandlerState state, Throwable t, Runnable retry, Consumer<Throwable> fail, Runnable ignore) {

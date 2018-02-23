@@ -19,6 +19,7 @@ public interface EventHandler {
 
   /**
    * dispatch an event
+   * @param de dispatched event
    * @return CompletableFuture
    */
   CompletableFuture<?> dispatch(DispatchedEvent<Event> de);

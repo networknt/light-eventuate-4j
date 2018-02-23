@@ -77,6 +77,7 @@ public class EventDispatcherInitializer {
    * any methods found with signatures matching a method already included are filtered out.
    *
    * @param leafClass the class to introspect
+   * @return Method[] an array of Method
    * @throws IllegalStateException if introspection fails
    */
   public static Method[] getUniqueDeclaredMethods(Class<?> leafClass) {
@@ -116,6 +117,8 @@ public class EventDispatcherInitializer {
      * Perform an operation using the given method.
      *
      * @param method the method to operate on
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
      */
     void doWith(Method method) throws IllegalArgumentException, IllegalAccessException;
   }
