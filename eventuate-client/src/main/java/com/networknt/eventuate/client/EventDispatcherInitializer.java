@@ -117,8 +117,8 @@ public class EventDispatcherInitializer {
      * Perform an operation using the given method.
      *
      * @param method the method to operate on
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException illegal argument exception
+     * @throws IllegalAccessException illegal access exception
      */
     void doWith(Method method) throws IllegalArgumentException, IllegalAccessException;
   }

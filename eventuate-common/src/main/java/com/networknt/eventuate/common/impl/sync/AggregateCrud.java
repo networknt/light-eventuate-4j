@@ -24,7 +24,9 @@ public interface AggregateCrud {
   /**
    * Find a  Aggregate events by giving aggregateType and entityId
    * @param aggregateType the aggregateType for event store
+   * @param entityId entity Id
    * @param findOptions the command options
+   * @param <T> type T
    * @return the LoadedEvents
    */
   <T extends Aggregate<T>> LoadedEvents find(String aggregateType, String entityId, Optional<AggregateCrudFindOptions> findOptions);
