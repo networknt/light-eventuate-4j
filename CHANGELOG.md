@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.5.10](https://github.com/networknt/light-eventuate-4j/tree/1.5.10) (2018-03-02)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.9...1.5.10)
+
+**Implemented enhancements:**
+
+- Reconnect or retry from CDC server to Kafka [\#25](https://github.com/networknt/light-eventuate-4j/issues/25)
+
+**Closed issues:**
+
+- remove warnings for java-doc [\#52](https://github.com/networknt/light-eventuate-4j/issues/52)
+
 ## [1.5.9](https://github.com/networknt/light-eventuate-4j/tree/1.5.9) (2018-02-21)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.8...1.5.9)
 
