@@ -12,6 +12,7 @@ dist/
 *.log
 *.tmp
 *.zip
+*.jar
 *.bak
 dependency-reduced-pom.xml
 *.versionsBackup
