@@ -43,13 +43,7 @@ public abstract class CdcKafkaPublisherTest extends AbstractCdcTest {
 
     cdcKafkaPublisher.start();
 
-    cdcProcessor.start(publishedEvent -> {
-      try {
-        cdcKafkaPublisher.handleEvent(publishedEvent);
-      } catch (EventuateLocalPublishingException e) {
-        throw new RuntimeException(e);
-      }
-    });
+    cdcProcessor.start(cdcKafkaPublisher::handleEvent);
 
     String accountCreatedEventData = generateAccountCreatedEvent();
     EntityIdVersionAndEventIds entityIdVersionAndEventIds = saveEvent(localAggregateCrud, accountCreatedEventData);
