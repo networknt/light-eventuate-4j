@@ -3,8 +3,8 @@ dbType: mysql
 jdbcUrl: jdbc:mysql://localhost:3306/eventuate?useSSL=false
 dbHost: localhost
 dbPort: 3306
-dbUser: root
-dbPass: rootpassword
+dbUser: mysqluser
+dbPass: mysqlpw
 dbName: eventuate
 dbHistoryTopicName: db.history.topic
 sourceTableName: EVENTS
