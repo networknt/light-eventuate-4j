@@ -4,8 +4,8 @@ singletons:
   - com.zaxxer.hikari.HikariDataSource:
       DriverClassName: com.mysql.jdbc.Driver
       jdbcUrl: jdbc:mysql://mysql:3306/todo_db?useSSL=false
-      username: mysqluser
-      password: mysqlpw
+      username: root
+      password: rootpassword
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
   - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
 - com.networknt.eventuate.common.impl.AggregateEvents:
