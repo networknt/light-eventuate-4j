@@ -47,7 +47,7 @@ public abstract class AbstractMySqlBinlogCdcIntegrationIT extends AbstractCdcTes
     EntityIdVersionAndEventIds updateResult = updateEvent(saveResult.getEntityId(), saveResult.getEntityVersion(), localAggregateCrud, accountDebitedEventData);
 
     // Wait for 10 seconds
-    LocalDateTime deadline = LocalDateTime.now().plusSeconds(10);
+    LocalDateTime deadline = LocalDateTime.now().plusSeconds(20);
 
     waitForEvent(publishedEvents, saveResult.getEntityVersion(), deadline, accountCreatedEventData);
     waitForEvent(publishedEvents, updateResult.getEntityVersion(), deadline, accountDebitedEventData);

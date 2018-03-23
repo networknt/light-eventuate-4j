@@ -7,7 +7,7 @@ import com.networknt.eventuate.event.EventHandlerProcessor;
 import com.networknt.eventuate.event.SwimlaneBasedDispatcher;
 import com.networknt.eventuate.eventhandling.exceptionhandling.EventDeliveryExceptionHandler;
 import com.networknt.eventuate.eventhandling.exceptionhandling.EventDeliveryExceptionHandlerManagerImpl;
-import org.apache.commons.lang3.StringUtils;
+import com.networknt.utility.StringUtil;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
@@ -165,7 +165,7 @@ public class EventDispatcherInitializer {
      if (a == null)
       throw new RuntimeException("Needs @EventSubscriber annotation: " + eventHandlerBean);
 
-    String subscriberId = StringUtils.isBlank(a.id()) ? beanName : a.id();
+    String subscriberId = StringUtil.isBlank(a.id()) ? beanName : a.id();
 
     EventDispatcher eventDispatcher = new EventDispatcher(subscriberId, eventTypesAndHandlers, new EventDeliveryExceptionHandlerManagerImpl(exceptionHandlers));
 
