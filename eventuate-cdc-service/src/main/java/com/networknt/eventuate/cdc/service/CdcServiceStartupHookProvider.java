@@ -2,7 +2,7 @@ package com.networknt.eventuate.cdc.service;
 
 import com.networknt.config.Config;
 import com.networknt.eventuate.cdc.mysql.binlog.*;
-import com.networknt.eventuate.jdbc.EventuateSchema;
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
 import com.networknt.eventuate.server.common.CdcConfig;
 import com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator;
 import com.networknt.eventuate.server.common.PublishedEvent;

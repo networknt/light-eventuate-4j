@@ -1,10 +1,10 @@
-package com.networknt.eventuate.server.jdbckafkastore;
+package com.networknt.eventuate.jdbc.client;
 
 import com.networknt.eventuate.common.EventContext;
-import com.networknt.eventuate.jdbc.EventAndTrigger;
-import com.networknt.eventuate.jdbc.EventuateJdbcAccessImpl;
-import com.networknt.eventuate.jdbc.EventuateSchema;
-import com.networknt.eventuate.jdbc.LoadedSnapshot;
+import com.networknt.eventuate.jdbc.common.EventAndTrigger;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccessImpl;
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
+import com.networknt.eventuate.jdbc.common.LoadedSnapshot;
 
 import javax.sql.DataSource;
 import java.util.List;

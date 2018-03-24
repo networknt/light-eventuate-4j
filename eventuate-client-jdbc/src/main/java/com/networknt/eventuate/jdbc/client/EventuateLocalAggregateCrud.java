@@ -1,7 +1,8 @@
-package com.networknt.eventuate.server.jdbckafkastore;
+package com.networknt.eventuate.jdbc.client;
 
-import com.networknt.eventuate.jdbc.AbstractJdbcAggregateCrud;
-import com.networknt.eventuate.jdbc.EventuateJdbcAccess;
+
+import com.networknt.eventuate.jdbc.common.AbstractJdbcAggregateCrud;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
 
 /**
  * A JDBC-based aggregate store

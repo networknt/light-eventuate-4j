@@ -60,7 +60,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-client-jdbc-common</artifactId>
+            <artifactId>eventuate-client-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

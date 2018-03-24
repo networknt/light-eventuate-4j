@@ -1,7 +1,7 @@
 package com.networknt.eventuate.cdc.mysql.binlog;
 
 import com.networknt.config.Config;
-import com.networknt.eventuate.jdbc.EventuateSchema;
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
 import com.networknt.eventuate.kafka.KafkaConfig;
 import com.networknt.eventuate.kafka.producer.EventuateKafkaProducer;
 import com.networknt.eventuate.server.common.*;

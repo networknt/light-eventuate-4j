@@ -1,9 +1,11 @@
 package com.networknt.eventuate.cdc.mysql.binlog;
 
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
-import com.networknt.eventuate.jdbc.EventuateJdbcAccess;
+
+import com.networknt.eventuate.jdbc.client.EventuateLocalAggregateCrud;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
 import com.networknt.eventuate.server.common.PublishedEvent;
-import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
+
 import com.networknt.eventuate.server.test.util.AbstractCdcTest;
 import com.networknt.service.SingletonServiceFactory;
 import org.junit.Test;

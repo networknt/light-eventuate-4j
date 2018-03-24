@@ -1,4 +1,4 @@
-package com.networknt.eventuate.jdbc;
+package com.networknt.eventuate.jdbc.common;
 
 import com.networknt.eventuate.common.Aggregate;
 import com.networknt.eventuate.common.EntityIdAndType;

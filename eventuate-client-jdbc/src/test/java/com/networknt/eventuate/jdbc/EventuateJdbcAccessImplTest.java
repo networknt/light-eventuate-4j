@@ -5,6 +5,8 @@ import com.networknt.eventuate.common.impl.AggregateCrudUpdateOptions;
 import com.networknt.eventuate.common.impl.EventTypeAndData;
 import com.networknt.eventuate.common.impl.LoadedEvents;
 import com.networknt.eventuate.common.impl.SerializedSnapshot;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
+import com.networknt.eventuate.jdbc.common.SaveUpdateResult;
 import com.networknt.service.SingletonServiceFactory;
 import org.h2.tools.RunScript;
 import org.junit.Assert;

@@ -4,6 +4,8 @@ import com.networknt.eventuate.common.impl.AggregateCrud;
 import com.networknt.eventuate.common.impl.AggregateEvents;
 import com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateCrudAdapter;
 import com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateEventsAdapter;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
 import com.networknt.service.SingletonServiceFactory;
 
 public class EventuateJdbcAccessServiceInitializer {

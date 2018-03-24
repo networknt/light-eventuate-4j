@@ -1,4 +1,4 @@
-package com.networknt.eventuate.jdbc;
+package com.networknt.eventuate.jdbc.common;
 
 import com.networknt.eventuate.common.Int128;
 import org.junit.Test;
@@ -6,7 +6,8 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class IdGeneratorImplTest {
 

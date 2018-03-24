@@ -1,6 +1,7 @@
 package com.networknt.eventuate.cdc.polling;
 
-import com.networknt.eventuate.jdbc.EventuateSchema;
+
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
 import com.networknt.eventuate.server.common.PublishedEvent;
 
 public class EventPollingDataProvider implements PollingDataProvider<PublishedEventBean, PublishedEvent, String> {

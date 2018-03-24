@@ -3,6 +3,9 @@ package com.networknt.eventuate.jdbc;
 import com.networknt.eventuate.common.*;
 import com.networknt.eventuate.common.impl.*;
 import com.networknt.eventuate.common.impl.sync.AggregateEvents;
+import com.networknt.eventuate.jdbc.common.AbstractJdbcAggregateCrud;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
+import com.networknt.eventuate.jdbc.common.PublishableEvents;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;

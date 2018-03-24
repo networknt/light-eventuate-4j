@@ -2,10 +2,10 @@ package com.networknt.eventuate.server.test.util;
 
 import com.networknt.eventuate.common.Int128;
 import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
-import com.networknt.eventuate.jdbc.EventuateJdbcAccess;
+import com.networknt.eventuate.jdbc.client.EventuateLocalAggregateCrud;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
 import com.networknt.eventuate.server.common.CdcProcessor;
 import com.networknt.eventuate.server.common.PublishedEvent;
-import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
 import com.networknt.service.SingletonServiceFactory;
 import org.junit.Before;
 import org.junit.Test;

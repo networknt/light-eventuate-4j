@@ -1,21 +1,7 @@
-package com.networknt.eventuate.jdbc;
+package com.networknt.eventuate.jdbc.common;
 
-import com.networknt.eventuate.common.Aggregate;
-import com.networknt.eventuate.common.DuplicateTriggeringEventException;
-import com.networknt.eventuate.common.EntityIdAndType;
-import com.networknt.eventuate.common.EntityNotFoundException;
-import com.networknt.eventuate.common.EventContext;
-import com.networknt.eventuate.common.Int128;
-import com.networknt.eventuate.common.OptimisticLockingException;
-import com.networknt.eventuate.common.impl.AggregateCrudFindOptions;
-import com.networknt.eventuate.common.impl.AggregateCrudSaveOptions;
-import com.networknt.eventuate.common.impl.AggregateCrudUpdateOptions;
-import com.networknt.eventuate.common.impl.EntityIdVersionAndEventIds;
-import com.networknt.eventuate.common.impl.EventIdTypeAndData;
-import com.networknt.eventuate.common.impl.EventTypeAndData;
-import com.networknt.eventuate.common.impl.LoadedEvents;
-import com.networknt.eventuate.common.impl.SerializedSnapshot;
-import com.networknt.eventuate.common.impl.SerializedSnapshotWithVersion;
+import com.networknt.eventuate.common.*;
+import com.networknt.eventuate.common.impl.*;
 import com.networknt.service.SingletonServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

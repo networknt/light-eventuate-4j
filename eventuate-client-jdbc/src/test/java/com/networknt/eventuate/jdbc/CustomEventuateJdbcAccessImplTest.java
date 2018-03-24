@@ -1,5 +1,8 @@
 package com.networknt.eventuate.jdbc;
 
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccess;
+import com.networknt.eventuate.jdbc.common.EventuateJdbcAccessImpl;
+import com.networknt.eventuate.jdbc.common.EventuateSchema;
 import com.networknt.service.SingletonServiceFactory;
 import org.junit.Before;
 import java.util.List;

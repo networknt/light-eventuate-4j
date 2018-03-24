@@ -1,4 +1,4 @@
-package com.networknt.eventuate.server.jdbckafkastore;
+package com.networknt.eventuate.jdbc.client;
 
 import com.networknt.eventuate.common.EventContext;
 
