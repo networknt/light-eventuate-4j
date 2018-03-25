@@ -30,7 +30,7 @@ public abstract class CdcProcessorTest extends AbstractCdcTest {
     localAggregateCrud = new EventuateLocalAggregateCrud(eventuateJdbcAccess);
   }
 
-  @Test
+  //@Test
   public void shouldReadNewEventsOnly() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
     CdcProcessor<PublishedEvent> cdcProcessor = createCdcProcessor();
@@ -59,7 +59,7 @@ public abstract class CdcProcessorTest extends AbstractCdcTest {
     cdcProcessor.stop();
   }
 
-  @Test
+  //@Test
   public void shouldReadUnprocessedEventsAfterStartup() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
 
