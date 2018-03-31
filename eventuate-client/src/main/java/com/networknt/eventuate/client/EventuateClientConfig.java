@@ -7,7 +7,7 @@ package com.networknt.eventuate.client;
  *
  */
 public class EventuateClientConfig {
-    String handlerPackage[];
+    String[] handlerPackage;
 
     public EventuateClientConfig() {
     }
@@ -19,5 +19,4 @@ public class EventuateClientConfig {
     public void setHandlerPackage(String[] handlerPackage) {
         this.handlerPackage = handlerPackage;
     }
-
 }
