@@ -7,16 +7,16 @@ package com.networknt.eventuate.client;
  *
  */
 public class EventuateClientConfig {
-    String handlerPackage;
+    String handlerPackage[];
 
     public EventuateClientConfig() {
     }
 
-    public String getHandlerPackage() {
+    public String[] getHandlerPackage() {
         return handlerPackage;
     }
 
-    public void setHandlerPackage(String handlerPackage) {
+    public void setHandlerPackage(String[] handlerPackage) {
         this.handlerPackage = handlerPackage;
     }
 

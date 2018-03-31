@@ -1,2 +1,2 @@
 ---
-handlerPackage: ""
+handlerPackage: ["com.networknt", "net.lightapi"]
