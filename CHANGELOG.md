@@ -1,5 +1,26 @@
 # Change Log
 
+## [1.5.11](https://github.com/networknt/light-eventuate-4j/tree/1.5.11) (2018-03-31)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.10...1.5.11)
+
+**Closed issues:**
+
+- support multiple packages in eventuate-client.yml [\#67](https://github.com/networknt/light-eventuate-4j/issues/67)
+- change the signature of light-hybrid-4j handler to pass exchange [\#65](https://github.com/networknt/light-eventuate-4j/issues/65)
+- disable two test cases that fail occasionally [\#64](https://github.com/networknt/light-eventuate-4j/issues/64)
+- remove apache commons-lang dependency [\#62](https://github.com/networknt/light-eventuate-4j/issues/62)
+- mysql binlog integration test failed when cdcserver for eventuate is running [\#59](https://github.com/networknt/light-eventuate-4j/issues/59)
+- rollback mysqluser update and switch back to root as mysqlbinlog needs it. [\#58](https://github.com/networknt/light-eventuate-4j/issues/58)
+- change publishing exception to runtime exception [\#57](https://github.com/networknt/light-eventuate-4j/issues/57)
+- switch mysql database user to mysqluser instead of root [\#56](https://github.com/networknt/light-eventuate-4j/issues/56)
+- upgrade to 1.5.11 in develop branch [\#55](https://github.com/networknt/light-eventuate-4j/issues/55)
+- add jar file into gitignore [\#54](https://github.com/networknt/light-eventuate-4j/issues/54)
+- \[question\] Event store can be used to fully recover business service local database store? [\#53](https://github.com/networknt/light-eventuate-4j/issues/53)
+
+**Merged pull requests:**
+
+- fixes \#62 remove apache commons-lang dependency [\#63](https://github.com/networknt/light-eventuate-4j/pull/63) ([chenyan71](https://github.com/chenyan71))
+
 ## [1.5.10](https://github.com/networknt/light-eventuate-4j/tree/1.5.10) (2018-03-02)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.9...1.5.10)
 
