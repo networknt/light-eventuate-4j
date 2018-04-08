@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.5.12](https://github.com/networknt/light-eventuate-4j/tree/1.5.12) (2018-04-08)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.11...1.5.12)
+
+**Closed issues:**
+
+- remove unused dependencies in eventuate-client [\#68](https://github.com/networknt/light-eventuate-4j/issues/68)
+- captured this error from light-bot auto build [\#50](https://github.com/networknt/light-eventuate-4j/issues/50)
+
 ## [1.5.11](https://github.com/networknt/light-eventuate-4j/tree/1.5.11) (2018-03-31)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.10...1.5.11)
 
