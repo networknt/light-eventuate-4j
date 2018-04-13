@@ -82,8 +82,8 @@
         <version.assertj>3.8.0</version.assertj>
         <version.json-schema-validator>0.1.18</version.json-schema-validator>
         <version.curator>4.0.0</version.curator>
-        <version.hikaricp>2.7.1</version.hikaricp>
-        <version.fastscanner>2.7.0</version.fastscanner>
+        <version.hikaricp>3.0.0</version.hikaricp>
+        <version.fastscanner>2.18.1</version.fastscanner>
         <version.mysql>5.1.44</version.mysql>
         <version.mysql-binlog>0.13.0</version.mysql-binlog>
         <version.h2>1.4.196</version.h2>
