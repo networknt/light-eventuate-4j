@@ -104,6 +104,7 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
     for (int i=1; i<5; i++) {
         try {
             client.connect(10 * 1000);
+            break;
         } catch (Exception e) {
             logger.error("mysql connection error:" + e);
             try {
@@ -113,7 +114,6 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
             }
         }
     }
-    client.connect(10 * 1000);
   }
 
   private EventDeserializer getEventDeserializer() {
