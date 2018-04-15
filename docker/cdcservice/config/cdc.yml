@@ -8,6 +8,6 @@ dbPass: rootpassword
 dbName: eventuate
 dbHistoryTopicName: db.history.topic
 sourceTableName: EVENTS
-maximumPoolSize: 10
+maximumPoolSize: 2
 kafka: kafka:9092
 zookeeper: zookeeper:2181

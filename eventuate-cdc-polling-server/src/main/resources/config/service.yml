@@ -6,7 +6,7 @@ singletons:
       jdbcUrl: jdbc:oracle:thin:@localhost:1521:XE
       username: SYSTEM
       password: oracle
-      maximumPoolSize: 10
+      maximumPoolSize: 2
       useServerPrepStmts: true
       cachePrepStmts: true
       cacheCallableStmts: true

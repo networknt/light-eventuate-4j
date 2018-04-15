@@ -1,6 +1,6 @@
 ---
 sourceTableName: EVENTS
-maximumPoolSize: 10
+maximumPoolSize: 2
 kafka: localhost:9092
 zookeeper: localhost:2181
 leadershipLockPath: /eventuatelocal/cdc/leader
