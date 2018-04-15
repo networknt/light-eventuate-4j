@@ -23,7 +23,6 @@ public class MySQLCdcProcessor<EVENT extends BinLogEvent> implements CdcProcesso
   }
 
   public void start(Consumer<EVENT> eventConsumer) {
-
     Optional<BinlogFileOffset> binlogFileOffset = binlogOffsetKafkaStore.getLastBinlogFileOffset();
 
     if (!binlogFileOffset.isPresent()) {

@@ -6,6 +6,8 @@ import com.networknt.eventuate.server.common.BinlogFileOffset;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -17,7 +19,7 @@ public abstract class OffsetKafkaStore {
   protected final String dbHistoryTopicName;
   private static final String CONFIG_NAME = "kafka";
   private static final KafkaConfig config = (KafkaConfig) Config.getInstance().getJsonObjectConfig(CONFIG_NAME, KafkaConfig.class);
-
+  private Logger logger = LoggerFactory.getLogger(this.getClass());
   private final static int N = 20;
 
   public OffsetKafkaStore(String dbHistoryTopicName) {
@@ -25,7 +27,7 @@ public abstract class OffsetKafkaStore {
   }
 
   public Optional<BinlogFileOffset> getLastBinlogFileOffset() {
-    try (KafkaConsumer<String, String> consumer = createConsumer()) {
+  /*  try ( KafkaConsumer<String, String> consumer = createConsumer()){
       consumer.partitionsFor(dbHistoryTopicName);
       consumer.subscribe(Arrays.asList(dbHistoryTopicName));
 
@@ -49,7 +51,50 @@ public abstract class OffsetKafkaStore {
         }
       }
       return Optional.ofNullable(result);
+    }*/
+
+
+
+
+
+    for (int i=0; i<5; i++) {
+      System.out.println("tried->>>>:" + i);
+      try(KafkaConsumer<String, String> consumer = createConsumer())  {
+        consumer.partitionsFor(dbHistoryTopicName);
+        consumer.subscribe(Arrays.asList(dbHistoryTopicName));
+
+        int count = N;
+        BinlogFileOffset result = null;
+        boolean lastRecordFound = false;
+        while (!lastRecordFound) {
+          ConsumerRecords<String, String> records = consumer.poll(100);
+          if (records.isEmpty()) {
+            count--;
+            if (count == 0)
+              lastRecordFound = true;
+          } else {
+            count = N;
+            for (ConsumerRecord<String, String> record : records) {
+              BinlogFileOffset current = handleRecord(record);
+              if (current != null) {
+                result = current;
+              }
+            }
+          }
+        }
+        return Optional.ofNullable(result);
+      } catch (Exception e) {
+        logger.error("kafak consumer error:" + e);
+        System.out.println("kafak consumer error:" + e);
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException ie) {
+          logger.error(ie.getMessage(), ie);
+        }
+      }
     }
+    return Optional.ofNullable(null);
+
   }
 
   private KafkaConsumer<String, String> createConsumer() {

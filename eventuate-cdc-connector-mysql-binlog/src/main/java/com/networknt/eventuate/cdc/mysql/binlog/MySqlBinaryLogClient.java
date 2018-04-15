@@ -125,7 +125,9 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
 
   public void stop() {
     try {
-      client.disconnect();
+      if (client!=null) {
+        client.disconnect();
+      }
     } catch (IOException e) {
       logger.error("Cannot stop the MySqlBinaryLogClient", e);
     }
