@@ -1,4 +1,4 @@
-package com.networknt.eventuate.jdbc;
+package com.networknt.eventuate.eventhandling.exceptionhandling;
 
 import com.networknt.eventuate.eventhandling.exceptionhandling.EventuateClientScheduler;
 
