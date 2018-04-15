@@ -101,6 +101,18 @@ public class MySqlBinaryLogClient<M extends BinLogEvent> {
         }
       }
     });
+    for (int i=1; i<5; i++) {
+        try {
+            client.connect(10 * 1000);
+        } catch (Exception e) {
+            logger.error("mysql connection error:" + e);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ie) {
+                logger.error(ie.getMessage(), ie);
+            }
+        }
+    }
     client.connect(10 * 1000);
   }
 

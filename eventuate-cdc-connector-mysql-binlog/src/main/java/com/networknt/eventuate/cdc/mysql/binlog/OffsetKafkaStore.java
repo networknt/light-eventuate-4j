@@ -58,7 +58,6 @@ public abstract class OffsetKafkaStore {
 
 
     for (int i=0; i<5; i++) {
-      System.out.println("tried->>>>:" + i);
       try(KafkaConsumer<String, String> consumer = createConsumer())  {
         consumer.partitionsFor(dbHistoryTopicName);
         consumer.subscribe(Arrays.asList(dbHistoryTopicName));

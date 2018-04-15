@@ -3,12 +3,15 @@ package com.networknt.eventuate.cdc.mysql.binlog;
 import com.networknt.eventuate.server.common.BinLogEvent;
 import com.networknt.eventuate.server.common.BinlogFileOffset;
 import com.networknt.eventuate.server.common.CdcProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MySQLCdcProcessor<EVENT extends BinLogEvent> implements CdcProcessor<EVENT> {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
   private MySqlBinaryLogClient<EVENT> mySqlBinaryLogClient;
   private DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore;
   private DebeziumBinlogOffsetKafkaStore debeziumBinlogOffsetKafkaStore;
@@ -48,7 +51,8 @@ public class MySQLCdcProcessor<EVENT extends BinLogEvent> implements CdcProcesso
         }
       });
     } catch (Exception e) {
-      throw new RuntimeException(e);
+        logger.error("cdc process start error:" + e);
+        throw new RuntimeException(e);
     }
   }
 
