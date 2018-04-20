@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.5.13](https://github.com/networknt/light-eventuate-4j/tree/1.5.13) (2018-04-20)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.12...1.5.13)
+
+**Closed issues:**
+
+- cdc retry 5 times and return immediately if succeed [\#76](https://github.com/networknt/light-eventuate-4j/issues/76)
+- move JdkTimer scheduler to the same package as the interface [\#75](https://github.com/networknt/light-eventuate-4j/issues/75)
+- reduce connection pool size to 2 in cdc and service [\#74](https://github.com/networknt/light-eventuate-4j/issues/74)
+- enable cdc test case again [\#73](https://github.com/networknt/light-eventuate-4j/issues/73)
+- add build.sh and Dockerfile for tram cdcserver docker release [\#72](https://github.com/networknt/light-eventuate-4j/issues/72)
+- remove the restclient package [\#71](https://github.com/networknt/light-eventuate-4j/issues/71)
+- abstract producer and consumer interface to support other message brokers [\#70](https://github.com/networknt/light-eventuate-4j/issues/70)
+- cdc server to mysql database root password cannot be externalized [\#66](https://github.com/networknt/light-eventuate-4j/issues/66)
+
 ## [1.5.12](https://github.com/networknt/light-eventuate-4j/tree/1.5.12) (2018-04-08)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.11...1.5.12)
 
