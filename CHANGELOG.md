@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.5.14](https://github.com/networknt/light-eventuate-4j/tree/1.5.14) (2018-05-19)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.13...1.5.14)
+
+**Closed issues:**
+
+- Test mariadb for binlog CDC support [\#78](https://github.com/networknt/light-eventuate-4j/issues/78)
+- \[question\] Using MongoDB as event store and ActiveMQ as broker [\#77](https://github.com/networknt/light-eventuate-4j/issues/77)
+
 ## [1.5.13](https://github.com/networknt/light-eventuate-4j/tree/1.5.13) (2018-04-20)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.12...1.5.13)
 
