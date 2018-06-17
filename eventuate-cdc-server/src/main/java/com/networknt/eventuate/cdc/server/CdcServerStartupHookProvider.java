@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CdcServerStartupHookProvider implements StartupHookProvider {
     private static final Logger logger = LoggerFactory.getLogger(CdcServerStartupHookProvider.class);
-
+    @Override
     public void onStartup() {
         EventTableChangesToAggregateTopicTranslator<PublishedEvent> translator = SingletonServiceFactory.getBean(EventTableChangesToAggregateTopicTranslator.class);
         translator.start();
