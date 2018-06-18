@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.5.15](https://github.com/networknt/light-eventuate-4j/tree/1.5.15) (2018-06-18)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.14...1.5.15)
+
+**Closed issues:**
+
+- remove maria db client from the dependencies [\#84](https://github.com/networknt/light-eventuate-4j/issues/84)
+- upgrade curator version to 4.0.1 [\#83](https://github.com/networknt/light-eventuate-4j/issues/83)
+- upgrade mysql binlog version to 0.16.1 [\#82](https://github.com/networknt/light-eventuate-4j/issues/82)
+
 ## [1.5.14](https://github.com/networknt/light-eventuate-4j/tree/1.5.14) (2018-05-19)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.13...1.5.14)
 
