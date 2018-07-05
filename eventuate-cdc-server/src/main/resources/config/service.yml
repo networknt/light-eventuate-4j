@@ -27,7 +27,7 @@ singletons:
 - org.apache.curator.framework.CuratorFramework: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::curatorFramework
 - com.networknt.eventuate.server.common.EventTableChangesToAggregateTopicTranslator: com.networknt.eventuate.cdc.mysql.binlog.MySqlCdcServiceInitializer::mySqlEventTableChangesToAggregateTopicTranslator
 # HandlerProvider implementation
-- com.networknt.server.HandlerProvider:
+- com.networknt.handler.HandlerProvider:
   - com.networknt.eventuate.cdc.server.CdcServer
 # StartupHookProvider implementations, there are one to many and they are called in the same sequence defined.
 - com.networknt.server.StartupHookProvider:
