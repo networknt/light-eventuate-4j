@@ -89,6 +89,7 @@
         <version.h2>1.4.196</version.h2>
         <versions.maven-version>2.4</versions.maven-version>
         <version.oracle>11.2.0.3</version.oracle>
+        <version.solace>[10,)</version.solace>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
     </properties>
 
@@ -112,6 +113,7 @@
         <module>eventuate-server-kafka</module>
         <module>eventuate-client-test</module>
         <module>eventuate-cdc-polling-server</module>
+        <module>eventuate-server-solace</module>
         <!--
         These two modules contain no Java code and cause maven
         release failed. These two should be released to docker hub instead.
@@ -336,6 +338,11 @@
                 <groupId>com.github.shyiko</groupId>
                 <artifactId>mysql-binlog-connector-java</artifactId>
                 <version>${version.mysql-binlog}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.solacesystems</groupId>
+                <artifactId>sol-jcsmp</artifactId>
+                <version>${version.solace}</version>
             </dependency>
             <!-- Test dependencies -->
             <dependency>
