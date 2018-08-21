@@ -1,0 +1,5 @@
+---
+host: tcp://vmr-mr8v6yiwiawh.messaging.solace.cloud:20416
+username: solace-cloud-client
+password: 2hbegphp8dudn08pmeh7l4pptl
+vpn: msgvpn-4tcaa69lim5

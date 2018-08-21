@@ -41,6 +41,7 @@ public class EventuateSolaceProducer {
    */
   public void send(String topic, String body) throws JCSMPException {
 
+    if (topic==null) throw new JCSMPException("topic cannot be created with null topic name");
     session.connect();
     final Topic topicEntity = JCSMPFactory.onlyInstance().createTopic(topic);
 
