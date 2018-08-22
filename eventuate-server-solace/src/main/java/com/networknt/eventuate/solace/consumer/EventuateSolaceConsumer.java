@@ -86,7 +86,7 @@ public class EventuateSolaceConsumer {
       try {
         latch.await(); // block here until message received, and latch will flip
       } catch (InterruptedException e) {
-        System.out.println("I was awoken while waiting");
+        logger.info("Error on await",e);
       }
     } catch (Exception e) {
       logger.error("Error subscribing", e);
