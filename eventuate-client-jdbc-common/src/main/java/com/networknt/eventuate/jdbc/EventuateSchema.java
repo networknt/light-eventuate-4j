@@ -1,6 +1,6 @@
 package com.networknt.eventuate.jdbc;
 
-import com.networknt.utility.StringUtil;
+import com.networknt.utility.StringUtils;
 
 public class EventuateSchema {
   public static final String DEFAULT_SCHEMA = "eventuate";
@@ -13,7 +13,7 @@ public class EventuateSchema {
   }
 
   public EventuateSchema(String eventuateDatabaseSchema) {
-    this.eventuateDatabaseSchema = StringUtil.isNullOrEmpty(eventuateDatabaseSchema) ? DEFAULT_SCHEMA : eventuateDatabaseSchema;
+    this.eventuateDatabaseSchema = StringUtils.isNullOrEmpty(eventuateDatabaseSchema) ? DEFAULT_SCHEMA : eventuateDatabaseSchema;
   }
 
   public String getEventuateDatabaseSchema() {
