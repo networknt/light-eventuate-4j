@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.19](https://github.com/networknt/light-eventuate-4j/tree/1.5.19) (2018-09-22)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.18...1.5.19)
+
+**Closed issues:**
+
+- refactor StringUtil to StringUtils in the utility [\#89](https://github.com/networknt/light-eventuate-4j/issues/89)
+
 ## [1.5.18](https://github.com/networknt/light-eventuate-4j/tree/1.5.18) (2018-08-16)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.17...1.5.18)
 
