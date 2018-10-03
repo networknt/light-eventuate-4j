@@ -1,2 +1,9 @@
+# When a service start, there is a startup hook called EventuateClientStartupHookProvider
+# will scan all the packages to find out if any class has subscribe annotation and put these
+# classes into the subscriber list. In order to speed up the startup, it is wise to only scan
+# your application package instead every package in the fat jar. The default is empty as we
+# cannot assume which package you want to scan. Please update this config whenever you can.
 ---
-handlerPackage: ""
+handlerPackage: []
+# The following is an example of config for applications in networknt organization
+# ["com.networknt", "net.lightapi"]
