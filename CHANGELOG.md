@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.5.21](https://github.com/networknt/light-eventuate-4j/tree/1.5.21) (2018-10-05)
+[Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.20...1.5.21)
+
 ## [1.5.20](https://github.com/networknt/light-eventuate-4j/tree/1.5.20) (2018-10-05)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.19...1.5.20)
 
