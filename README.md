@@ -1,12 +1,15 @@
 An eventual consistency framework implementation based on event sourcing, CQRS and Kafka on top of light-4j.
 It is based on the open source project [eventuate-local](https://github.com/eventuate-local/eventuate-local) from Chris Richardson
 
-[Developer Chat](https://gitter.im/networknt/light-eventuate-4j) |
+[Stack Overflow](https://stackoverflow.com/questions/tagged/light-4j) |
+[Google Group](https://groups.google.com/forum/#!forum/light-4j) |
+[Gitter Chat](https://gitter.im/networknt/light-eventuate-4j) |
+[Subreddit](https://www.reddit.com/r/lightapi/) |
+[Youtube Channel](https://www.youtube.com/channel/UCHCRMWJVXw8iB7zKxF55Byw) |
 [Documentation](https://doc.networknt.com/style/light-eventuate-4j/) |
-[Contribution Guide](CONTRIBUTING.md) |
+[Contribution Guide](https://doc.networknt.com/contribute/) |
 
 [![Build Status](https://travis-ci.org/networknt/light-eventuate-4j.svg?branch=master)](https://travis-ci.org/networknt/light-eventuate-4j)
-
 
 When building microservices, there are two major patterns are used for service to service
 communication.
