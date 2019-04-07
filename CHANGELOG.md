@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.5.34](https://github.com/networknt/light-eventuate-4j/tree/1.5.34) (2019-04-07)
+
+
+**Merged pull requests:**
+
+
 ## [1.5.32](https://github.com/networknt/light-eventuate-4j/tree/1.5.32) (2019-03-19)
 [Full Changelog](https://github.com/networknt/light-eventuate-4j/compare/1.5.31...1.5.32)
 
