@@ -336,6 +336,12 @@
                 <artifactId>mysql-binlog-connector-java</artifactId>
                 <version>${version.mysql-binlog}</version>
             </dependency>
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${version.oracle}</version>
+            </dependency>
+
             <!-- Test dependencies -->
             <dependency>
                 <groupId>junit</groupId>
@@ -346,11 +352,6 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${version.mockito}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>${version.oracle}</version>
             </dependency>
             <dependency>
                 <groupId>org.hamcrest</groupId>
@@ -593,15 +594,32 @@
 
     <repositories>
         <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>central</id>
+            <url>
+                https://oss.sonatype.org/content/repositories/releases
+            </url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>
+                https://oss.sonatype.org/content/repositories/snapshots
+            </url>
             <snapshots>
                 <enabled>true</enabled>
+                <!-- never, daily, interval:X (where X is in minutes) or always -->
+                <!--<updatePolicy>daily</updatePolicy> -->
             </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
         <repository>
             <id>codelds</id>
             <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-        </repository>
+        </repository>    
     </repositories>
+
 </project>
