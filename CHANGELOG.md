@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.6.4](https://github.com/networknt/light-eventuate-4j/tree/1.6.4) (2019-06-10)
+
+
+**Merged pull requests:**
+
+
+- fixes \#95 add both release and snapshot repositories [\#96](https://github.com/networknt/light-eventuate-4j/pull/96) ([stevehu](https://github.com/stevehu))
 ## [1.6.2](https://github.com/networknt/light-eventuate-4j/tree/1.6.2) (2019-05-17)
 
 
