@@ -13,7 +13,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,6 @@ public class EventuateKafkaAggregateSubscriptions implements AggregateEvents {
 
   private final List<EventuateKafkaConsumer> consumers = new ArrayList<>();
 
-  @PreDestroy
   public void cleanUp() {
     synchronized (consumers) {
       consumers.stream().forEach(EventuateKafkaConsumer::stop);

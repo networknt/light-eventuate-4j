@@ -6,8 +6,6 @@ import org.apache.curator.framework.recipes.leader.LeaderSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-
 public class EventTableChangesToAggregateTopicTranslator<EVENT> {
 
   private final LeaderSelector leaderSelector;
@@ -24,7 +22,6 @@ public class EventTableChangesToAggregateTopicTranslator<EVENT> {
     this.leaderSelector = new LeaderSelector(client, cdcConfig.getLeadershipLockPath(), new EventuateLeaderSelectorListener(this));
   }
 
-  @PostConstruct
   public void start() {
     logger.info("CDC initialized. Ready to become leader");
     leaderSelector.start();
