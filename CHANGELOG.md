@@ -1,5 +1,14 @@
 # Change Log
 
+## [2.0.1](https://github.com/networknt/light-eventuate-4j/tree/2.0.1) (2019-06-13)
+
+
+**Merged pull requests:**
+
+
+- fixes \#95 add both release and snapshot repositories [\#96](https://github.com/networknt/light-eventuate-4j/pull/96) ([stevehu](https://github.com/stevehu))
+- fixes \#91 upgrade to Kafka client 2.0.0 [\#94](https://github.com/networknt/light-eventuate-4j/pull/94) ([stevehu](https://github.com/stevehu))
+- fixes \#92 only use version.light-4j for light modules [\#93](https://github.com/networknt/light-eventuate-4j/pull/93) ([stevehu](https://github.com/stevehu))
 ## [1.6.4](https://github.com/networknt/light-eventuate-4j/tree/1.6.4) (2019-06-10)
 
 
