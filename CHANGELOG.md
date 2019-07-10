@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.0.2](https://github.com/networknt/light-eventuate-4j/tree/2.0.2) (2019-07-10)
+
+
+**Merged pull requests:**
+
+
+- fixes \#98 update Dockerfile and build.sh to image publishing [\#99](https://github.com/networknt/light-eventuate-4j/pull/99) ([stevehu](https://github.com/stevehu))
 ## [2.0.1](https://github.com/networknt/light-eventuate-4j/tree/2.0.1) (2019-06-13)
 
 
