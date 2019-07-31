@@ -6,6 +6,9 @@
 **Merged pull requests:**
 
 
+- fixes \#100 add keystore and truststore to the cdcserver [\#101](https://github.com/networknt/light-eventuate-4j/pull/101) ([stevehu](https://github.com/stevehu))
+
+
 ## [2.0.2](https://github.com/networknt/light-eventuate-4j/tree/2.0.2) (2019-07-10)
 
 
