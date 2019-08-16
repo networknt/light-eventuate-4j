@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.0.4](https://github.com/networknt/light-eventuate-4j/tree/2.0.4) (2019-08-16)
+
+
+**Merged pull requests:**
+
+
+- fixes \#103 upgrade jackson-databind to 2.9.9.3 [\#104](https://github.com/networknt/light-eventuate-4j/pull/104) ([stevehu](https://github.com/stevehu))
 ## [2.0.3](https://github.com/networknt/light-eventuate-4j/tree/2.0.3) (2019-07-31)
 
 
