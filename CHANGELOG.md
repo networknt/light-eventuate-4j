@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.6.7](https://github.com/networknt/light-eventuate-4j/tree/1.6.7) (2019-08-16)
+
+
+**Merged pull requests:**
+
+
 ## [1.6.6](https://github.com/networknt/light-eventuate-4j/tree/1.6.6) (2019-07-31)
 
 
