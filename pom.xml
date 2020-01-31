@@ -338,11 +338,6 @@
                 <artifactId>mysql-binlog-connector-java</artifactId>
                 <version>${version.mysql-binlog}</version>
             </dependency>
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>${version.oracle}</version>
-            </dependency>
 
             <!-- Test dependencies -->
             <dependency>
