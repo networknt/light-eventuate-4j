@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.0.10](https://github.com/networknt/light-eventuate-4j/tree/2.0.10) (2020-01-31)
+
+
+**Merged pull requests:**
+
+
+- fixes \#107 remove Oracle JDBC driver from parent pom.xml [\#108](https://github.com/networknt/light-eventuate-4j/pull/108) ([stevehu](https://github.com/stevehu))
+- fixes \#105 disable the module eventuate-cdc-polling-server [\#106](https://github.com/networknt/light-eventuate-4j/pull/106) ([stevehu](https://github.com/stevehu))
 ## [2.0.9](https://github.com/networknt/light-eventuate-4j/tree/2.0.9) (2019-12-30)
 
 
