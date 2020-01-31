@@ -112,7 +112,7 @@
         <module>eventuate-client-jdbc</module>
         <module>eventuate-server-kafka</module>
         <module>eventuate-client-test</module>
-        <module>eventuate-cdc-polling-server</module>
+        <!--<module>eventuate-cdc-polling-server</module>-->
         <!--
         These two modules contain no Java code and cause maven
         release failed. These two should be released to docker hub instead.
