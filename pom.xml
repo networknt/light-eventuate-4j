@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.networknt</groupId>
     <artifactId>light-eventuate-4j</artifactId>
-    <version>1.6.15_SNAPSHOT</version>
+    <version>1.6.15</version>
     <packaging>pom</packaging>
     <name>Parent POM</name>
     <description>Light Eventuate Framework based on Event Sourcing and CQRS</description>
