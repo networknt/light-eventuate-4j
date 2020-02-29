@@ -1,5 +1,12 @@
 # Change Log
 
+## [2.0.11](https://github.com/networknt/light-eventuate-4j/tree/2.0.11) (2020-02-29)
+
+
+**Merged pull requests:**
+
+
+- fixes \#109 update Dockerfile to resolve jlink not found [\#110](https://github.com/networknt/light-eventuate-4j/pull/110) ([stevehu](https://github.com/stevehu))
 ## [2.0.10](https://github.com/networknt/light-eventuate-4j/tree/2.0.10) (2020-01-31)
 
 
