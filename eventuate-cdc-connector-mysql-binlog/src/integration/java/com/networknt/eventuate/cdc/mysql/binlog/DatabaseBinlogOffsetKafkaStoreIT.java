@@ -6,6 +6,7 @@ import com.networknt.eventuate.server.test.util.AbstractCdcTest;
 import com.networknt.service.SingletonServiceFactory;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -23,11 +24,13 @@ public class DatabaseBinlogOffsetKafkaStoreIT extends AbstractCdcTest {
   EventuateKafkaProducer eventuateKafkaProducer = SingletonServiceFactory.getBean(EventuateKafkaProducer.class);
 
   @Test
+  @Ignore
   public void shouldSendBinlogFilenameAndOffset() throws InterruptedException {
     generateAndSaveBinlogFileOffset();
   }
 
   @Test
+  @Ignore
   public void shouldGetEmptyOptionalFromEmptyTopic() {
     DatabaseBinlogOffsetKafkaStore binlogOffsetKafkaStore = getDatabaseBinlogOffsetKafkaStore(UUID.randomUUID().toString(), "mySqlBinaryLogClientName");
     assertFalse(binlogOffsetKafkaStore.getLastBinlogFileOffset().isPresent());
@@ -35,6 +38,7 @@ public class DatabaseBinlogOffsetKafkaStoreIT extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldWorkCorrectlyWithMultipleDifferentNamedBinlogs() throws InterruptedException {
     floodTopic(cdcConfig.getDbHistoryTopicName(), "mySqlBinaryLogClientName1");
 
@@ -42,6 +46,7 @@ public class DatabaseBinlogOffsetKafkaStoreIT extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldReadTheLastRecordMultipleTimes() throws InterruptedException {
     BinlogFileOffset bfo = generateAndSaveBinlogFileOffset();
 

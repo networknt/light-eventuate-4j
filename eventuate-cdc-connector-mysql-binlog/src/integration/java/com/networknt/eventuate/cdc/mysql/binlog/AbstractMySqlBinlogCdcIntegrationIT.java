@@ -6,6 +6,7 @@ import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
 import com.networknt.eventuate.server.test.util.AbstractCdcTest;
 import com.networknt.service.SingletonServiceFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public abstract class AbstractMySqlBinlogCdcIntegrationIT extends AbstractCdcTes
   private SourceTableNameSupplier sourceTableNameSupplier = SingletonServiceFactory.getBean(SourceTableNameSupplier.class);
 
   @Test
+  @Ignore
   public void shouldGetEvents() throws IOException, TimeoutException, InterruptedException, ExecutionException {
     MySqlBinaryLogClient<PublishedEvent> mySqlBinaryLogClient = new MySqlBinaryLogClient<>(eventDataParser,
             cdcConfig.getDbUser(),
