@@ -1,3 +1,5 @@
+# This repository is deprecated and replaced by [light-kafka](https://github.com/networknt/light-kafka) for Event Sourcing and CQRS with Kafka Streams and Interactive Queries. 
+
 An eventual consistency framework implementation based on event sourcing, CQRS and Kafka on top of light-4j.
 It is based on the open source project [eventuate-local](https://github.com/eventuate-local/eventuate-local) from Chris Richardson
 
