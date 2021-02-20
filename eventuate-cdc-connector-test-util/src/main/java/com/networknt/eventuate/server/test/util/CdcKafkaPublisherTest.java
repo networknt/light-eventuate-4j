@@ -13,6 +13,7 @@ import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud
 import com.networknt.service.SingletonServiceFactory;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -38,6 +39,7 @@ public abstract class CdcKafkaPublisherTest extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldSendPublishedEventsToKafka() throws InterruptedException {
     CdcKafkaPublisher<PublishedEvent> cdcKafkaPublisher = createCdcKafkaPublisher();
 

@@ -8,6 +8,7 @@ import com.networknt.eventuate.server.common.PublishedEvent;
 import com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud;
 import com.networknt.service.SingletonServiceFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public abstract class CdcProcessorTest extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldReadNewEventsOnly() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
     CdcProcessor<PublishedEvent> cdcProcessor = createCdcProcessor();
@@ -60,6 +62,7 @@ public abstract class CdcProcessorTest extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldReadUnprocessedEventsAfterStartup() throws InterruptedException {
     BlockingQueue<PublishedEvent> publishedEvents = new LinkedBlockingDeque<>();
 

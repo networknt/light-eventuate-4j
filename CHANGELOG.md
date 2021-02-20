@@ -1,9 +1,47 @@
 # Change Log
 
+## [1.6.31](https://github.com/networknt/light-eventuate-4j/tree/1.6.31) (2021-01-29)
+
+
+**Merged pull requests:**
+
+
+## [1.6.17](https://github.com/networknt/light-eventuate-4j/tree/1.6.17) (2020-02-29)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.16](https://github.com/networknt/light-eventuate-4j/tree/1.6.16) (2020-02-06)
+
+
+**Merged pull requests:**
+
+
+## [1.6.15](https://github.com/networknt/light-eventuate-4j/tree/1.6.15) (2020-02-06)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.14](https://github.com/networknt/light-eventuate-4j/tree/1.6.14) (2020-01-31)
+
+
+**Merged pull requests:**
+
+
+- fixes \#107 remove Oracle JDBC driver from parent pom.xml [\#108](https://github.com/networknt/light-eventuate-4j/pull/108) ([stevehu](https://github.com/stevehu))
+- fixes \#105 disable the module eventuate-cdc-polling-server [\#106](https://github.com/networknt/light-eventuate-4j/pull/106) ([stevehu](https://github.com/stevehu))
 ## [1.6.13](https://github.com/networknt/light-eventuate-4j/tree/1.6.13) (2019-12-30)
 
 
 **Merged pull requests:**
+
+
 
 
 ## [1.6.12](https://github.com/networknt/light-eventuate-4j/tree/1.6.12) (2019-12-30)

@@ -6,6 +6,7 @@ import com.networknt.eventuate.common.impl.JSonMapper;
 import com.networknt.eventuate.server.test.util.AbstractCdcTest;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
 
   @Test
+  @Ignore
   public void emptyTopicTest() {
     DuplicatePublishingDetector duplicatePublishingDetector = new DuplicatePublishingDetector();
 
@@ -29,6 +31,7 @@ public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldBePublishedTest() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();
@@ -43,6 +46,7 @@ public class DuplicatePublishingDetectorIT extends AbstractCdcTest {
   }
 
   @Test
+  @Ignore
   public void shouldHandlePublishCheckForOldEntires() {
     String topicName = generateUniqueTopicName();
     String binlogFilename = "binlog.file." + System.currentTimeMillis();
