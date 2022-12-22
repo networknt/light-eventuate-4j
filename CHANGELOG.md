@@ -6,6 +6,8 @@
 **Merged pull requests:**
 
 
+
+
 ## [1.6.43](https://github.com/networknt/light-eventuate-4j/tree/1.6.43) (2022-11-09)
 
 
