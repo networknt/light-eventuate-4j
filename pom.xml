@@ -74,7 +74,7 @@
         <version.jackson-databind>2.10.4</version.jackson-databind>
         <version.slf4j>1.7.32</version.slf4j>
         <version.encoder>1.2.1</version.encoder>
-        <version.logback>1.2.3</version.logback>
+        <version.logback>1.2.11</version.logback>
         <version.junit>4.12</version.junit>
         <version.mockito>2.10.0</version.mockito>
         <version.undertow>2.2.4.Final</version.undertow>
