@@ -1,5 +1,49 @@
 # Change Log
 
+## [1.6.45](https://github.com/networknt/light-eventuate-4j/tree/1.6.45) (2023-03-18)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.44](https://github.com/networknt/light-eventuate-4j/tree/1.6.44) (2022-12-22)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.43](https://github.com/networknt/light-eventuate-4j/tree/1.6.43) (2022-11-09)
+
+
+**Merged pull requests:**
+
+
+## [1.6.42](https://github.com/networknt/light-eventuate-4j/tree/1.6.42) (2022-08-23)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.41](https://github.com/networknt/light-eventuate-4j/tree/1.6.41) (2022-08-11)
+
+
+**Merged pull requests:**
+
+
+
+
+## [1.6.40](https://github.com/networknt/light-eventuate-4j/tree/1.6.40) (2022-08-05)
+
+
+**Merged pull requests:**
+
+
 ## [1.6.39](https://github.com/networknt/light-eventuate-4j/tree/1.6.39) (2022-04-26)
 
 
